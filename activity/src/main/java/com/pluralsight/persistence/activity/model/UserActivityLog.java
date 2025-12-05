@@ -26,12 +26,12 @@ public class UserActivityLog extends PanacheEntity {
   @Column(name = "search_query", length = 500)
   public String searchQuery;
 
-  @Column(name = "ip_address", length = 45)
+  @Column(name = "ip_address", length = 45, nullable = false)
   public String ipAddress;
 
-  @Column(name = "user_agent", length = 500)
+  @Column(name = "user_agent", length = 500, nullable = false)
   public String userAgent;
 
   @Column(nullable = false)
-  public Instant timestamp;
+  public Instant timestamp = Instant.now();
 }

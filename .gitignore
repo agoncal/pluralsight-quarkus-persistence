@@ -45,4 +45,6 @@ nb-configuration.xml
 .certs/
 CLAUDE.md
 specifications.md
+create_db*.sql
+drop_db*.sql
 dummy/
