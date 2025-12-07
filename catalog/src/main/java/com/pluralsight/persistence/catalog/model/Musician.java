@@ -1,4 +1,4 @@
-package com.pluralsight.persistence.catalog.model.panache;
+package com.pluralsight.persistence.catalog.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -13,14 +13,14 @@ import java.util.List;
 @Table(name = "t_musicians")
 public class Musician extends Person {
 
-    @Size(max = 100)
-    @Column(name = "stage_name", length = 100)
-    public String stageName;
+  @Size(max = 100)
+  @Column(name = "stage_name", length = 100)
+  public String stageName;
 
-    @Size(max = 50)
-    @Column(length = 50)
-    public String instrument;
+  @Size(max = 50)
+  @Column(length = 50)
+  public String instrument;
 
-    @ManyToMany(mappedBy = "musicians")
-    public List<CD> cds = new ArrayList<>();
+  @ManyToMany(mappedBy = "musicians")
+  public List<CD> cds = new ArrayList<>();
 }

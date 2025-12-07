@@ -8,19 +8,19 @@ import java.time.Instant;
 @MongoEntity(collection = "product_reviews")
 public class ProductReview extends PanacheMongoEntity {
 
-    public Long itemId;
+  public Long itemId;
 
-    public String username;
+  public String username;
 
-    public Integer rating;
+  public Integer rating;
 
-    public String title;
+  public String title;
 
-    public String comment;
+  public String comment;
 
-    public Integer helpfulCount = 0;
+  public Integer helpfulCount = 0;
 
-    public Boolean verifiedPurchase = false;
+  public Boolean verifiedPurchase = false;
 
-    public Instant createdDate;
+  public Instant createdDate;
 }

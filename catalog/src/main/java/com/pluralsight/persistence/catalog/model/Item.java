@@ -1,4 +1,4 @@
-package com.pluralsight.persistence.catalog.model.panache;
+package com.pluralsight.persistence.catalog.model;
 
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
@@ -24,38 +24,38 @@ import java.time.Instant;
 @DiscriminatorColumn(name = "dtype", discriminatorType = DiscriminatorType.STRING)
 public abstract class Item extends PanacheEntity {
 
-    @NotNull
-    @Size(max = 200)
-    @Column(length = 200, nullable = false)
-    public String title;
+  @NotNull
+  @Size(max = 200)
+  @Column(length = 200, nullable = false)
+  public String title;
 
-    @Size(max = 3000)
-    @Column(length = 3000)
-    public String description;
+  @Size(max = 3000)
+  @Column(length = 3000)
+  public String description;
 
-    @NotNull
-    @DecimalMin("0.01")
-    @Column(nullable = false)
-    public BigDecimal price;
+  @NotNull
+  @DecimalMin("0.01")
+  @Column(nullable = false)
+  public BigDecimal price;
 
-    @NotNull
-    @Min(0)
-    @Column(nullable = false)
-    public Integer stock = 0;
+  @NotNull
+  @Min(0)
+  @Column(nullable = false)
+  public Integer stock = 0;
 
-    @Column(name = "created_date")
-    public Instant createdDate;
+  @Column(name = "created_date")
+  public Instant createdDate;
 
-    @Column(name = "updated_date")
-    public Instant updatedDate;
+  @Column(name = "updated_date")
+  public Instant updatedDate;
 
-    @PrePersist
-    void prePersist() {
-        createdDate = Instant.now();
-    }
+  @PrePersist
+  void prePersist() {
+    createdDate = Instant.now();
+  }
 
-    @PreUpdate
-    void preUpdate() {
-        updatedDate = Instant.now();
-    }
+  @PreUpdate
+  void preUpdate() {
+    updatedDate = Instant.now();
+  }
 }

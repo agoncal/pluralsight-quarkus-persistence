@@ -1,4 +1,4 @@
-package com.pluralsight.persistence.catalog.model.panache;
+package com.pluralsight.persistence.catalog.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -16,14 +16,14 @@ import java.util.List;
 @Table(name = "t_authors")
 public class Author extends Person {
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "preferred_language")
-    public Language preferredLanguage;
+  @Enumerated(EnumType.STRING)
+  @Column(name = "preferred_language")
+  public Language preferredLanguage;
 
-    @URL
-    @Size(max = 255)
-    public String website;
+  @URL
+  @Size(max = 255)
+  public String website;
 
-    @ManyToMany(mappedBy = "authors")
-    public List<Book> books = new ArrayList<>();
+  @ManyToMany(mappedBy = "authors")
+  public List<Book> books = new ArrayList<>();
 }
