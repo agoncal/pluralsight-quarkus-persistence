@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.catalog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -24,6 +25,7 @@ public class Author extends Person {
   @Size(max = 255)
   public String website;
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "authors")
   public List<Book> books = new ArrayList<>();
 }
