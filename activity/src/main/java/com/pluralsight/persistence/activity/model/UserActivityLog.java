@@ -6,6 +6,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.Instant;
 
@@ -13,15 +15,18 @@ import java.time.Instant;
 @Table(name = "t_user_activity_log")
 public class UserActivityLog extends PanacheEntity {
 
-  @Column(nullable = false)
+  @NotNull
+  @Size(max = 50)
+  @Column(length = 50, nullable = false)
   public String username;
 
+  @NotNull
   @Enumerated(EnumType.STRING)
   @Column(nullable = false)
   public Action action;
 
-  @Column(name = "item_id")
-  public Long itemId;
+  @NotNull
+  public String item;
 
   @Column(name = "search_query", length = 500)
   public String searchQuery;
@@ -32,6 +37,7 @@ public class UserActivityLog extends PanacheEntity {
   @Column(name = "user_agent", length = 500, nullable = false)
   public String userAgent;
 
+  @NotNull
   @Column(nullable = false)
   public Instant timestamp = Instant.now();
 }
