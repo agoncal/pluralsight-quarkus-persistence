@@ -334,7 +334,7 @@ pages for all domains, including remote services.
 |--------|---------------------------------|-------------------------------------|
 | GET    | /api/activities                 | List all activities with pagination |
 | GET    | /api/activities/{id}            | Get activity by ID                  |
-| GET    | /api/activities/user/{userId}   | Get activities for a user           |
+| GET    | /api/activities/user/{username} | Get activities for a user           |
 | GET    | /api/activities/action/{action} | Get activities by action type       |
 | POST   | /api/activities                 | Record a new activity               |
 

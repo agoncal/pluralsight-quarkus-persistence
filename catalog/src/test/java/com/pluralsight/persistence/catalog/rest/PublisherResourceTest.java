@@ -5,7 +5,7 @@ import io.quarkus.test.junit.QuarkusTest;
 import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
@@ -56,16 +56,14 @@ class PublisherResourceTest {
   @Test
   void shouldCreateAndGetPublisher() {
     String uniqueName = "Get Test Publisher " + UUID.randomUUID();
+    Publisher publisher = new Publisher();
+    publisher.name = uniqueName;
+    publisher.country = "France";
 
     // Create a publisher
     Integer id = given()
       .contentType(ContentType.JSON)
-      .body("""
-        {
-          "name": "%s",
-          "country": "France"
-        }
-        """.formatted(uniqueName))
+      .body(publisher)
       .when().post("/api/publishers")
       .then()
       .statusCode(201)
@@ -86,32 +84,28 @@ class PublisherResourceTest {
   void shouldUpdatePublisher() {
     String originalName = "Original Publisher " + UUID.randomUUID();
     String updatedName = "Updated Publisher " + UUID.randomUUID();
+    Publisher publisher = new Publisher();
+    publisher.name = originalName;
+    publisher.country = "Germany";
 
     // Create a publisher
     Integer id = given()
       .contentType(ContentType.JSON)
-      .body("""
-        {
-          "name": "%s",
-          "country": "Germany"
-        }
-        """.formatted(originalName))
+      .body(publisher)
       .when().post("/api/publishers")
       .then()
       .statusCode(201)
       .extract().path("id");
 
+    publisher.name = updatedName;
+    publisher.country = "Spain";
+    publisher.website = "https://updated.com";
+    publisher.foundedYear = 1999;
+
     // Update the publisher
     given()
       .contentType(ContentType.JSON)
-      .body("""
-        {
-          "name": "%s",
-          "country": "Spain",
-          "website": "https://updated.com",
-          "foundedYear": 1999
-        }
-        """.formatted(updatedName))
+      .body(publisher)
       .when().put("/api/publishers/" + id)
       .then()
       .statusCode(200)
@@ -123,14 +117,13 @@ class PublisherResourceTest {
 
   @Test
   void shouldReturnNotFoundWhenUpdatingNonExistentPublisher() {
+    Publisher publisher = new Publisher();
+    publisher.name = "Non Existent";
+    publisher.country = "Nowhere";
+
     given()
       .contentType(ContentType.JSON)
-      .body("""
-        {
-          "name": "Non Existent",
-          "country": "Nowhere"
-        }
-        """)
+      .body(publisher)
       .when().put("/api/publishers/999999")
       .then()
       .statusCode(404);
@@ -139,16 +132,14 @@ class PublisherResourceTest {
   @Test
   void shouldDeletePublisher() {
     String uniqueName = "To Be Deleted " + UUID.randomUUID();
+    Publisher publisher = new Publisher();
+    publisher.name = uniqueName;
+    publisher.country = "Italy";
 
     // Create a publisher
     Integer id = given()
       .contentType(ContentType.JSON)
-      .body("""
-        {
-          "name": "%s",
-          "country": "Italy"
-        }
-        """.formatted(uniqueName))
+      .body(publisher)
       .when().post("/api/publishers")
       .then()
       .statusCode(201)
@@ -177,13 +168,12 @@ class PublisherResourceTest {
 
   @Test
   void shouldFailValidationWithoutName() {
+    Publisher publisher = new Publisher();
+    publisher.country = "UK";
+
     given()
       .contentType(ContentType.JSON)
-      .body("""
-        {
-          "country": "UK"
-        }
-        """)
+      .body(publisher)
       .when().post("/api/publishers")
       .then()
       .statusCode(400);
