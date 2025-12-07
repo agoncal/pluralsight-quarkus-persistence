@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Currency Exchange Portfolio</title>
+  <title>Vintage Store</title>
   <link rel="stylesheet" media="screen" href="/_static/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" media="screen" href="/_static/bootstrap-icons/font/bootstrap-icons.css">
   <script src="/_static/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript" charset="UTF-8"></script>
@@ -49,37 +49,16 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="http://localhost:8080/q/dev-ui" target="_blank">
-                <i class="bi bi-briefcase me-1"></i>Portfolio
-              </a></li>
+              <i class="bi bi-briefcase me-1"></i>Portfolio
+            </a></li>
             <li><a class="dropdown-item" href="http://localhost:8082/q/dev-ui" target="_blank">
-                <i class="bi bi-currency-dollar me-1"></i>Currency
-              </a></li>
+              <i class="bi bi-currency-dollar me-1"></i>Currency
+            </a></li>
             <li><a class="dropdown-item" href="http://localhost:8083/q/dev-ui" target="_blank">
-                <i class="bi bi-graph-up me-1"></i>Trades
-              </a></li>
+              <i class="bi bi-graph-up me-1"></i>Trades
+            </a></li>
           </ul>
         </li>
-        {#if user()}
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
-              <i class="bi bi-person-circle me-1"></i>{user().name} {user().surname}
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="dropdown-item" href="/portfolio">Portfolio</a></li>
-              <li><a class="dropdown-item" href="/profile">Profile</a></li>
-              <li>
-                <hr class="dropdown-divider">
-              </li>
-              <li><a class="dropdown-item" href="/logout">Logout</a></li>
-            </ul>
-          </li>
-        {#else}
-          <li class="nav-item">
-            <a class="nav-link" href="/signin">
-              <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
-            </a>
-          </li>
-        {/if}
       </ul>
     </div>
   </div>
@@ -88,12 +67,12 @@
 <!-- Main Content -->
 <main class="container mt-4">
   {#insert}
-    <div class="row">
-      <div class="col-12">
-        <h1>Welcome to Currency Exchange Portfolio</h1>
-        <p>Manage your currency portfolios and track exchange rates.</p>
-      </div>
+  <div class="row">
+    <div class="col-12">
+      <h1>Welcome to Vintage Store</h1>
+      <p>Manage your currency portfolios and track exchange rates.</p>
     </div>
+  </div>
   {/insert}
 </main>
 
@@ -102,7 +81,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <p>&copy; 2025 Currency Exchange Portfolio. All rights reserved.</p>
+        <p>&copy; 2025 Vintage Store. All rights reserved.</p>
       </div>
       <div class="col-md-6 text-end">
       </div>

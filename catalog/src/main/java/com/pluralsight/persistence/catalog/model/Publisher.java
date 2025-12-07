@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.catalog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,6 +35,7 @@ public class Publisher extends PanacheEntity {
   @Column(name = "founded_year")
   public Integer foundedYear;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "publisher")
   public List<Book> books = new ArrayList<>();
 

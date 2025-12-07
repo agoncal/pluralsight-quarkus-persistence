@@ -21,18 +21,15 @@ mvn clean verify
 
 # Development mode with live reload (from module directory)
 cd catalog && mvn quarkus:dev
-
-# Build native executable
-mvn package -Dnative -Dquarkus.native.container-build=true
 ```
 
 ## Project Structure
 
 ```
+├── activity/    # User activty microservice (Reactive MySQL)
 ├── catalog/     # Main web app (PostgreSQL, Renarde/Qute, REST)
-├── activity/    # Microservice (Reactive MySQL)
-├── reviews/     # Microservice (MongoDB)
-├── supplier/    # Legacy ORM mapping (embedded in catalog)
+├── customer/    # Legacy ORM mapping (embedded in catalog)
+├── reviews/     # Product reviews microservice (Legacy JPA with MariaDB)
 └── dummy/       # Dummy directory (do not read)
 ```
 
@@ -40,9 +37,9 @@ mvn package -Dnative -Dquarkus.native.container-build=true
 
 - **Java 21**, **Quarkus 3.30.2**, **Maven multi-module**
 - **Catalog** (port 8080): Main facade with REST API and Qute/Renarde web UI, communicates with microservices via REST client
-- **Activity**: Reactive persistence with Hibernate Reactive + MySQL
-- **Reviews**: Document storage with MongoDB Panache
-- **Supplier**: Legacy XML-based ORM mapping example
+- **Customer**: Legacy JPA entities
+- **Activity**: (port 8083) Reactive persistence with Hibernate Reactive + MySQL
+- **Reviews**: (port 8082) Legacy JPA persistence with MariaDB
 
 ## Key Patterns
 

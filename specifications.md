@@ -48,15 +48,15 @@ technologies available in the Quarkus ecosystem.
            │                         │                         │
            ▼                         ▼                         ▼
 ┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐
-│   SUPPLIER MODULE   │  │  PRODUCT REVIEWS    │  │   USER ACTIVITY     │
+│   CUSTOMER MODULE   │  │  PRODUCT REVIEWS    │  │   USER ACTIVITY     │
 │    (JAR Library)    │  │   (Microservice)    │  │   (Microservice)    │
 │  ┌───────────────┐  │  │  ┌───────────────┐  │  │  ┌───────────────┐  │
-│  │   Supplier    │  │  │  │ ProductReview │  │  │  │UserActivityLog│  │
-│  │  (orm.xml)    │  │  │  │   (Panache    │  │  │  │  (Hibernate   │  │
-│  │               │  │  │  │   MongoDB)    │  │  │  │   Reactive)   │  │
+│  │   Customer    │  │  │  │ ProductReview │  │  │  │UserActivityLog│  │
+│  (persistence.xml)  │  │  │   (Panache    │  │  │  │  (Hibernate   │  │
+│  │               │  │  │  │   MariaDB)    │  │  │  │   Reactive)   │  │
 │  └───────────────┘  │  │  └───────────────┘  │  │  └───────────────┘  │
 │                     │  │                     │  │                     │
-│   No Database       │  │      MongoDB        │  │       MySQL         │
+│   No Database       │  │      MariaDB        │  │       MySQL         │
 │   (embedded JAR)    │  │                     │  │                     │
 └─────────────────────┘  └─────────────────────┘  └─────────────────────┘
 ```
@@ -87,7 +87,7 @@ pages for all domains, including remote services.
 - Shopping cart management
 - Order placement and tracking
 - Publisher and artist information pages
-- Supplier management (via local database with orm.xml mapping)
+- Customer management (via local database with orm.xml mapping)
 - Product reviews display and submission (via Product Reviews microservice)
 - User activity tracking and display (via User Activity microservice)
 - Search, filtering, sorting, and pagination
@@ -242,9 +242,9 @@ pages for all domains, including remote services.
 | item          | Item          | Many-to-One, not null |
 | purchaseOrder | PurchaseOrder | Many-to-One, not null |
 
-##### Supplier Domain (Legacy POJO via orm.xml)
+##### Customer Domain (Legacy POJO via orm.xml)
 
-**Supplier** (Plain POJO - mapped via orm.xml)
+**Customer** (Plain POJO - mapped via orm.xml)
 
 | Attribute    | Type    | Constraints       |
 |--------------|---------|-------------------|
@@ -300,11 +300,6 @@ pages for all domains, including remote services.
 
 | Method | Path                       | Description                     |
 |--------|----------------------------|---------------------------------|
-| GET    | /api/customers             | List all customers              |
-| GET    | /api/customers/{id}        | Get customer details            |
-| POST   | /api/customers             | Create a new customer           |
-| PUT    | /api/customers/{id}        | Update a customer               |
-| DELETE | /api/customers/{id}        | Delete a customer               |
 | GET    | /api/orders                | List all orders with pagination |
 | GET    | /api/orders/{id}           | Get order details               |
 | POST   | /api/orders                | Create a new order              |
@@ -312,16 +307,15 @@ pages for all domains, including remote services.
 | DELETE | /api/orders/{id}           | Delete an order                 |
 | GET    | /api/customers/{id}/orders | Get customer orders             |
 
-##### Supplier Endpoints (Local - Legacy)
+##### Customer Endpoints (Local - Legacy)
 
-| Method | Path                             | Description                        |
-|--------|----------------------------------|------------------------------------|
-| GET    | /api/suppliers                   | List all suppliers with pagination |
-| GET    | /api/suppliers/{id}              | Get supplier details               |
-| POST   | /api/suppliers                   | Create a new supplier              |
-| PUT    | /api/suppliers/{id}              | Update a supplier                  |
-| DELETE | /api/suppliers/{id}              | Delete a supplier                  |
-| GET    | /api/suppliers/country/{country} | Get suppliers by country           |
+| Method | Path                | Description           |
+|--------|---------------------|-----------------------|
+| GET    | /api/customers      | List all customers    |
+| GET    | /api/customers/{id} | Get customer details  |
+| POST   | /api/customers      | Create a new customer |
+| PUT    | /api/customers/{id} | Update a customer     |
+| DELETE | /api/customers/{id} | Delete a customer     |
 
 ##### Product Reviews Endpoints (Facade to Product Reviews Microservice)
 
@@ -333,9 +327,6 @@ pages for all domains, including remote services.
 | GET    | /api/reviews/item/{itemId}/average | Get average rating for an item   |
 | GET    | /api/reviews/customer/{customerId} | Get reviews by a customer        |
 | POST   | /api/reviews                       | Create a new review              |
-| PUT    | /api/reviews/{id}                  | Update a review                  |
-| DELETE | /api/reviews/{id}                  | Delete a review                  |
-| POST   | /api/reviews/{id}/helpful          | Increment helpful count          |
 
 ##### User Activity Endpoints (Facade to User Activity Microservice)
 
@@ -345,9 +336,7 @@ pages for all domains, including remote services.
 | GET    | /api/activities/{id}            | Get activity by ID                  |
 | GET    | /api/activities/user/{userId}   | Get activities for a user           |
 | GET    | /api/activities/action/{action} | Get activities by action type       |
-| GET    | /api/activities/item/{itemId}   | Get activities for an item          |
 | POST   | /api/activities                 | Record a new activity               |
-| DELETE | /api/activities/{id}            | Delete an activity                  |
 
 #### Web Pages (Qute + Renarde)
 
@@ -393,7 +382,6 @@ pages for all domains, including remote services.
 | Manage Authors    | /admin/authors    | CRUD for authors         |
 | Manage Musicians  | /admin/musicians  | CRUD for musicians       |
 | Manage Publishers | /admin/publishers | CRUD for publishers      |
-| Manage Suppliers  | /admin/suppliers  | CRUD for suppliers       |
 | Manage Customers  | /admin/customers  | Customer management      |
 | Manage Orders     | /admin/orders     | Order management         |
 | View Reviews      | /admin/reviews    | Review moderation        |
@@ -402,88 +390,90 @@ pages for all domains, including remote services.
 #### REST Clients for Product Review Microservices
 
 ```java
+
 @RegisterRestClient(configKey = "product-reviews-api")
 @Path("/api/reviews")
 public interface ProductReviewClient {
 
-    @GET
-    List<ProductReviewDTO> getAllReviews(
-        @QueryParam("page") int page,
-        @QueryParam("size") int size);
+  @GET
+  List<ProductReviewDTO> getAllReviews(
+    @QueryParam("page") int page,
+    @QueryParam("size") int size);
 
-    @GET
-    @Path("/{id}")
-    ProductReviewDTO getReviewById(@PathParam("id") String id);
+  @GET
+  @Path("/{id}")
+  ProductReviewDTO getReviewById(@PathParam("id") String id);
 
-    @GET
-    @Path("/item/{itemId}")
-    List<ProductReviewDTO> getReviewsForItem(@PathParam("itemId") Long itemId);
+  @GET
+  @Path("/item/{itemId}")
+  List<ProductReviewDTO> getReviewsForItem(@PathParam("itemId") Long itemId);
 
-    @GET
-    @Path("/item/{itemId}/average")
-    Double getAverageRating(@PathParam("itemId") Long itemId);
+  @GET
+  @Path("/item/{itemId}/average")
+  Double getAverageRating(@PathParam("itemId") Long itemId);
 
-    @GET
-    @Path("/customer/{customerId}")
-    List<ProductReviewDTO> getReviewsByCustomer(@PathParam("customerId") Long customerId);
+  @GET
+  @Path("/customer/{customerId}")
+  List<ProductReviewDTO> getReviewsByCustomer(@PathParam("customerId") Long customerId);
 
-    @POST
-    ProductReviewDTO createReview(ProductReviewDTO review);
+  @POST
+  ProductReviewDTO createReview(ProductReviewDTO review);
 
-    @PUT
-    @Path("/{id}")
-    ProductReviewDTO updateReview(@PathParam("id") String id, ProductReviewDTO review);
+  @PUT
+  @Path("/{id}")
+  ProductReviewDTO updateReview(@PathParam("id") String id, ProductReviewDTO review);
 
-    @DELETE
-    @Path("/{id}")
-    void deleteReview(@PathParam("id") String id);
+  @DELETE
+  @Path("/{id}")
+  void deleteReview(@PathParam("id") String id);
 
-    @POST
-    @Path("/{id}/helpful")
-    ProductReviewDTO markHelpful(@PathParam("id") String id);
+  @POST
+  @Path("/{id}/helpful")
+  ProductReviewDTO markHelpful(@PathParam("id") String id);
 }
 ```
 
 #### REST Clients for User Activty Microservices
 
 ```java
+
 @RegisterRestClient(configKey = "user-activity-api")
 @Path("/api/activities")
 public interface UserActivityClient {
 
-    @GET
-    Uni<List<UserActivityDTO>> getAllActivities(
-        @QueryParam("page") int page,
-        @QueryParam("size") int size);
+  @GET
+  Uni<List<UserActivityDTO>> getAllActivities(
+    @QueryParam("page") int page,
+    @QueryParam("size") int size);
 
-    @GET
-    @Path("/{id}")
-    Uni<UserActivityDTO> getActivityById(@PathParam("id") Long id);
+  @GET
+  @Path("/{id}")
+  Uni<UserActivityDTO> getActivityById(@PathParam("id") Long id);
 
-    @GET
-    @Path("/user/{userId}")
-    Multi<UserActivityDTO> getActivitiesForUser(@PathParam("userId") Long userId);
+  @GET
+  @Path("/user/{userId}")
+  Multi<UserActivityDTO> getActivitiesForUser(@PathParam("userId") Long userId);
 
-    @GET
-    @Path("/action/{action}")
-    Multi<UserActivityDTO> getActivitiesByAction(@PathParam("action") String action);
+  @GET
+  @Path("/action/{action}")
+  Multi<UserActivityDTO> getActivitiesByAction(@PathParam("action") String action);
 
-    @GET
-    @Path("/item/{itemId}")
-    Multi<UserActivityDTO> getActivitiesForItem(@PathParam("itemId") Long itemId);
+  @GET
+  @Path("/item/{itemId}")
+  Multi<UserActivityDTO> getActivitiesForItem(@PathParam("itemId") Long itemId);
 
-    @POST
-    Uni<UserActivityDTO> recordActivity(UserActivityDTO activity);
+  @POST
+  Uni<UserActivityDTO> recordActivity(UserActivityDTO activity);
 
-    @DELETE
-    @Path("/{id}")
-    Uni<Boolean> deleteActivity(@PathParam("id") Long id);
+  @DELETE
+  @Path("/{id}")
+  Uni<Boolean> deleteActivity(@PathParam("id") Long id);
 }
 ```
 
 ---
 
-### 2. Supplier Module (JAR Library)
+### 2. Customer Module (JAR Library)
 
 A standalone JAR file containing legacy POJO entities without JPA annotations. This module demonstrates integration with external legacy code using orm.xml
 mapping.
@@ -497,72 +487,28 @@ mapping.
 
 #### Entities
 
-**Supplier** (Plain POJO - mapped via orm.xml in VintageStore)
-
-| Attribute    | Type    | Description               |
-|--------------|---------|---------------------------|
-| id           | Long    | Identifier                |
-| companyName  | String  | Supplier company name     |
-| contactName  | String  | Primary contact person    |
-| contactEmail | String  | Contact email address     |
-| country      | String  | Country of operation      |
-| createdDate  | Instant | Record creation timestamp |
+**Customer** (JPA Entity - mapped via peristence.xml in VintageStore)
 
 #### Integration with VintageStore
 
 The VintageStore application includes this JAR as a dependency and uses:
 
-- **orm.xml** to map the Supplier POJO as a JPA entity
+- **persistence.xml** to map the Customers as JPA entities
 - **PanacheRepository** to provide data access methods
-
-```xml
-<!-- orm.xml mapping -->
-<entity-mappings xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
-                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm
-                 http://xmlns.jcp.org/xml/ns/persistence/orm_2_2.xsd"
-                 version="2.2">
-
-    <entity class="org.agoncal.quarkus.supplier.Supplier">
-        <table name="t_suppliers"/>
-        <attributes>
-            <id name="id">
-                <generated-value strategy="IDENTITY"/>
-            </id>
-            <basic name="companyName">
-                <column name="company_name" length="100" nullable="false"/>
-            </basic>
-            <basic name="contactName">
-                <column name="contact_name" length="100"/>
-            </basic>
-            <basic name="contactEmail">
-                <column name="contact_email" length="255"/>
-            </basic>
-            <basic name="country">
-                <column name="country" length="50"/>
-            </basic>
-            <basic name="createdDate">
-                <column name="created_date"/>
-            </basic>
-        </attributes>
-    </entity>
-
-</entity-mappings>
-```
 
 ---
 
 ### 3. Product Reviews Microservice
 
-A dedicated microservice for managing product reviews using MongoDB for flexible schema and high read throughput.
+A dedicated microservice for managing product reviews using MariaDB for flexible schema and high read throughput.
 
 #### Technical Stack
 
 | Technology        | Purpose               |
 |-------------------|-----------------------|
 | Quarkus           | Application framework |
-| Panache MongoDB   | Data persistence      |
-| MongoDB           | NoSQL database        |
+| Panache MariaDB   | Data persistence      |
+| MariaDB           | NoSQL database        |
 | RESTEasy Reactive | REST API exposure     |
 | JSON-B            | JSON serialization    |
 
@@ -576,7 +522,7 @@ A dedicated microservice for managing product reviews using MongoDB for flexible
 
 #### Entities
 
-**ProductReview** (Panache MongoDB Entity)
+**ProductReview** (Panache MraiaDB Entity)
 
 | Attribute        | Type     | Constraints                     |
 |------------------|----------|---------------------------------|
@@ -768,7 +714,7 @@ All endpoints return reactive types (Uni or Multi).
                         └─────────────────┘     ┌─────────────────┐
                                                 │ t_order_lines   │
 ┌─────────────────┐                             ├─────────────────┤
-│   t_suppliers   │                             │ id (PK)         │
+│   t_customers   │                             │ id (PK)         │
 ├─────────────────┤                             │ quantity        │
 │ id (PK)         │                             │ unit_price      │
 │ company_name    │                             │ item_fk (FK)    │
@@ -779,7 +725,7 @@ All endpoints return reactive types (Uni or Multi).
 └─────────────────┘
 ```
 
-### MongoDB (Product Reviews)
+### MariaDB (Product Reviews)
 
 ```
 Collection: product_reviews
@@ -834,27 +780,21 @@ Indexes:
 ```properties
 # Application
 quarkus.application.name=vintagestore
-
 # PostgreSQL DataSource
 quarkus.datasource.db-kind=postgresql
 quarkus.datasource.username=vintage
 quarkus.datasource.password=vintage
 quarkus.datasource.jdbc.url=jdbc:postgresql://localhost:5432/vintagestore
-
 # Hibernate ORM
 quarkus.hibernate-orm.database.generation=update
 quarkus.hibernate-orm.log.sql=true
-
-# orm.xml for Supplier mapping
+# orm.xml for Customer mapping
 quarkus.hibernate-orm.mapping-files=META-INF/orm.xml
-
 # REST Clients
 quarkus.rest-client.product-reviews-api.url=http://localhost:8081
 quarkus.rest-client.user-activity-api.url=http://localhost:8082
-
 # Qute
 quarkus.qute.property-not-found-strategy=throw-exception
-
 # HTTP Port
 quarkus.http.port=8080
 ```
@@ -864,11 +804,9 @@ quarkus.http.port=8080
 ```properties
 # Application
 quarkus.application.name=product-reviews
-
-# MongoDB
-quarkus.mongodb.connection-string=mongodb://localhost:27017
-quarkus.mongodb.database=vintagestore_reviews
-
+# MariaDB
+quarkus.mariadb.connection-string=mariadb://localhost:27017
+quarkus.mariadb.database=vintagestore_reviews
 # HTTP Port
 quarkus.http.port=8081
 ```
@@ -878,16 +816,13 @@ quarkus.http.port=8081
 ```properties
 # Application
 quarkus.application.name=user-activity
-
 # MySQL Reactive DataSource
 quarkus.datasource.db-kind=mysql
 quarkus.datasource.username=activity
 quarkus.datasource.password=activity
 quarkus.datasource.reactive.url=mysql://localhost:3306/vintagestore_activity
-
 # Hibernate Reactive
 quarkus.hibernate-orm.database.generation=update
-
 # HTTP Port
 quarkus.http.port=8082
 ```
@@ -910,43 +845,13 @@ quarkus.http.port=8082
 cd vintagestore
 mvn quarkus:dev
 
-# Start Product Reviews (MongoDB auto-provisioned)
+# Start Product Reviews (MariaDB auto-provisioned)
 cd product-reviews
 mvn quarkus:dev
 
 # Start User Activity (MySQL auto-provisioned)
 cd user-activity
 mvn quarkus:dev
-```
-
-### Running with Docker Compose
-
-```yaml
-version: '3.8'
-services:
-  postgres:
-    image: postgres:15
-    environment:
-      POSTGRES_DB: vintagestore
-      POSTGRES_USER: vintage
-      POSTGRES_PASSWORD: vintage
-    ports:
-      - "5432:5432"
-
-  mongodb:
-    image: mongo:6
-    ports:
-      - "27017:27017"
-
-  mysql:
-    image: mysql:8
-    environment:
-      MYSQL_DATABASE: vintagestore_activity
-      MYSQL_USER: activity
-      MYSQL_PASSWORD: activity
-      MYSQL_ROOT_PASSWORD: root
-    ports:
-      - "3306:3306"
 ```
 
 ---
@@ -958,8 +863,8 @@ services:
 | VintageStore    | Integration | @QuarkusTest, Dev Services (PostgreSQL) |
 | VintageStore    | Unit        | PanacheMock, Mockito                    |
 | VintageStore    | REST Client | @QuarkusTest with WireMock              |
-| Supplier        | Unit        | JUnit 5                                 |
-| Product Reviews | Integration | @QuarkusTest, Dev Services (MongoDB)    |
+| Customer        | Unit        | JUnit 5                                 |
+| Product Reviews | Integration | @QuarkusTest, Dev Services (MariaDB)    |
 | User Activity   | Integration | @QuarkusTest, Dev Services (MySQL)      |
 | All             | REST API    | RestAssured                             |
 | All             | End-to-End  | Playwright / Selenium                   |
@@ -971,11 +876,11 @@ services:
 ```
 parent/
 ├── pom.xml (parent POM)
-├── supplier/
+├── customer/
 │   ├── pom.xml
 │   └── src/main/java/
-│       └── com/pluralsight/persistence/supplier/
-│           └── Supplier.java (Plain POJO)
+│       └── com/pluralsight/persistence/customer/
+│           └── Customer.java (Plain POJO)
 ├── catalog/
 │   ├── pom.xml
 │   └── src/
@@ -986,9 +891,9 @@ parent/
 │       │   │       │   ├── model/
 │       │   │       │   ├── repository/
 │       │   │       │   └── resource/
-│       │   │       ├── supplier/
-│       │   │       │   ├── repository/ (SupplierRepository)
-│       │   │       │   └── resource/ (SupplierResource)
+│       │   │       ├── customer/
+│       │   │       │   ├── repository/ (CustomerRepository)
+│       │   │       │   └── resource/ (CustomerResource)
 │       │   │       ├── review/
 │       │   │       │   ├── client/ (ProductReviewClient)
 │       │   │       │   ├── dto/ (ProductReviewDTO)
