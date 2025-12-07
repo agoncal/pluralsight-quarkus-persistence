@@ -43,8 +43,6 @@ nb-configuration.xml
 /.quarkus/cli/plugins/
 # TLS Certificates
 .certs/
-CLAUDE.md
-specifications.md
 create_db*.sql
 drop_db*.sql
 dummy/
