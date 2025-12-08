@@ -1,12 +1,84 @@
 {#include base.html}
-  {#title}Vintage Store{/title}
+  {#title}Vintage Store - Books & CDs{/}
 
   {#insert}
+    <!-- Hero Section -->
+    <div class="row mb-5">
+      <div class="col-12">
+        <div class="hero-section text-white rounded p-5">
+          <div class="container-fluid py-4">
+            <h1 class="display-4 fw-bold"><i class="bi bi-shop me-3"></i>Vintage Store</h1>
+            <p class="lead mb-4">Discover our curated collection of classic books and timeless music CDs.</p>
+            <div class="d-flex gap-3">
+              <a href="/books" class="btn btn-light btn-lg">
+                <i class="bi bi-book me-2"></i>Browse Books
+              </a>
+              <a href="/cds" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-disc me-2"></i>Browse CDs
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Features Section -->
+    <div class="row g-4 mb-5">
+      <div class="col-md-6">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-5">
+            <div class="display-4 text-primary mb-3">
+              <i class="bi bi-book"></i>
+            </div>
+            <h3 class="card-title">Books</h3>
+            <p class="card-text text-muted">
+              Explore our extensive collection of literary classics, from timeless novels to thought-provoking essays.
+              Find works from renowned authors in multiple languages.
+            </p>
+            <a href="/books" class="btn btn-primary">
+              <i class="bi bi-arrow-right me-1"></i>View Books
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body text-center p-5">
+            <div class="display-4 text-info mb-3">
+              <i class="bi bi-disc"></i>
+            </div>
+            <h3 class="card-title">CDs</h3>
+            <p class="card-text text-muted">
+              Discover vintage music CDs spanning jazz, rock, classical, and more.
+              From legendary artists to hidden gems, find the perfect soundtrack for your collection.
+            </p>
+            <a href="/cds" class="btn btn-info">
+              <i class="bi bi-arrow-right me-1"></i>View CDs
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Info Section -->
     <div class="row">
       <div class="col-12">
-        <div class="jumbotron bg-primary text-white rounded p-5 mb-4">
-          <div class="container-fluid py-5">
-            <h1 class="display-5 fw-bold">Vintage Store</h1>
+        <div class="card bg-light border-0">
+          <div class="card-body p-4">
+            <div class="row align-items-center">
+              <div class="col-md-8">
+                <h4><i class="bi bi-info-circle me-2"></i>About Vintage Store</h4>
+                <p class="mb-0 text-muted">
+                  Vintage Store is a demonstration project for Quarkus persistence patterns.
+                  It showcases Hibernate ORM with Panache, Reactive Hibernate, and various JPA mapping strategies.
+                </p>
+              </div>
+              <div class="col-md-4 text-end">
+                <span class="badge bg-dark me-2"><i class="bi bi-box me-1"></i>Quarkus</span>
+                <span class="badge bg-dark me-2"><i class="bi bi-database me-1"></i>Panache</span>
+                <span class="badge bg-dark"><i class="bi bi-lightning me-1"></i>Reactive</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

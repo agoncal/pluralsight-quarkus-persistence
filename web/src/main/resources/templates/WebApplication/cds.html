@@ -1,0 +1,66 @@
+{#include base.html}
+  {#title}CDs - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-disc me-2"></i>CDs</h1>
+          <span class="badge bg-secondary fs-6">{cds.size} CDs available</span>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if cds.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No CDs available at the moment.
+      </div>
+    {#else}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        {#for cd in cds}
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-info text-white">
+                <i class="bi bi-disc me-1"></i> CD
+                {#if cd.genre}
+                  <span class="badge bg-light text-dark float-end">{cd.genre}</span>
+                {/if}
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{cd.title}</h5>
+                {#if cd.description}
+                  <p class="card-text text-muted small">{#if cd.description.length > 150}{cd.description.substring(0, 150)}...{#else}{cd.description}{/if}</p>
+                {/if}
+                <ul class="list-unstyled mb-0">
+                  {#if cd.ean}
+                    <li><small><strong>EAN:</strong> {cd.ean}</small></li>
+                  {/if}
+                  {#if cd.musicCompany}
+                    <li><small><strong>Label:</strong> {cd.musicCompany}</small></li>
+                  {/if}
+                  {#if cd.releaseDate}
+                    <li><small><strong>Released:</strong> {cd.releaseDate}</small></li>
+                  {/if}
+                  {#if cd.totalDuration}
+                    <li><small><strong>Duration:</strong> {cd.totalDuration.toMinutes} min</small></li>
+                  {/if}
+                </ul>
+              </div>
+              <div class="card-footer bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="price-tag">${cd.price}</span>
+                  {#if cd.stock > 0}
+                    <span class="badge bg-success stock-badge"><i class="bi bi-check-circle me-1"></i>In Stock ({cd.stock})</span>
+                  {#else}
+                    <span class="badge bg-danger stock-badge"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
+                  {/if}
+                </div>
+              </div>
+            </div>
+          </div>
+        {/for}
+      </div>
+    {/if}
+  {/insert}
+{/include}

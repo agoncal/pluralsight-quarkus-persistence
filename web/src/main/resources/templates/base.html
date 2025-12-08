@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Vintage Store</title>
+  <title>{#insert title}Vintage Store{/}</title>
   <link rel="stylesheet" media="screen" href="/_static/bootstrap/dist/css/bootstrap.css">
   <link rel="stylesheet" media="screen" href="/_static/bootstrap-icons/font/bootstrap-icons.css">
   <script src="/_static/bootstrap/dist/js/bootstrap.bundle.min.js" type="text/javascript" charset="UTF-8"></script>
@@ -12,17 +12,27 @@
       font-weight: bold;
     }
 
-    .currency-card {
-      transition: transform 0.2s;
+    .card {
+      transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .currency-card:hover {
-      transform: translateY(-2px);
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     }
 
-    .balance-amount {
-      font-size: 1.2rem;
+    .price-tag {
+      font-size: 1.25rem;
       font-weight: bold;
+      color: #198754;
+    }
+
+    .stock-badge {
+      font-size: 0.8rem;
+    }
+
+    .hero-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     }
   </style>
 </head>
@@ -31,7 +41,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a class="navbar-brand" href="/">
-      <i class="bi bi-currency-exchange me-2"></i>Currency Exchange
+      <i class="bi bi-shop me-2"></i>Vintage Store
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -40,6 +50,16 @@
 
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/books">
+            <i class="bi bi-book me-1"></i>Books
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cds">
+            <i class="bi bi-disc me-1"></i>CDs
+          </a>
+        </li>
       </ul>
 
       <ul class="navbar-nav">
@@ -47,15 +67,18 @@
           <a class="nav-link dropdown-toggle" href="#" id="devUiDropdown" role="button" data-bs-toggle="dropdown">
             <i class="bi bi-gear me-1"></i>Dev UI
           </a>
-          <ul class="dropdown-menu">
+          <ul class="dropdown-menu dropdown-menu-end">
             <li><a class="dropdown-item" href="http://localhost:8080/q/dev-ui" target="_blank">
-                <i class="bi bi-briefcase me-1"></i>Portfolio
+                <i class="bi bi-window me-1"></i>Web (8080)
               </a></li>
             <li><a class="dropdown-item" href="http://localhost:8082/q/dev-ui" target="_blank">
-                <i class="bi bi-currency-dollar me-1"></i>Currency
+                <i class="bi bi-activity me-1"></i>Activity (8082)
               </a></li>
             <li><a class="dropdown-item" href="http://localhost:8083/q/dev-ui" target="_blank">
-                <i class="bi bi-graph-up me-1"></i>Trades
+                <i class="bi bi-collection me-1"></i>Catalog (8083)
+              </a></li>
+            <li><a class="dropdown-item" href="http://localhost:8084/q/dev-ui" target="_blank">
+                <i class="bi bi-star me-1"></i>Reviews (8084)
               </a></li>
           </ul>
         </li>

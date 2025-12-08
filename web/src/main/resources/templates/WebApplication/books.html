@@ -1,0 +1,66 @@
+{#include base.html}
+  {#title}Books - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-book me-2"></i>Books</h1>
+          <span class="badge bg-secondary fs-6">{books.size} books available</span>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if books.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No books available at the moment.
+      </div>
+    {#else}
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
+        {#for book in books}
+          <div class="col">
+            <div class="card h-100">
+              <div class="card-header bg-primary text-white">
+                <i class="bi bi-book me-1"></i> Book
+              </div>
+              <div class="card-body">
+                <h5 class="card-title">{book.title}</h5>
+                {#if book.description}
+                  <p class="card-text text-muted small">{#if book.description.length > 150}{book.description.substring(0, 150)}...{#else}{book.description}{/if}</p>
+                {/if}
+                <ul class="list-unstyled mb-0">
+                  {#if book.isbn}
+                    <li><small><strong>ISBN:</strong> {book.isbn}</small></li>
+                  {/if}
+                  {#if book.nbOfPages}
+                    <li><small><strong>Pages:</strong> {book.nbOfPages}</small></li>
+                  {/if}
+                  {#if book.language}
+                    <li><small><strong>Language:</strong> {book.language}</small></li>
+                  {/if}
+                  {#if book.publicationDate}
+                    <li><small><strong>Published:</strong> {book.publicationDate}</small></li>
+                  {/if}
+                  {#if book.publisher}
+                    <li><small><strong>Publisher:</strong> {book.publisher.name}</small></li>
+                  {/if}
+                </ul>
+              </div>
+              <div class="card-footer bg-white">
+                <div class="d-flex justify-content-between align-items-center">
+                  <span class="price-tag">${book.price}</span>
+                  {#if book.stock > 0}
+                    <span class="badge bg-success stock-badge"><i class="bi bi-check-circle me-1"></i>In Stock ({book.stock})</span>
+                  {#else}
+                    <span class="badge bg-danger stock-badge"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
+                  {/if}
+                </div>
+              </div>
+            </div>
+          </div>
+        {/for}
+      </div>
+    {/if}
+  {/insert}
+{/include}
