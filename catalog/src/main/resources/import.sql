@@ -320,24 +320,27 @@ INSERT INTO t_purchase_orders (order_date, status, total_amount, customer_fk, sh
                                created_date)
 VALUES ('2024-03-15 12:30:00', 'PENDING', 31.98, 4, '789 Elm Road', 'Houston', 'TX', '77001', 'USA', CURRENT_TIMESTAMP);
 
--- Suppliers (using IDENTITY strategy)
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Acme Publishing', 'John Smith', 'john.smith@acmepub.com', 'USA', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Global Music Distribution', 'Maria Garcia', 'maria@globalmusicdist.com', 'Spain', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Nordic Books AB', 'Erik Johansson', 'erik@nordicbooks.se', 'Sweden', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Tokyo Media Corp', 'Yuki Tanaka', 'y.tanaka@tokyomedia.jp', 'Japan', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('British Publishing Ltd', 'James Wilson', 'jwilson@britishpub.co.uk', 'UK', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Vinyl Records Inc', 'Sarah Johnson', 'sarah@vinylrecords.com', 'USA', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Deutsche Medien GmbH', 'Hans Mueller', 'h.mueller@deutschemedien.de', 'Germany', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Paris Entertainment SA', 'Sophie Dubois', 'sophie@parisentertainment.fr', 'France', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Sydney Distributors Pty', 'Michael Brown', 'mbrown@sydneydist.com.au', 'Australia', CURRENT_TIMESTAMP);
-INSERT INTO t_suppliers (company_name, contact_name, contact_email, country, created_date)
-VALUES ('Maple Leaf Media', 'Jennifer Taylor', 'jtaylor@mapleleafmedia.ca', 'Canada', CURRENT_TIMESTAMP);
+-- Suppliers
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (1, 'Acme Publishing', 'John Smith', 'john.smith@acmepub.com', 'USA', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (2, 'Global Music Distribution', 'Maria Garcia', 'maria@globalmusicdist.com', 'Spain', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (3, 'Nordic Books AB', 'Erik Johansson', 'erik@nordicbooks.se', 'Sweden', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (4, 'Tokyo Media Corp', 'Yuki Tanaka', 'y.tanaka@tokyomedia.jp', 'Japan', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (5, 'British Publishing Ltd', 'James Wilson', 'jwilson@britishpub.co.uk', 'UK', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (6, 'Vinyl Records Inc', 'Sarah Johnson', 'sarah@vinylrecords.com', 'USA', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (7, 'Deutsche Medien GmbH', 'Hans Mueller', 'h.mueller@deutschemedien.de', 'Germany', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (8, 'Paris Entertainment SA', 'Sophie Dubois', 'sophie@parisentertainment.fr', 'France', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (9, 'Sydney Distributors Pty', 'Michael Brown', 'mbrown@sydneydist.com.au', 'Australia', CURRENT_TIMESTAMP);
+INSERT INTO t_suppliers (id, company_name, contact_name, contact_email, country, created_date)
+VALUES (10, 'Maple Leaf Media', 'Jennifer Taylor', 'jtaylor@mapleleafmedia.ca', 'Canada', CURRENT_TIMESTAMP);
+
+-- Reset sequence for PostgreSQL
+ALTER SEQUENCE t_suppliers_seq RESTART WITH 11;
