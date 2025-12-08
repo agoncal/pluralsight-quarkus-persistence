@@ -9,14 +9,14 @@ public class WebApplication /*TODO extends Controller*/ {
 
   private static final Logger LOG = Logger.getLogger(WebApplication.class);
 
-  @CheckedTemplate
-  static class Templates {
-    public static native TemplateInstance index();
-  }
-
   @Path("/")
   public TemplateInstance index() {
     LOG.info("Entering index()");
     return Templates.index();
+  }
+
+  @CheckedTemplate
+  static class Templates {
+    public static native TemplateInstance index();
   }
 }

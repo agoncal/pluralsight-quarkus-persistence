@@ -1,7 +1,7 @@
 package com.pluralsight.persistence.catalog.repository;
 
-import com.pluralsight.persistence.customer.model.PurchaseOrder;
 import com.pluralsight.persistence.customer.model.OrderStatus;
+import com.pluralsight.persistence.customer.model.PurchaseOrder;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 

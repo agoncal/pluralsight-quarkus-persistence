@@ -34,5 +34,5 @@ public class ProductReview extends PanacheEntity {
   @Column(length = 1024)
   public String comment;
 
-  public Instant createdDate =  Instant.now();
+  public Instant createdDate = Instant.now();
 }

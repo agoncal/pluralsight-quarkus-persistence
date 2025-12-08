@@ -96,13 +96,13 @@ Renarde.
 
 ##### Public Pages
 
-| Page              | Path                   | Description                         |
-|-------------------|------------------------|-------------------------------------|
-| Home              | /                      | Landing page with featured items    |
-| Book List         | /books                 | Browsable book catalog with filters |
-| Book Details      | /books/{id}            | Single book page with reviews       |
-| CD List           | /cds                   | Browsable CD catalog with filters   |
-| CD Details        | /cds/{id}              | Single CD page with reviews         |
+| Page         | Path        | Description                         |
+|--------------|-------------|-------------------------------------|
+| Home         | /           | Landing page with featured items    |
+| Book List    | /books      | Browsable book catalog with filters |
+| Book Details | /books/{id} | Single book page with reviews       |
+| CD List      | /cds        | Browsable CD catalog with filters   |
+| CD Details   | /cds/{id}   | Single CD page with reviews         |
 
 ##### Customer Pages
 

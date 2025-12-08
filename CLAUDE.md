@@ -5,7 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 VintageStore is a Quarkus persistence demonstration project for a Pluralsight course. It's a multi-module Maven project showcasing various data persistence
-patterns including Hibernate ORM with Panache, Reactive Hibernate, and MongoDB.
+patterns including Hibernate ORM with Panache and Reactive Hibernate.
 
 ## Build Commands
 
@@ -15,6 +15,12 @@ mvn clean package
 
 # Run tests
 mvn clean test
+
+# Run a single test class (from module directory)
+cd catalog && mvn test -Dtest=BookResourceTest
+
+# Run a single test method
+cd catalog && mvn test -Dtest=BookResourceTest#shouldCreateBook
 
 # Run integration tests
 mvn clean verify
@@ -30,6 +36,7 @@ cd catalog && mvn quarkus:dev
 ├── catalog/     # Catalog microservice (PostgreSQL, REST API)
 ├── activity/    # User activity microservice (Reactive MySQL)
 ├── reviews/     # Product reviews microservice (Legacy JPA with MariaDB)
+├── supplier/    # Supplier microservice (PostgreSQL)
 ├── customer/    # Legacy ORM mapping (embedded JAR)
 └── dummy/       # Dummy directory (do not read)
 ```

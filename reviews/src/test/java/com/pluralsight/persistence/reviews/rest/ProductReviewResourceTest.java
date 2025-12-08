@@ -2,14 +2,13 @@ package com.pluralsight.persistence.reviews.rest;
 
 import com.pluralsight.persistence.reviews.model.ProductReview;
 import io.quarkus.test.junit.QuarkusTest;
+import static io.restassured.RestAssured.given;
 import io.restassured.http.ContentType;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import org.junit.jupiter.api.Test;
 
 import java.util.UUID;
-
-import static io.restassured.RestAssured.given;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.notNullValue;
 
 @QuarkusTest
 class ProductReviewResourceTest {
