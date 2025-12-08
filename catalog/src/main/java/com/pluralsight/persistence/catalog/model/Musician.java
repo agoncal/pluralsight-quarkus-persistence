@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.catalog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
@@ -21,6 +22,7 @@ public class Musician extends Person {
   @Column(length = 50)
   public String instrument;
 
+  @JsonIgnore
   @ManyToMany(mappedBy = "musicians")
   public List<CD> cds = new ArrayList<>();
 }

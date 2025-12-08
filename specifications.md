@@ -249,6 +249,11 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 
 | Method | Path                 | Description                    |
 |--------|----------------------|--------------------------------|
+| GET    | /api/authors         | List all authors               |
+| GET    | /api/authors/{id}    | Get author details             |
+| POST   | /api/authors         | Create a new author            |
+| PUT    | /api/authors/{id}    | Update an author               |
+| DELETE | /api/authors/{id}    | Delete an author               |
 | GET    | /api/books           | List all books with pagination |
 | GET    | /api/books/{id}      | Get book details               |
 | POST   | /api/books           | Create a new book              |
@@ -259,11 +264,6 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 | POST   | /api/cds             | Create a new CD                |
 | PUT    | /api/cds/{id}        | Update a CD                    |
 | DELETE | /api/cds/{id}        | Delete a CD                    |
-| GET    | /api/authors         | List all authors               |
-| GET    | /api/authors/{id}    | Get author details             |
-| POST   | /api/authors         | Create a new author            |
-| PUT    | /api/authors/{id}    | Update an author               |
-| DELETE | /api/authors/{id}    | Delete an author               |
 | GET    | /api/musicians       | List all musicians             |
 | GET    | /api/musicians/{id}  | Get musician details           |
 | POST   | /api/musicians       | Create a new musician          |
