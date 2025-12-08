@@ -1,4 +1,4 @@
-package com.pluralsight.persistence.catalog.web;
+package com.pluralsight.persistence.web;
 
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;

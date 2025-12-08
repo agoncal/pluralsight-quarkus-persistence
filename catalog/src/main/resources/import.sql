@@ -36,5 +36,28 @@ INSERT INTO t_authors (id, preferred_language, website) VALUES (8, 'GERMAN', NUL
 INSERT INTO t_authors (id, preferred_language, website) VALUES (9, 'PORTUGUESE', 'https://paulocoelhoblog.com');
 INSERT INTO t_authors (id, preferred_language, website) VALUES (10, 'ITALIAN', NULL);
 
+-- Musicians (Persons + Musicians due to JOINED inheritance)
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (11, 'John', 'Lennon', 'English singer, songwriter, and peace activist who co-founded the Beatles.', '1940-10-09', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (12, 'Freddie', 'Mercury', 'British singer and songwriter, lead vocalist of Queen.', '1946-09-05', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (13, 'David', 'Bowie', 'English singer-songwriter and actor, pioneer of glam rock.', '1947-01-08', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (14, 'Miles', 'Davis', 'American jazz trumpeter, bandleader, and composer.', '1926-05-26', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (15, 'Ella', 'Fitzgerald', 'American jazz singer known as the First Lady of Song.', '1917-04-25', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (16, 'Bob', 'Dylan', 'American singer-songwriter and Nobel Prize winner in Literature.', '1941-05-24', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (17, 'Aretha', 'Franklin', 'American singer known as the Queen of Soul.', '1942-03-25', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (18, 'Jimi', 'Hendrix', 'American guitarist, singer, and songwriter.', '1942-11-27', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (19, 'Nina', 'Simone', 'American singer, songwriter, and civil rights activist.', '1933-02-21', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date) VALUES (20, 'Ludwig', 'van Beethoven', 'German composer and pianist of the Classical and Romantic eras.', '1770-12-17', CURRENT_TIMESTAMP);
+
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (11, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (12, NULL, 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (13, 'Ziggy Stardust', 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (14, NULL, 'Trumpet');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (15, 'Lady Ella', 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (16, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (17, 'Queen of Soul', 'Piano');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (18, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (19, 'High Priestess of Soul', 'Piano');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (20, NULL, 'Piano');
+
 -- Reset sequence for PostgreSQL
-ALTER SEQUENCE t_persons_seq RESTART WITH 11;
+ALTER SEQUENCE t_persons_seq RESTART WITH 21;

@@ -29,6 +29,7 @@
     <module>catalog</module>
     <module>customer</module>
     <module>reviews</module>
+    <module>web</module>
   </modules>
 
   <dependencyManagement>

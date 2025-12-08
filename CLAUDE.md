@@ -26,20 +26,22 @@ cd catalog && mvn quarkus:dev
 ## Project Structure
 
 ```
-├── activity/    # User activty microservice (Reactive MySQL)
-├── catalog/     # Main web app (PostgreSQL, Renarde/Qute, REST)
-├── customer/    # Legacy ORM mapping (embedded in catalog)
+├── web/         # Web interface (Qute/Renarde, MicroProfile REST Client)
+├── catalog/     # Catalog microservice (PostgreSQL, REST API)
+├── activity/    # User activity microservice (Reactive MySQL)
 ├── reviews/     # Product reviews microservice (Legacy JPA with MariaDB)
+├── customer/    # Legacy ORM mapping (embedded JAR)
 └── dummy/       # Dummy directory (do not read)
 ```
 
 ## Architecture
 
 - **Java 21**, **Quarkus 3.30.2**, **Maven multi-module**
-- **Catalog** (port 8080): Main facade with REST API and Qute/Renarde web UI, communicates with microservices via REST client
-- **Customer**: Legacy JPA entities
-- **Activity**: (port 8083) Reactive persistence with Hibernate Reactive + MySQL
-- **Reviews**: (port 8082) Legacy JPA persistence with MariaDB
+- **Web** (port 8080): Main web interface with Qute/Renarde, uses MicroProfile REST Client to communicate with microservices
+- **Activity** (port 8082): Reactive persistence with Hibernate Reactive + MySQL
+- **Catalog** (port 8083): Catalog microservice with REST API (Books, CDs, Authors, Musicians, Publishers)
+- **Reviews** (port 8084): Legacy JPA persistence with MariaDB
+- **Customer**: Legacy JPA entities (embedded JAR)
 
 ## Key Patterns
 

@@ -7,9 +7,16 @@
     <version>1.0.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>reviews</artifactId>
+  <artifactId>web</artifactId>
   <version>1.0.0-SNAPSHOT</version>
-  <name>Vintage Store :: Product Reviews</name>
+  <name>Vintage Store :: Web</name>
+
+  <properties>
+    <!-- Web -->
+    <quarkus.renarde.version>3.1.2</quarkus.renarde.version>
+    <bootstrap.version>5.3.8</bootstrap.version>
+    <bootstrap-icons.version>1.13.1</bootstrap-icons.version>
+  </properties>
 
   <dependencies>
     <!-- Quarkus -->
@@ -19,28 +26,41 @@
     </dependency>
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-rest</artifactId>
+      <artifactId>quarkus-rest-client-jackson</artifactId>
     </dependency>
+    <!-- Web -->
     <dependency>
       <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-rest-jackson</artifactId>
+      <artifactId>quarkus-web-dependency-locator</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-orm-panache</artifactId>
+      <groupId>io.quarkiverse.renarde</groupId>
+      <artifactId>quarkus-renarde</artifactId>
+      <version>${quarkus.renarde.version}</version>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-hibernate-validator</artifactId>
+      <groupId>io.quarkiverse.qute.web</groupId>
+      <artifactId>quarkus-qute-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>io.quarkus</groupId>
-      <artifactId>quarkus-jdbc-mariadb</artifactId>
+      <groupId>org.mvnpm</groupId>
+      <artifactId>bootstrap</artifactId>
+      <version>${bootstrap.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.mvnpm</groupId>
+      <artifactId>bootstrap-icons</artifactId>
+      <version>${bootstrap-icons.version}</version>
     </dependency>
     <!-- Test -->
     <dependency>
       <groupId>io.quarkus</groupId>
       <artifactId>quarkus-junit5</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.quarkus</groupId>
+      <artifactId>quarkus-junit5-mockito</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
