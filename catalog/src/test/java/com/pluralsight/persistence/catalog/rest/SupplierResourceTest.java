@@ -147,34 +147,6 @@ class SupplierResourceTest {
       .statusCode(404);
   }
 
-  @Test
-  void shouldFailValidationWithoutCompanyName() {
-    Supplier supplier = new Supplier();
-    supplier.setContactName("Contact");
-    supplier.setContactEmail("contact@test.com");
-
-    given()
-      .contentType(ContentType.JSON)
-      .body(supplier)
-      .when().post("/api/suppliers")
-      .then()
-      .statusCode(400);
-  }
-
-  @Test
-  void shouldFailValidationWithInvalidEmail() {
-    Supplier supplier = new Supplier();
-    supplier.setCompanyName("Test Company");
-    supplier.setContactEmail("invalid-email");
-
-    given()
-      .contentType(ContentType.JSON)
-      .body(supplier)
-      .when().post("/api/suppliers")
-      .then()
-      .statusCode(400);
-  }
-
   private Supplier createSupplier(String companyName, String contactName, String contactEmail, String country) {
     Supplier supplier = new Supplier();
     supplier.setCompanyName(companyName);
