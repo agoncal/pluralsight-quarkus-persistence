@@ -20,44 +20,40 @@
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-4">
         {#for book in books}
           <div class="col">
-            <div class="card h-100">
-              <div class="card-header bg-primary text-white">
-                <i class="bi bi-book me-1"></i> Book
-              </div>
-              <div class="card-body">
-                <h5 class="card-title">{book.title}</h5>
-                {#if book.description}
-                  <p class="card-text text-muted small">{#if book.description.length > 150}{book.description.substring(0, 150)}...{#else}{book.description}{/if}</p>
-                {/if}
-                <ul class="list-unstyled mb-0">
-                  {#if book.isbn}
-                    <li><small><strong>ISBN:</strong> {book.isbn}</small></li>
+            <a href="/books/{book.id}" class="text-decoration-none">
+              <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                  <i class="bi bi-book me-1"></i> Book
+                </div>
+                <div class="card-body">
+                  <h5 class="card-title text-dark">{book.title}</h5>
+                  {#if book.description}
+                    <p class="card-text text-muted small">{#if book.description.length > 150}{book.description.substring(0, 150)}...{#else}{book.description}{/if}</p>
                   {/if}
-                  {#if book.nbOfPages}
-                    <li><small><strong>Pages:</strong> {book.nbOfPages}</small></li>
-                  {/if}
-                  {#if book.language}
-                    <li><small><strong>Language:</strong> {book.language}</small></li>
-                  {/if}
-                  {#if book.publicationDate}
-                    <li><small><strong>Published:</strong> {book.publicationDate}</small></li>
-                  {/if}
-                  {#if book.publisher}
-                    <li><small><strong>Publisher:</strong> {book.publisher.name}</small></li>
-                  {/if}
-                </ul>
-              </div>
-              <div class="card-footer bg-white">
-                <div class="d-flex justify-content-between align-items-center">
-                  <span class="price-tag">${book.price}</span>
-                  {#if book.stock > 0}
-                    <span class="badge bg-success stock-badge"><i class="bi bi-check-circle me-1"></i>In Stock ({book.stock})</span>
-                  {#else}
-                    <span class="badge bg-danger stock-badge"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
-                  {/if}
+                  <ul class="list-unstyled mb-0 text-dark">
+                    {#if book.isbn}
+                      <li><small><strong>ISBN:</strong> {book.isbn}</small></li>
+                    {/if}
+                    {#if book.nbOfPages}
+                      <li><small><strong>Pages:</strong> {book.nbOfPages}</small></li>
+                    {/if}
+                    {#if book.language}
+                      <li><small><strong>Language:</strong> {book.language}</small></li>
+                    {/if}
+                  </ul>
+                </div>
+                <div class="card-footer bg-white">
+                  <div class="d-flex justify-content-between align-items-center">
+                    <span class="price-tag">${book.price}</span>
+                    {#if book.stock > 0}
+                      <span class="badge bg-success stock-badge"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+                    {#else}
+                      <span class="badge bg-danger stock-badge"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
+                    {/if}
+                  </div>
                 </div>
               </div>
-            </div>
+            </a>
           </div>
         {/for}
       </div>

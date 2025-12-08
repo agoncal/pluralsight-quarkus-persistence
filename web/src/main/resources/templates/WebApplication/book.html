@@ -1,0 +1,110 @@
+{#include base.html}
+  {#title}{book.title} - Vintage Store{/}
+
+  {#insert}
+    <div class="row">
+      <!-- Book Cover Placeholder -->
+      <div class="col-md-4 mb-4">
+        <div class="card bg-primary text-white">
+          <div class="card-body text-center py-5">
+            <i class="bi bi-book display-1 mb-3"></i>
+            <h4>Book</h4>
+            {#if book.language}
+              <span class="badge bg-light text-dark">{book.language}</span>
+            {/if}
+          </div>
+        </div>
+
+        <!-- Purchase Card -->
+        <div class="card mt-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="h3 text-success mb-0">${book.price}</span>
+              {#if book.stock > 0}
+                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+              {#else}
+                <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
+              {/if}
+            </div>
+            {#if book.stock > 0}
+              <p class="text-muted small mb-3">{book.stock} copies available</p>
+              <button class="btn btn-primary w-100" disabled>
+                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+              </button>
+            {#else}
+              <button class="btn btn-secondary w-100" disabled>
+                <i class="bi bi-bell me-2"></i>Notify When Available
+              </button>
+            {/if}
+          </div>
+        </div>
+      </div>
+
+      <!-- Book Details -->
+      <div class="col-md-8">
+        <h1 class="mb-3">{book.title}</h1>
+
+        {#if book.description}
+          <p class="lead text-muted">{book.description}</p>
+        {/if}
+
+        <hr>
+
+        <!-- Details Table -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>Book Details</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-borderless mb-0">
+              <tbody>
+                {#if book.isbn}
+                  <tr>
+                    <th scope="row" class="text-muted" style="width: 30%;">ISBN</th>
+                    <td><code>{book.isbn}</code></td>
+                  </tr>
+                {/if}
+                {#if book.nbOfPages}
+                  <tr>
+                    <th scope="row" class="text-muted">Pages</th>
+                    <td>{book.nbOfPages} pages</td>
+                  </tr>
+                {/if}
+                {#if book.language}
+                  <tr>
+                    <th scope="row" class="text-muted">Language</th>
+                    <td>{book.language}</td>
+                  </tr>
+                {/if}
+                {#if book.publicationDate}
+                  <tr>
+                    <th scope="row" class="text-muted">Publication Date</th>
+                    <td>{book.publicationDate}</td>
+                  </tr>
+                {/if}
+                {#if book.publisher}
+                  <tr>
+                    <th scope="row" class="text-muted">Publisher</th>
+                    <td>
+                      <strong>{book.publisher.name}</strong>
+                      {#if book.publisher.country}
+                        <span class="text-muted">({book.publisher.country})</span>
+                      {/if}
+                    </td>
+                  </tr>
+                {/if}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-4">
+          <a href="/books" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Back to Books
+          </a>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

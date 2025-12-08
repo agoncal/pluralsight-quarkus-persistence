@@ -8,6 +8,8 @@ import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
 
@@ -34,6 +36,17 @@ public class WebApplication extends Controller {
     return Templates.books(books);
   }
 
+  @Path("/books/{id}")
+  public TemplateInstance book(@PathParam("id") Long id) {
+    LOG.info("Entering book() with id: " + id);
+    Response response = catalogProxy.getBook(id);
+    if (response.getStatus() == 404) {
+      notFound();
+    }
+    BookDTO book = response.readEntity(BookDTO.class);
+    return Templates.book(book);
+  }
+
   @Path("/cds")
   public TemplateInstance cds() {
     LOG.info("Entering cds()");
@@ -41,10 +54,23 @@ public class WebApplication extends Controller {
     return Templates.cds(cds);
   }
 
+  @Path("/cds/{id}")
+  public TemplateInstance cd(@PathParam("id") Long id) {
+    LOG.info("Entering cd() with id: " + id);
+    Response response = catalogProxy.getCD(id);
+    if (response.getStatus() == 404) {
+      notFound();
+    }
+    CDDTO cd = response.readEntity(CDDTO.class);
+    return Templates.cd(cd);
+  }
+
   @CheckedTemplate
   static class Templates {
     public static native TemplateInstance index();
     public static native TemplateInstance books(List<BookDTO> books);
+    public static native TemplateInstance book(BookDTO book);
     public static native TemplateInstance cds(List<CDDTO> cds);
+    public static native TemplateInstance cd(CDDTO cd);
   }
 }

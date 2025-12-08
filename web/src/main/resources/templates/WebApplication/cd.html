@@ -1,0 +1,105 @@
+{#include base.html}
+  {#title}{cd.title} - Vintage Store{/}
+
+  {#insert}
+    <div class="row">
+      <!-- CD Cover Placeholder -->
+      <div class="col-md-4 mb-4">
+        <div class="card bg-info text-white">
+          <div class="card-body text-center py-5">
+            <i class="bi bi-disc display-1 mb-3"></i>
+            <h4>CD</h4>
+            {#if cd.genre}
+              <span class="badge bg-light text-dark">{cd.genre}</span>
+            {/if}
+          </div>
+        </div>
+
+        <!-- Purchase Card -->
+        <div class="card mt-3">
+          <div class="card-body">
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <span class="h3 text-success mb-0">${cd.price}</span>
+              {#if cd.stock > 0}
+                <span class="badge bg-success"><i class="bi bi-check-circle me-1"></i>In Stock</span>
+              {#else}
+                <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>Out of Stock</span>
+              {/if}
+            </div>
+            {#if cd.stock > 0}
+              <p class="text-muted small mb-3">{cd.stock} copies available</p>
+              <button class="btn btn-info w-100 text-white" disabled>
+                <i class="bi bi-cart-plus me-2"></i>Add to Cart
+              </button>
+            {#else}
+              <button class="btn btn-secondary w-100" disabled>
+                <i class="bi bi-bell me-2"></i>Notify When Available
+              </button>
+            {/if}
+          </div>
+        </div>
+      </div>
+
+      <!-- CD Details -->
+      <div class="col-md-8">
+        <h1 class="mb-3">{cd.title}</h1>
+
+        {#if cd.description}
+          <p class="lead text-muted">{cd.description}</p>
+        {/if}
+
+        <hr>
+
+        <!-- Details Table -->
+        <div class="card">
+          <div class="card-header">
+            <h5 class="mb-0"><i class="bi bi-info-circle me-2"></i>CD Details</h5>
+          </div>
+          <div class="card-body">
+            <table class="table table-borderless mb-0">
+              <tbody>
+                {#if cd.ean}
+                  <tr>
+                    <th scope="row" class="text-muted" style="width: 30%;">EAN</th>
+                    <td><code>{cd.ean}</code></td>
+                  </tr>
+                {/if}
+                {#if cd.genre}
+                  <tr>
+                    <th scope="row" class="text-muted">Genre</th>
+                    <td><span class="badge bg-info">{cd.genre}</span></td>
+                  </tr>
+                {/if}
+                {#if cd.musicCompany}
+                  <tr>
+                    <th scope="row" class="text-muted">Record Label</th>
+                    <td>{cd.musicCompany}</td>
+                  </tr>
+                {/if}
+                {#if cd.releaseDate}
+                  <tr>
+                    <th scope="row" class="text-muted">Release Date</th>
+                    <td>{cd.releaseDate}</td>
+                  </tr>
+                {/if}
+                {#if cd.totalDuration}
+                  <tr>
+                    <th scope="row" class="text-muted">Duration</th>
+                    <td><i class="bi bi-clock me-1"></i>{cd.totalDuration.toMinutes} minutes</td>
+                  </tr>
+                {/if}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- Back Button -->
+        <div class="mt-4">
+          <a href="/cds" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-2"></i>Back to CDs
+          </a>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}
