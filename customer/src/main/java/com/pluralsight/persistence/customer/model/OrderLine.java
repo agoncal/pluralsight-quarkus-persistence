@@ -11,6 +11,8 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 
 @Entity
@@ -34,6 +36,7 @@ public class OrderLine {
   @Column(nullable = false)
   private String item;
 
+  @JsonIgnore
   @NotNull
   @ManyToOne
   @JoinColumn(name = "order_fk", nullable = false)

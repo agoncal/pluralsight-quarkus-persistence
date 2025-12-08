@@ -19,6 +19,8 @@ import jakarta.persistence.PreUpdate;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -58,6 +60,7 @@ public class PurchaseOrder {
   })
   private Address shippingAddress;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<OrderLine> orderLines = new ArrayList<>();
 

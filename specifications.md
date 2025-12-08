@@ -275,6 +275,23 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 | PUT    | /api/publishers/{id} | Update a publisher             |
 | DELETE | /api/publishers/{id} | Delete a publisher             |
 
+REST endpoints managing customers and orders are handled via the Customer Module:
+
+| Method | Path                | Description                 |
+|--------|---------------------|-----------------------------|
+| GET    | /api/users          | List all users              |
+| GET    | /api/users/{id}     | Get user details            |
+| POST   | /api/users          | Create a new user           |
+| PUT    | /api/users/{id}     | Update a user               |
+| GET    | /api/customers      | List all customers          |
+| GET    | /api/customers/{id} | Get customer details        |
+| POST   | /api/customers      | Create a new customer       |
+| PUT    | /api/customers/{id} | Update a customer           |
+| GET    | /api/pos            | List all purchase orders    |
+| GET    | /api/pos/{id}       | Get purchase order details  |
+| POST   | /api/pos            | Create a new purchase order |
+| PUT    | /api/pos/{id}       | Update a purchase order     |
+
 ---
 
 ### 3. Customer Module (JAR Library)
