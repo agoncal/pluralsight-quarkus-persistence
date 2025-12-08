@@ -61,3 +61,54 @@ INSERT INTO t_musicians (id, stage_name, instrument) VALUES (20, NULL, 'Piano');
 
 -- Reset sequence for PostgreSQL
 ALTER SEQUENCE t_persons_seq RESTART WITH 21;
+
+-- Books (Items with dtype='BOOK')
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (1, 'BOOK', 'The Shining', 'A family heads to an isolated hotel for the winter where a sinister presence influences the father into violence.', 14.99, 50, CURRENT_TIMESTAMP, '9780385121675', 447, '1977-01-28', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (2, 'BOOK', 'Harry Potter and the Philosopher''s Stone', 'A young wizard discovers his magical heritage and attends Hogwarts School of Witchcraft and Wizardry.', 12.99, 100, CURRENT_TIMESTAMP, '9780747532699', 223, '1997-06-26', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (3, 'BOOK', '1984', 'A dystopian novel set in a totalitarian society under constant surveillance.', 11.99, 75, CURRENT_TIMESTAMP, '9780451524935', 328, '1949-06-08', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (4, 'BOOK', 'One Hundred Years of Solitude', 'The multi-generational story of the Buendía family in the fictional town of Macondo.', 15.99, 40, CURRENT_TIMESTAMP, '9780060883287', 417, '1967-05-30', 'SPANISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (5, 'BOOK', 'Norwegian Wood', 'A nostalgic story of loss and sexuality set in Tokyo during the late 1960s.', 13.99, 60, CURRENT_TIMESTAMP, '9780375704024', 296, '1987-09-04', 'JAPANESE', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (6, 'BOOK', 'Les Misérables', 'An epic tale of redemption, justice, and love in 19th century France.', 18.99, 30, CURRENT_TIMESTAMP, '9780140444308', 1232, '1862-01-01', 'FRENCH', 4);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (7, 'BOOK', 'Pride and Prejudice', 'A witty commentary on society and romance in Regency-era England.', 9.99, 80, CURRENT_TIMESTAMP, '9780141439518', 279, '1813-01-28', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (8, 'BOOK', 'The Metamorphosis', 'A traveling salesman wakes up one morning to find himself transformed into a giant insect.', 8.99, 90, CURRENT_TIMESTAMP, '9780805209990', 55, '1915-01-01', 'GERMAN', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (9, 'BOOK', 'The Alchemist', 'A philosophical story about a shepherd boy who travels in search of treasure and discovers the true meaning of life.', 14.99, 120, CURRENT_TIMESTAMP, '9780061122415', 208, '1988-01-01', 'PORTUGUESE', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk) VALUES (10, 'BOOK', 'The Name of the Rose', 'A medieval murder mystery set in an Italian monastery.', 16.99, 35, CURRENT_TIMESTAMP, '9780151446476', 536, '1980-01-01', 'ITALIAN', 4);
+
+-- Book-Author relationships
+INSERT INTO t_book_authors (book_id, author_id) VALUES (1, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (2, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (3, 3);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (4, 4);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (5, 5);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (6, 6);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (7, 7);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (8, 8);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (9, 9);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (10, 10);
+
+-- CDs (Items with dtype='CD')
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (11, 'CD', 'Abbey Road', 'The eleventh studio album by the Beatles, featuring iconic tracks like Come Together and Here Comes the Sun.', 14.99, 60, CURRENT_TIMESTAMP, '5099969945120', 'Apple Records', 'ROCK', 2826000000000, '1969-09-26');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (12, 'CD', 'A Night at the Opera', 'The fourth studio album by Queen, featuring the legendary Bohemian Rhapsody.', 13.99, 45, CURRENT_TIMESTAMP, '0602527644165', 'EMI', 'ROCK', 2586000000000, '1975-11-21');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (13, 'CD', 'The Rise and Fall of Ziggy Stardust', 'David Bowie''s fifth studio album, a concept album about a fictional rock star.', 12.99, 40, CURRENT_TIMESTAMP, '0724352190003', 'RCA Records', 'ROCK', 2334000000000, '1972-06-16');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (14, 'CD', 'Kind of Blue', 'Miles Davis'' masterpiece and the best-selling jazz album of all time.', 11.99, 70, CURRENT_TIMESTAMP, '5099706527220', 'Columbia', 'JAZZ', 2754000000000, '1959-08-17');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (15, 'CD', 'Ella and Louis', 'A duet album featuring Ella Fitzgerald and Louis Armstrong.', 10.99, 35, CURRENT_TIMESTAMP, '0602498840382', 'Verve', 'JAZZ', 2220000000000, '1956-10-01');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (16, 'CD', 'Blood on the Tracks', 'Bob Dylan''s fifteenth studio album, widely regarded as one of his greatest works.', 12.99, 50, CURRENT_TIMESTAMP, '5099751234524', 'Columbia', 'COUNTRY', 3126000000000, '1975-01-20');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (17, 'CD', 'I Never Loved a Man the Way I Love You', 'Aretha Franklin''s breakthrough album that established her as the Queen of Soul.', 11.99, 40, CURRENT_TIMESTAMP, '0081227965730', 'Atlantic', 'BLUES', 1962000000000, '1967-03-10');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (18, 'CD', 'Are You Experienced', 'The debut album by the Jimi Hendrix Experience, a landmark in rock history.', 13.99, 55, CURRENT_TIMESTAMP, '0886976340728', 'Track Records', 'ROCK', 2406000000000, '1967-05-12');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (19, 'CD', 'I Put a Spell on You', 'Nina Simone''s seventh studio album, featuring jazz and blues standards.', 10.99, 30, CURRENT_TIMESTAMP, '0600753458488', 'Philips', 'JAZZ', 2100000000000, '1965-06-01');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date) VALUES (20, 'CD', 'Symphony No. 9', 'Beethoven''s final complete symphony, featuring the famous Ode to Joy.', 15.99, 25, CURRENT_TIMESTAMP, '0028947753223', 'Deutsche Grammophon', 'CLASSICAL', 4200000000000, '1824-05-07');
+
+-- CD-Musician relationships
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (11, 11);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (12, 12);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (13, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (14, 14);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (15, 15);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (16, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (17, 17);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (18, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (19, 19);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (20, 20);
+
+-- Reset sequence for PostgreSQL
+ALTER SEQUENCE t_items_seq RESTART WITH 21;
