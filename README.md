@@ -1,6 +1,8 @@
 # Vintage Store
 
 ```bash
+curl http://localhost:8084/api/reviews | jq
+
 curl http://localhost:8083/api/authors | jq
 
 curl http://localhost:8083/api/musicians | jq

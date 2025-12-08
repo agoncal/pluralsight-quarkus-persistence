@@ -4,16 +4,20 @@
              version="3.2">
 
   <persistence-unit name="ReviewsPU" transaction-type="JTA">
-    <description>Customer reviews</description>
-
+    <description>Product reviews</description>
+    <class>com.pluralsight.persistence.reviews.model.ProductReview</class>
     <properties>
-      <!-- Connection specific -->
       <property name="hibernate.dialect" value="org.hibernate.dialect.MariaDBDialect"/>
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="true"/>
+
+      <property name="jakarta.persistence.sql-load-script-source" value="import.sql"/>
       <property name="jakarta.persistence.schema-generation.database.action" value="drop-and-create"/>
+      <property name="jakarta.persistence.schema-generation.scripts.action" value="drop-and-create"/>
+      <property name="jakarta.persistence.schema-generation.scripts.create-target" value="create_db_reviews.sql"/>
+      <property name="jakarta.persistence.schema-generation.scripts.drop-target" value="drop_db_reviews.sql"/>
+
       <property name="jakarta.persistence.validation.mode" value="NONE"/>
     </properties>
-
   </persistence-unit>
 </persistence>
