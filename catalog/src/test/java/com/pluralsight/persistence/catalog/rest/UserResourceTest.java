@@ -236,4 +236,41 @@ class UserResourceTest {
       .then()
       .statusCode(400);
   }
+
+  @Test
+  void shouldGetUserByUsername() {
+    String uniqueUsername = "byusername" + UUID.randomUUID().toString().substring(0, 8);
+    User user = new User();
+    user.setUsername(uniqueUsername);
+    user.setPassword("password123");
+    user.setEmail(uniqueUsername + "@example.com");
+    user.setRole(UserRole.CUSTOMER);
+    user.setEnabled(true);
+
+    // Create a user
+    given()
+      .contentType(ContentType.JSON)
+      .body(user)
+      .when().post("/api/users")
+      .then()
+      .statusCode(201);
+
+    // Get the user by username
+    given()
+      .when().get("/api/users/username/" + uniqueUsername)
+      .then()
+      .statusCode(200)
+      .contentType(ContentType.JSON)
+      .body("username", is(uniqueUsername))
+      .body("email", is(uniqueUsername + "@example.com"))
+      .body("role", is("CUSTOMER"));
+  }
+
+  @Test
+  void shouldGetNotFoundForNonExistentUsername() {
+    given()
+      .when().get("/api/users/username/nonexistentuser999")
+      .then()
+      .statusCode(404);
+  }
 }

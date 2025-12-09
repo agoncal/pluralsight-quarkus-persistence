@@ -224,6 +224,10 @@ public interface CatalogProxy {
   @Path("/api/users/{id}")
   Response getUser(@PathParam("id") Long id);
 
+  @GET
+  @Path("/api/users/username/{username}")
+  Response getUserByUsername(@PathParam("username") String username);
+
   @POST
   @Path("/api/users")
   Response createUser(@Valid UserDTO user);

@@ -42,6 +42,16 @@ public class UserResource {
     return Response.ok(user).build();
   }
 
+  @GET
+  @Path("/username/{username}")
+  public Response getUserByUsername(@PathParam("username") String username) {
+    User user = userRepository.findByUsername(username);
+    if (user == null) {
+      return Response.status(Response.Status.NOT_FOUND).build();
+    }
+    return Response.ok(user).build();
+  }
+
   @POST
   @Transactional
   public Response createUser(@Valid User user) {
