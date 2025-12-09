@@ -735,8 +735,524 @@ INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (103, 'Wh
 -- Reset sequence for PostgreSQL
 ALTER SEQUENCE t_tracks_seq RESTART WITH 104;
 
+-- Additional Books (41-120)
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (41, 'BOOK', 'It', 'A group of children face a terrifying evil in their small town.', 17.99, 45, CURRENT_TIMESTAMP, '9781501142970', 1138, '1986-09-15', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (42, 'BOOK', 'The Stand', 'A post-apocalyptic tale of good versus evil after a pandemic.', 18.99, 35, CURRENT_TIMESTAMP, '9780307743688', 1153, '1978-10-03', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (43, 'BOOK', 'Misery', 'A famous author is held captive by his number one fan.', 13.99, 55, CURRENT_TIMESTAMP, '9781501143106', 338, '1987-06-08', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (44, 'BOOK', 'Harry Potter and the Chamber of Secrets', 'Harry returns to Hogwarts where a dark force threatens students.', 12.99, 95, CURRENT_TIMESTAMP, '9780439064873', 341, '1998-07-02', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (45, 'BOOK', 'Harry Potter and the Prisoner of Azkaban', 'A dangerous prisoner escapes and seems to be hunting Harry.', 13.99, 90, CURRENT_TIMESTAMP, '9780439136365', 435, '1999-07-08', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (46, 'BOOK', 'Harry Potter and the Goblet of Fire', 'Harry competes in a dangerous magical tournament.', 14.99, 85, CURRENT_TIMESTAMP, '9780439139601', 734, '2000-07-08', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (47, 'BOOK', 'Animal Farm', 'A satirical allegory about power and corruption.', 9.99, 110, CURRENT_TIMESTAMP, '9780451526342', 112, '1945-08-17', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (48, 'BOOK', 'Kafka on the Shore', 'A surreal tale of a runaway teenager and an elderly man.', 15.99, 50, CURRENT_TIMESTAMP, '9781400079278', 467, '2002-09-12', 'JAPANESE', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (49, 'BOOK', '1Q84', 'A love story set in a parallel universe Tokyo.', 19.99, 40, CURRENT_TIMESTAMP, '9780307593313', 1157, '2009-05-29', 'JAPANESE', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (50, 'BOOK', 'The Hunchback of Notre-Dame', 'A tragic tale set in medieval Paris around the famous cathedral.', 12.99, 60, CURRENT_TIMESTAMP, '9780140443530', 560, '1831-01-14', 'FRENCH', 4);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (51, 'BOOK', 'Sense and Sensibility', 'Two sisters navigate love and society in Regency England.', 10.99, 70, CURRENT_TIMESTAMP, '9780141439662', 352, '1811-10-30', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (52, 'BOOK', 'Emma', 'A young woman meddles in the romantic lives of others.', 11.99, 65, CURRENT_TIMESTAMP, '9780141439587', 474, '1815-12-23', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (53, 'BOOK', 'The Trial', 'A man is arrested and prosecuted by an inaccessible authority.', 11.99, 55, CURRENT_TIMESTAMP, '9780805209990', 255, '1925-04-26', 'GERMAN', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (54, 'BOOK', 'The Castle', 'A land surveyor struggles to gain access to a mysterious castle.', 13.99, 45, CURRENT_TIMESTAMP, '9780805211061', 316, '1926-01-01', 'GERMAN', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (55, 'BOOK', 'Brida', 'A young Irish girl searches for knowledge and her destiny.', 12.99, 80, CURRENT_TIMESTAMP, '9780061578953', 249, '1990-01-01', 'PORTUGUESE', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (56, 'BOOK', 'Veronika Decides to Die', 'A young woman wakes up in a mental hospital after a suicide attempt.', 13.99, 70, CURRENT_TIMESTAMP, '9780061124266', 210, '1998-08-01', 'PORTUGUESE', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (57, 'BOOK', 'Foucaults Pendulum', 'Three editors create a conspiracy theory that takes on a life of its own.', 17.99, 35, CURRENT_TIMESTAMP, '9780156032971', 641, '1988-10-01', 'ITALIAN', 4);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (58, 'BOOK', 'Love in the Time of Cholera', 'A love story spanning more than fifty years.', 14.99, 55, CURRENT_TIMESTAMP, '9780307389732', 348, '1985-01-01', 'SPANISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (59, 'BOOK', 'Chronicle of a Death Foretold', 'A murder is reconstructed through multiple perspectives.', 11.99, 75, CURRENT_TIMESTAMP, '9781400034710', 120, '1981-01-01', 'SPANISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (60, 'BOOK', 'Colour of Magic', 'The first Discworld novel following the wizard Rincewind.', 11.99, 65, CURRENT_TIMESTAMP, '9780062225672', 288, '1983-11-24', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (61, 'BOOK', 'Mort', 'Death takes on an apprentice in this Discworld comedy.', 12.99, 60, CURRENT_TIMESTAMP, '9780062225719', 272, '1987-11-12', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (62, 'BOOK', 'Coraline', 'A young girl discovers a sinister parallel world.', 10.99, 85, CURRENT_TIMESTAMP, '9780380807345', 162, '2002-07-02', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (63, 'BOOK', 'The Graveyard Book', 'A boy raised by ghosts in a cemetery.', 11.99, 75, CURRENT_TIMESTAMP, '9780060530945', 312, '2008-09-30', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (64, 'BOOK', 'Restaurant at the End of the Universe', 'The sequel to Hitchhikers Guide.', 12.99, 70, CURRENT_TIMESTAMP, '9780345391810', 250, '1980-10-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (65, 'BOOK', 'Life, the Universe and Everything', 'Third book in the Hitchhikers trilogy.', 12.99, 65, CURRENT_TIMESTAMP, '9780345391827', 227, '1982-08-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (66, 'BOOK', 'Foundation and Empire', 'The second Foundation novel.', 14.99, 50, CURRENT_TIMESTAMP, '9780553293371', 247, '1952-01-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (67, 'BOOK', 'Second Foundation', 'The third book in Asimovs Foundation series.', 14.99, 48, CURRENT_TIMESTAMP, '9780553293364', 279, '1953-01-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (68, 'BOOK', 'And Then There Were None', 'Ten strangers are lured to an island where they are murdered one by one.', 12.99, 80, CURRENT_TIMESTAMP, '9780062073488', 272, '1939-11-06', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (69, 'BOOK', 'The ABC Murders', 'Hercule Poirot hunts a serial killer using the alphabet.', 11.99, 70, CURRENT_TIMESTAMP, '9780062073587', 256, '1936-01-06', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (70, 'BOOK', 'A Farewell to Arms', 'A love story set during World War I.', 13.99, 60, CURRENT_TIMESTAMP, '9780684801469', 332, '1929-09-27', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (71, 'BOOK', 'For Whom the Bell Tolls', 'An American fights in the Spanish Civil War.', 15.99, 55, CURRENT_TIMESTAMP, '9780684803357', 471, '1940-10-21', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (72, 'BOOK', 'Count Zero', 'The second book in Gibsons Sprawl trilogy.', 13.99, 55, CURRENT_TIMESTAMP, '9780441117734', 256, '1986-03-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (73, 'BOOK', 'Mona Lisa Overdrive', 'The conclusion to the Sprawl trilogy.', 13.99, 50, CURRENT_TIMESTAMP, '9780553281743', 251, '1988-11-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (74, 'BOOK', 'Ringworld', 'Explorers discover an artificial ring around a distant star.', 14.99, 60, CURRENT_TIMESTAMP, '9780345333926', 342, '1970-10-01', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (75, 'BOOK', 'The Wind-Up Bird Chronicle', 'A man searches for his missing cat and wife in surreal Tokyo.', 16.99, 45, CURRENT_TIMESTAMP, '9780679775430', 607, '1994-01-01', 'JAPANESE', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (76, 'BOOK', 'South of the Border, West of the Sun', 'A man reflects on lost love and choices.', 13.99, 55, CURRENT_TIMESTAMP, '9780679767398', 213, '1992-10-01', 'JAPANESE', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (77, 'BOOK', 'Pet Sematary', 'A family discovers a burial ground with the power to resurrect the dead.', 15.99, 50, CURRENT_TIMESTAMP, '9781501156700', 416, '1983-11-14', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (78, 'BOOK', 'Salems Lot', 'A writer returns to his hometown to find it overrun by vampires.', 14.99, 55, CURRENT_TIMESTAMP, '9780307743671', 439, '1975-10-17', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (79, 'BOOK', 'Carrie', 'A bullied girl with telekinetic powers seeks revenge.', 12.99, 70, CURRENT_TIMESTAMP, '9780307743664', 199, '1974-04-05', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (80, 'BOOK', 'Harry Potter and the Order of the Phoenix', 'Harry faces the return of Voldemort and a hostile Ministry.', 16.99, 80, CURRENT_TIMESTAMP, '9780439358071', 870, '2003-06-21', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (81, 'BOOK', 'Harry Potter and the Half-Blood Prince', 'Harry learns about Voldemorts past.', 15.99, 75, CURRENT_TIMESTAMP, '9780439785969', 652, '2005-07-16', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (82, 'BOOK', 'Harry Potter and the Deathly Hallows', 'The final battle against Voldemort.', 17.99, 85, CURRENT_TIMESTAMP, '9780545139700', 759, '2007-07-21', 'ENGLISH', 10);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (83, 'BOOK', 'Going Postal', 'A con man is put in charge of the postal service.', 13.99, 55, CURRENT_TIMESTAMP, '9780060502935', 471, '2004-09-25', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (84, 'BOOK', 'Night Watch', 'Commander Vimes travels back in time.', 14.99, 50, CURRENT_TIMESTAMP, '9780060013127', 480, '2002-11-07', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (85, 'BOOK', 'Stardust', 'A young man ventures into a magical realm.', 12.99, 65, CURRENT_TIMESTAMP, '9780061689246', 256, '1999-02-01', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (86, 'BOOK', 'Neverwhere', 'A man falls through the cracks into London Below.', 13.99, 60, CURRENT_TIMESTAMP, '9780060557812', 370, '1996-09-16', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (87, 'BOOK', 'I Robot', 'A collection of robot stories exploring ethics and AI.', 12.99, 70, CURRENT_TIMESTAMP, '9780553382563', 224, '1950-12-02', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (88, 'BOOK', 'The Caves of Steel', 'A detective and robot partner solve a murder on Earth.', 13.99, 55, CURRENT_TIMESTAMP, '9780553293401', 206, '1954-01-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (89, 'BOOK', 'Death on the Nile', 'Poirot investigates a murder on a Nile cruise.', 12.99, 65, CURRENT_TIMESTAMP, '9780062073556', 320, '1937-11-01', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (90, 'BOOK', 'The Sun Also Rises', 'American expatriates wander through Europe.', 13.99, 50, CURRENT_TIMESTAMP, '9780743297332', 251, '1926-10-22', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (91, 'BOOK', 'Autumn of the Patriarch', 'The life of a Caribbean dictator told through memories.', 14.99, 40, CURRENT_TIMESTAMP, '9780060882860', 269, '1975-03-01', 'SPANISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (92, 'BOOK', 'Northanger Abbey', 'A satire of Gothic novels and coming-of-age story.', 10.99, 60, CURRENT_TIMESTAMP, '9780141439792', 230, '1817-12-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (93, 'BOOK', 'Mansfield Park', 'A poor relation navigates life among the wealthy.', 11.99, 55, CURRENT_TIMESTAMP, '9780141439808', 455, '1814-07-01', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (94, 'BOOK', 'Persuasion', 'A woman gets a second chance at love.', 10.99, 65, CURRENT_TIMESTAMP, '9780141439686', 249, '1817-12-20', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (95, 'BOOK', 'The Zahir', 'A famous author searches for his missing wife.', 14.99, 50, CURRENT_TIMESTAMP, '9780060825218', 336, '2005-04-05', 'PORTUGUESE', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (96, 'BOOK', 'Eleven Minutes', 'A Brazilian prostitute in Geneva searches for love.', 13.99, 55, CURRENT_TIMESTAMP, '9780060589288', 302, '2003-05-01', 'PORTUGUESE', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (97, 'BOOK', 'Baudolino', 'A medieval storyteller creates myths and history.', 15.99, 40, CURRENT_TIMESTAMP, '9780156029063', 528, '2000-09-01', 'ITALIAN', 4);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (98, 'BOOK', 'The Island of the Day Before', 'A 17th-century nobleman is shipwrecked.', 14.99, 35, CURRENT_TIMESTAMP, '9780156030373', 515, '1994-01-01', 'ITALIAN', 4);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (99, 'BOOK', 'Toilers of the Sea', 'A fisherman battles the sea and a giant octopus.', 13.99, 45, CURRENT_TIMESTAMP, '9780679600626', 488, '1866-03-01', 'FRENCH', 4);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (100, 'BOOK', 'The Man Who Laughs', 'A disfigured man navigates society in 17th-century England.', 14.99, 40, CURRENT_TIMESTAMP, '9780140436927', 720, '1869-04-01', 'FRENCH', 4);
+
+-- Additional Books (151-169) to reach 100 books
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (151, 'BOOK', 'Firestarter', 'A young girl with pyrokinetic powers is hunted by a government agency.', 14.99, 55, CURRENT_TIMESTAMP, '9781501192302', 426, '1980-09-29', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (152, 'BOOK', 'Cujo', 'A rabid dog terrorizes a mother and son trapped in their car.', 13.99, 45, CURRENT_TIMESTAMP, '9781501192319', 319, '1981-09-08', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (153, 'BOOK', 'Christine', 'A possessed 1958 Plymouth Fury wreaks havoc on its owner.', 14.99, 50, CURRENT_TIMESTAMP, '9781501192326', 526, '1983-04-29', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (154, 'BOOK', 'Pet Sematary', 'A family discovers a burial ground with dark powers.', 15.99, 60, CURRENT_TIMESTAMP, '9781501156700', 416, '1983-11-14', 'ENGLISH', 1);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (155, 'BOOK', 'Foundation', 'A mathematician predicts the fall of a galactic empire.', 14.99, 70, CURRENT_TIMESTAMP, '9780553293357', 244, '1951-05-01', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (156, 'BOOK', 'Foundation and Empire', 'The Foundation faces threats from the dying Empire.', 13.99, 55, CURRENT_TIMESTAMP, '9780553293371', 247, '1952-01-01', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (157, 'BOOK', 'Second Foundation', 'The search for the secret Second Foundation.', 13.99, 50, CURRENT_TIMESTAMP, '9780553293364', 210, '1953-01-01', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (158, 'BOOK', 'Murder on the Orient Express', 'Poirot investigates a murder on a snowbound train.', 12.99, 75, CURRENT_TIMESTAMP, '9780062693662', 256, '1934-01-01', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (159, 'BOOK', 'And Then There Were None', 'Ten strangers are lured to an island and murdered one by one.', 12.99, 80, CURRENT_TIMESTAMP, '9780062073488', 272, '1939-11-06', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (160, 'BOOK', 'The ABC Murders', 'Poirot hunts a serial killer using the alphabet.', 11.99, 65, CURRENT_TIMESTAMP, '9780062073587', 256, '1936-01-06', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (161, 'BOOK', 'A Farewell to Arms', 'An American ambulance driver falls in love during WWI.', 13.99, 55, CURRENT_TIMESTAMP, '9780684801469', 332, '1929-09-27', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (162, 'BOOK', 'For Whom the Bell Tolls', 'An American fights in the Spanish Civil War.', 14.99, 50, CURRENT_TIMESTAMP, '9780684803357', 471, '1940-10-21', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (163, 'BOOK', 'Good Omens', 'An angel and demon team up to prevent the apocalypse.', 15.99, 65, CURRENT_TIMESTAMP, '9780060853983', 432, '1990-05-10', 'ENGLISH', 2);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (164, 'BOOK', 'The Difference Engine', 'An alternate Victorian era where computers exist.', 14.99, 40, CURRENT_TIMESTAMP, '9780440423621', 429, '1990-03-01', 'ENGLISH', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (165, 'BOOK', 'Ringworld', 'Explorers discover an artificial ring-shaped world.', 13.99, 55, CURRENT_TIMESTAMP, '9780345333926', 342, '1970-10-01', 'ENGLISH', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (166, 'BOOK', 'The Mote in Gods Eye', 'Humanity makes first contact with an alien species.', 15.99, 45, CURRENT_TIMESTAMP, '9780671741921', 537, '1974-01-01', 'ENGLISH', 3);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (167, 'BOOK', 'Count Zero', 'Cyberspace cowboys navigate a world of AIs and corporations.', 13.99, 50, CURRENT_TIMESTAMP, '9780441013678', 308, '1986-03-01', 'ENGLISH', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (168, 'BOOK', 'Mona Lisa Overdrive', 'Multiple storylines converge in a cyberpunk future.', 13.99, 45, CURRENT_TIMESTAMP, '9780553281743', 308, '1988-10-01', 'ENGLISH', 5);
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (169, 'BOOK', 'The Colour of Magic', 'The first adventure on the Discworld.', 12.99, 70, CURRENT_TIMESTAMP, '9780062225672', 288, '1983-11-24', 'ENGLISH', 2);
+
+-- Book-Author relationships for new books
+INSERT INTO t_book_authors (book_id, author_id) VALUES (41, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (42, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (43, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (44, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (45, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (46, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (47, 3);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (48, 5);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (49, 5);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (50, 6);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (51, 7);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (52, 7);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (53, 8);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (54, 8);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (55, 9);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (56, 9);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (57, 10);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (58, 4);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (59, 4);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (60, 33);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (61, 33);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (62, 34);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (63, 34);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (64, 35);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (65, 35);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (66, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (67, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (68, 37);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (69, 37);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (70, 38);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (71, 38);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (72, 41);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (73, 41);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (74, 39);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (75, 5);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (76, 5);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (77, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (78, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (79, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (80, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (81, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (82, 2);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (83, 33);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (84, 33);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (85, 34);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (86, 34);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (87, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (88, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (89, 37);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (90, 38);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (91, 4);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (92, 7);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (93, 7);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (94, 7);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (95, 9);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (96, 9);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (97, 10);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (98, 10);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (99, 6);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (100, 6);
+
+-- Book-Author relationships for books 151-169
+INSERT INTO t_book_authors (book_id, author_id) VALUES (151, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (152, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (153, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (154, 1);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (155, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (156, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (157, 36);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (158, 37);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (159, 37);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (160, 37);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (161, 38);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (162, 38);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (163, 33);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (163, 34);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (164, 41);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (164, 42);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (165, 39);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (166, 39);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (166, 40);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (167, 41);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (168, 41);
+INSERT INTO t_book_authors (book_id, author_id) VALUES (169, 33);
+
+-- Additional CDs (101-180)
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (101, 'CD', 'Nevermind', 'Nirvanas breakthrough grunge album featuring Smells Like Teen Spirit.', 13.99, 70, CURRENT_TIMESTAMP, '0720642442524', 'DGC', 'ROCK', 2517000000000, '1991-09-24');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (102, 'CD', 'OK Computer', 'Radioheads masterpiece exploring technology and alienation.', 14.99, 60, CURRENT_TIMESTAMP, '0724385522925', 'Parlophone', 'ROCK', 3181000000000, '1997-06-16');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (103, 'CD', 'The Joshua Tree', 'U2s landmark album of American-influenced rock.', 13.99, 65, CURRENT_TIMESTAMP, '0042284236324', 'Island', 'ROCK', 3077000000000, '1987-03-09');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (104, 'CD', 'Purple Rain', 'Princes iconic soundtrack album.', 12.99, 70, CURRENT_TIMESTAMP, '0075992511025', 'Warner Bros', 'POP', 2643000000000, '1984-06-25');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (105, 'CD', 'Born to Run', 'Bruce Springsteens breakthrough album.', 12.99, 55, CURRENT_TIMESTAMP, '5099749413023', 'Columbia', 'ROCK', 2396000000000, '1975-08-25');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (106, 'CD', 'Appetite for Destruction', 'Guns N Roses explosive debut album.', 13.99, 60, CURRENT_TIMESTAMP, '0720642414828', 'Geffen', 'ROCK', 3261000000000, '1987-07-21');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (107, 'CD', 'The Wall', 'Pink Floyds epic rock opera about isolation.', 16.99, 50, CURRENT_TIMESTAMP, '5099924195526', 'Harvest', 'ROCK', 4860000000000, '1979-11-30');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (108, 'CD', 'London Calling', 'The Clashs genre-defying double album.', 14.99, 55, CURRENT_TIMESTAMP, '5099749534124', 'CBS', 'ROCK', 3913000000000, '1979-12-14');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (109, 'CD', 'Hotel California', 'The Eagles quintessential California rock album.', 12.99, 65, CURRENT_TIMESTAMP, '0075596049825', 'Asylum', 'ROCK', 2616000000000, '1976-12-08');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (110, 'CD', 'Wish You Were Here', 'Pink Floyds tribute to Syd Barrett.', 14.99, 55, CURRENT_TIMESTAMP, '5099902943824', 'Harvest', 'ROCK', 2688000000000, '1975-09-12');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (111, 'CD', 'Exile on Main St.', 'The Rolling Stones raw and sprawling double album.', 15.99, 45, CURRENT_TIMESTAMP, '0602527015545', 'Rolling Stones', 'ROCK', 4016000000000, '1972-05-12');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (112, 'CD', 'The Doors', 'The Doors self-titled debut with Light My Fire.', 12.99, 60, CURRENT_TIMESTAMP, '0075596050128', 'Elektra', 'ROCK', 2613000000000, '1967-01-04');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (113, 'CD', 'Highway 61 Revisited', 'Bob Dylans electric rock masterpiece.', 13.99, 50, CURRENT_TIMESTAMP, '5099751234821', 'Columbia', 'ROCK', 3081000000000, '1965-08-30');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (114, 'CD', 'Blonde on Blonde', 'Dylans influential double album.', 14.99, 45, CURRENT_TIMESTAMP, '5099751234920', 'Columbia', 'ROCK', 4380000000000, '1966-05-16');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (115, 'CD', 'Sgt Peppers Lonely Hearts Club Band', 'The Beatles groundbreaking concept album.', 14.99, 70, CURRENT_TIMESTAMP, '5099969945229', 'Parlophone', 'ROCK', 2397000000000, '1967-05-26');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (116, 'CD', 'Revolver', 'The Beatles experimental masterpiece.', 13.99, 65, CURRENT_TIMESTAMP, '5099969945328', 'Parlophone', 'ROCK', 2093000000000, '1966-08-05');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (117, 'CD', 'The White Album', 'The Beatles sprawling double album.', 16.99, 55, CURRENT_TIMESTAMP, '5099969945427', 'Apple', 'ROCK', 5576000000000, '1968-11-22');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (118, 'CD', 'A Love Supreme', 'John Coltranes spiritual jazz masterpiece.', 12.99, 50, CURRENT_TIMESTAMP, '0602498840826', 'Impulse', 'JAZZ', 1968000000000, '1965-01-01');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (119, 'CD', 'Time Out', 'The Dave Brubeck Quartets innovative album featuring Take Five.', 11.99, 55, CURRENT_TIMESTAMP, '0886974169826', 'Columbia', 'JAZZ', 2375000000000, '1959-12-14');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (120, 'CD', 'Bitches Brew', 'Miles Davis pioneering jazz fusion album.', 14.99, 45, CURRENT_TIMESTAMP, '5099706563822', 'Columbia', 'JAZZ', 6360000000000, '1970-03-30');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (121, 'CD', 'Songs in the Key of Life', 'Stevie Wonders ambitious double album.', 15.99, 50, CURRENT_TIMESTAMP, '0602498632826', 'Tamla', 'BLUES', 6300000000000, '1976-09-28');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (122, 'CD', 'Innervisions', 'Stevie Wonders socially conscious masterpiece.', 12.99, 55, CURRENT_TIMESTAMP, '0602498632727', 'Tamla', 'BLUES', 2640000000000, '1973-08-03');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (123, 'CD', 'Off the Wall', 'Michael Jacksons disco-funk breakthrough.', 12.99, 65, CURRENT_TIMESTAMP, '5099749534629', 'Epic', 'POP', 2526000000000, '1979-08-10');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (124, 'CD', 'Bad', 'Michael Jackson continues his pop dominance.', 13.99, 60, CURRENT_TIMESTAMP, '5099749535121', 'Epic', 'POP', 2858000000000, '1987-08-31');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (125, 'CD', 'Sign o the Times', 'Princes eclectic double album.', 15.99, 50, CURRENT_TIMESTAMP, '0075992555326', 'Paisley Park', 'POP', 4800000000000, '1987-03-30');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (126, 'CD', '1999', 'Princes breakthrough album.', 13.99, 55, CURRENT_TIMESTAMP, '0075992372428', 'Warner Bros', 'POP', 4200000000000, '1982-10-27');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (127, 'CD', 'Graceland', 'Paul Simons South African-influenced album.', 12.99, 60, CURRENT_TIMESTAMP, '0886970828321', 'Warner Bros', 'POP', 2720000000000, '1986-08-25');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (128, 'CD', 'Bridge over Troubled Water', 'Simon and Garfunkels final studio album.', 12.99, 55, CURRENT_TIMESTAMP, '5099749413528', 'Columbia', 'POP', 2220000000000, '1970-01-26');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (129, 'CD', 'Born in the USA', 'Bruce Springsteens commercial peak.', 13.99, 65, CURRENT_TIMESTAMP, '5099749413627', 'Columbia', 'ROCK', 2820000000000, '1984-06-04');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (130, 'CD', 'Nebraska', 'Springsteens stark acoustic album.', 11.99, 45, CURRENT_TIMESTAMP, '5099749413726', 'Columbia', 'COUNTRY', 2400000000000, '1982-09-30');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (131, 'CD', 'Physical Graffiti', 'Led Zeppelins sprawling double album.', 15.99, 55, CURRENT_TIMESTAMP, '0075678268825', 'Swan Song', 'ROCK', 4920000000000, '1975-02-24');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (132, 'CD', 'Houses of the Holy', 'Led Zeppelins experimental fifth album.', 13.99, 50, CURRENT_TIMESTAMP, '0075678268627', 'Atlantic', 'ROCK', 2541000000000, '1973-03-28');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (133, 'CD', 'Who''s Next', 'The Whos hard rock masterpiece.', 12.99, 55, CURRENT_TIMESTAMP, '0602498492222', 'Decca', 'ROCK', 2617000000000, '1971-08-14');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (134, 'CD', 'Tommy', 'The Whos rock opera about a deaf dumb and blind boy.', 14.99, 45, CURRENT_TIMESTAMP, '0602498492321', 'Decca', 'ROCK', 4500000000000, '1969-05-23');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (135, 'CD', 'In the Court of the Crimson King', 'King Crimsons prog rock debut.', 13.99, 40, CURRENT_TIMESTAMP, '0633367050120', 'Island', 'ROCK', 2616000000000, '1969-10-10');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (136, 'CD', 'The Rise and Fall of Ziggy Stardust', 'David Bowies glam rock concept album.', 12.99, 55, CURRENT_TIMESTAMP, '0724352190126', 'RCA', 'ROCK', 2334000000000, '1972-06-16');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (137, 'CD', 'Heroes', 'Bowies Berlin-era masterpiece.', 12.99, 50, CURRENT_TIMESTAMP, '0724352190225', 'RCA', 'ROCK', 2400000000000, '1977-10-14');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (138, 'CD', 'Low', 'Bowies experimental first Berlin album.', 12.99, 45, CURRENT_TIMESTAMP, '0724352190324', 'RCA', 'ROCK', 2340000000000, '1977-01-14');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (139, 'CD', 'Parallel Lines', 'Blondies new wave breakthrough.', 11.99, 55, CURRENT_TIMESTAMP, '5099950020225', 'Chrysalis', 'POP', 2400000000000, '1978-09-23');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (140, 'CD', 'Talking Heads 77', 'Talking Heads debut album.', 11.99, 50, CURRENT_TIMESTAMP, '0075992738422', 'Sire', 'ROCK', 2280000000000, '1977-09-16');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (141, 'CD', 'Remain in Light', 'Talking Heads African-influenced masterpiece.', 12.99, 45, CURRENT_TIMESTAMP, '0075992738521', 'Sire', 'ROCK', 2403000000000, '1980-10-08');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (142, 'CD', 'Achtung Baby', 'U2s reinvention with electronic influences.', 13.99, 55, CURRENT_TIMESTAMP, '0042284236628', 'Island', 'ROCK', 3340000000000, '1991-11-18');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (143, 'CD', 'Automatic for the People', 'R.E.M.s introspective masterpiece.', 12.99, 60, CURRENT_TIMESTAMP, '0075992457422', 'Warner Bros', 'ROCK', 2930000000000, '1992-10-05');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (144, 'CD', 'Ten', 'Pearl Jams grunge debut album.', 12.99, 65, CURRENT_TIMESTAMP, '5099747501821', 'Epic', 'ROCK', 3175000000000, '1991-08-27');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (145, 'CD', 'The Bends', 'Radioheads guitar-driven second album.', 12.99, 55, CURRENT_TIMESTAMP, '0724385522826', 'Parlophone', 'ROCK', 2920000000000, '1995-03-13');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (146, 'CD', 'Kid A', 'Radioheads experimental electronic turn.', 13.99, 50, CURRENT_TIMESTAMP, '0724385523021', 'Parlophone', 'ROCK', 2954000000000, '2000-10-02');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (147, 'CD', 'In Rainbows', 'Radioheads pay-what-you-want release.', 12.99, 55, CURRENT_TIMESTAMP, '0634904032326', 'XL', 'ROCK', 2539000000000, '2007-10-10');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (148, 'CD', 'Loveless', 'My Bloody Valentines shoegaze masterpiece.', 13.99, 40, CURRENT_TIMESTAMP, '5099914817427', 'Creation', 'ROCK', 2920000000000, '1991-11-04');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (149, 'CD', 'Doolittle', 'Pixies surreal alternative rock album.', 12.99, 50, CURRENT_TIMESTAMP, '5014436302626', '4AD', 'ROCK', 2340000000000, '1989-04-17');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (150, 'CD', 'Disintegration', 'The Cures atmospheric goth masterpiece.', 13.99, 45, CURRENT_TIMESTAMP, '0042284236925', 'Fiction', 'ROCK', 4320000000000, '1989-05-01');
+
+-- Additional CDs (170-200) to reach 100 CDs
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (170, 'CD', 'Appetite for Destruction', 'Guns N Roses explosive debut album.', 13.99, 65, CURRENT_TIMESTAMP, '0720642414828', 'Geffen', 'ROCK', 3238000000000, '1987-07-21');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (171, 'CD', 'Slippery When Wet', 'Bon Jovis breakthrough arena rock album.', 12.99, 55, CURRENT_TIMESTAMP, '0731452824028', 'Mercury', 'ROCK', 2594000000000, '1986-08-18');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (172, 'CD', 'Hysteria', 'Def Leppards polished rock masterpiece.', 12.99, 50, CURRENT_TIMESTAMP, '0731451244629', 'Mercury', 'ROCK', 3762000000000, '1987-08-03');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (173, 'CD', 'Metallica (Black Album)', 'Metallicas commercial breakthrough.', 13.99, 70, CURRENT_TIMESTAMP, '0731451044227', 'Elektra', 'ROCK', 3875000000000, '1991-08-12');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (174, 'CD', 'Master of Puppets', 'Metallicas thrash metal landmark.', 13.99, 60, CURRENT_TIMESTAMP, '0075992537421', 'Elektra', 'ROCK', 3282000000000, '1986-03-03');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (175, 'CD', 'Back in Black', 'AC/DCs tribute to Bon Scott.', 12.99, 75, CURRENT_TIMESTAMP, '5099751283621', 'Atlantic', 'ROCK', 2520000000000, '1980-07-25');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (176, 'CD', 'Highway to Hell', 'AC/DCs last album with Bon Scott.', 12.99, 60, CURRENT_TIMESTAMP, '5099751283126', 'Atlantic', 'ROCK', 2495000000000, '1979-07-27');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (177, 'CD', 'Blood Sugar Sex Magik', 'Red Hot Chili Peppers funk rock breakthrough.', 13.99, 55, CURRENT_TIMESTAMP, '0075992660822', 'Warner Bros', 'ROCK', 4380000000000, '1991-09-24');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (178, 'CD', 'Californication', 'Red Hot Chili Peppers melodic comeback.', 13.99, 65, CURRENT_TIMESTAMP, '0093624730828', 'Warner Bros', 'ROCK', 3536000000000, '1999-06-08');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (179, 'CD', 'Superunknown', 'Soundgardens alternative metal peak.', 13.99, 50, CURRENT_TIMESTAMP, '5401053750226', 'A&M', 'ROCK', 4215000000000, '1994-03-08');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (180, 'CD', 'Dirt', 'Alice in Chains dark grunge masterpiece.', 13.99, 45, CURRENT_TIMESTAMP, '5099751283423', 'Columbia', 'ROCK', 3512000000000, '1992-09-29');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (181, 'CD', 'Siamese Dream', 'Smashing Pumpkins layered alternative rock.', 13.99, 55, CURRENT_TIMESTAMP, '0724383099726', 'Virgin', 'ROCK', 3872000000000, '1993-07-27');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (182, 'CD', 'Mellon Collie and the Infinite Sadness', 'Smashing Pumpkins ambitious double album.', 16.99, 40, CURRENT_TIMESTAMP, '0724383498826', 'Virgin', 'ROCK', 7268000000000, '1995-10-24');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (183, 'CD', 'Grace', 'Jeff Buckleys only studio album.', 14.99, 45, CURRENT_TIMESTAMP, '5099750442227', 'Columbia', 'ROCK', 3090000000000, '1994-08-23');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (184, 'CD', 'Violator', 'Depeche Modes electronic pop masterpiece.', 13.99, 50, CURRENT_TIMESTAMP, '5016025660124', 'Mute', 'POP', 2858000000000, '1990-03-19');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (185, 'CD', 'Songs of Faith and Devotion', 'Depeche Modes darker electronic album.', 12.99, 45, CURRENT_TIMESTAMP, '5016025661128', 'Mute', 'POP', 2935000000000, '1993-03-22');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (186, 'CD', 'The Downward Spiral', 'Nine Inch Nails industrial masterwork.', 13.99, 40, CURRENT_TIMESTAMP, '0731452206527', 'Nothing', 'ROCK', 3928000000000, '1994-03-08');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (187, 'CD', 'Pretty Hate Machine', 'Nine Inch Nails debut industrial album.', 12.99, 50, CURRENT_TIMESTAMP, '0731452207524', 'TVT', 'ROCK', 2928000000000, '1989-10-20');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (188, 'CD', 'Jagged Little Pill', 'Alanis Morissettes breakthrough album.', 12.99, 60, CURRENT_TIMESTAMP, '0093624571025', 'Maverick', 'POP', 3399000000000, '1995-06-13');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (189, 'CD', 'Ray of Light', 'Madonnas electronic reinvention.', 13.99, 55, CURRENT_TIMESTAMP, '0093624697527', 'Maverick', 'POP', 3952000000000, '1998-02-22');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (190, 'CD', 'Vitalogy', 'Pearl Jams experimental third album.', 12.99, 50, CURRENT_TIMESTAMP, '5099750066621', 'Epic', 'ROCK', 3348000000000, '1994-11-22');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (191, 'CD', 'Vs.', 'Pearl Jams harder edged second album.', 12.99, 55, CURRENT_TIMESTAMP, '5099750066225', 'Epic', 'ROCK', 2770000000000, '1993-10-19');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (192, 'CD', 'Weezer (Blue Album)', 'Weezers power pop debut.', 11.99, 65, CURRENT_TIMESTAMP, '0720642437926', 'DGC', 'ROCK', 2477000000000, '1994-05-10');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (193, 'CD', 'Pinkerton', 'Weezers raw emotional second album.', 11.99, 50, CURRENT_TIMESTAMP, '0720642448426', 'DGC', 'ROCK', 2112000000000, '1996-09-24');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (194, 'CD', 'Parachutes', 'Coldplays debut album.', 12.99, 60, CURRENT_TIMESTAMP, '0724352778928', 'Parlophone', 'ROCK', 2525000000000, '2000-07-10');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (195, 'CD', 'A Rush of Blood to the Head', 'Coldplays breakthrough second album.', 13.99, 65, CURRENT_TIMESTAMP, '0724353596026', 'Parlophone', 'ROCK', 3156000000000, '2002-08-26');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (196, 'CD', 'Is This It', 'The Strokes garage rock revival debut.', 12.99, 55, CURRENT_TIMESTAMP, '0078636796628', 'RCA', 'ROCK', 2238000000000, '2001-07-30');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (197, 'CD', 'Hot Fuss', 'The Killers synth-rock debut.', 12.99, 60, CURRENT_TIMESTAMP, '0602498625220', 'Island', 'ROCK', 2874000000000, '2004-06-15');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (198, 'CD', 'Elephant', 'The White Stripes blues rock masterpiece.', 13.99, 50, CURRENT_TIMESTAMP, '5035194003221', 'V2', 'ROCK', 2998000000000, '2003-04-01');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (199, 'CD', 'White Blood Cells', 'The White Stripes garage rock breakthrough.', 12.99, 55, CURRENT_TIMESTAMP, '5035194000923', 'Sympathy', 'ROCK', 2403000000000, '2001-07-03');
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (200, 'CD', 'Whatever People Say I Am Thats What Im Not', 'Arctic Monkeys record-breaking debut.', 12.99, 70, CURRENT_TIMESTAMP, '5034202013228', 'Domino', 'ROCK', 2536000000000, '2006-01-23');
+
+-- CD-Musician relationships for new CDs (reusing existing musicians)
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (101, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (102, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (103, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (104, 43);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (105, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (106, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (107, 44);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (107, 45);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (108, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (109, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (110, 44);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (110, 45);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (111, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (112, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (113, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (114, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (115, 11);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (115, 21);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (115, 22);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (115, 23);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (116, 11);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (116, 21);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (116, 22);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (116, 23);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (117, 11);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (117, 21);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (117, 22);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (117, 23);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (118, 27);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (119, 14);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (120, 14);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (121, 51);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (122, 51);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (123, 43);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (124, 43);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (125, 43);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (126, 43);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (127, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (128, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (129, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (130, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (131, 57);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (131, 58);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (131, 59);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (131, 60);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (132, 57);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (132, 58);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (132, 59);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (132, 60);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (133, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (134, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (135, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (136, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (137, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (138, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (139, 17);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (140, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (141, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (142, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (143, 16);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (144, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (145, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (146, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (147, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (148, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (149, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (150, 13);
+
+-- CD-Musician relationships for CDs 170-200
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (170, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (171, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (172, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (173, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (174, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (175, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (176, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (177, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (178, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (179, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (180, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (181, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (182, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (183, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (184, 17);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (185, 17);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (186, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (187, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (188, 17);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (189, 17);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (190, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (191, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (192, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (193, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (194, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (195, 13);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (196, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (197, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (198, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (199, 18);
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (200, 18);
+
 -- Reset sequence for PostgreSQL
-ALTER SEQUENCE t_items_seq RESTART WITH 41;
+ALTER SEQUENCE t_items_seq RESTART WITH 201;
 
 -- Users (using IDENTITY strategy, so we let the database auto-generate IDs)
 INSERT INTO t_users (username, password, email, role, enabled, created_date)
