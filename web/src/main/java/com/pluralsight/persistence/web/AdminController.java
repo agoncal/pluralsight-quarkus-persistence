@@ -1,5 +1,7 @@
 package com.pluralsight.persistence.web;
 
+import com.pluralsight.persistence.web.activity.ActivityProxy;
+import com.pluralsight.persistence.web.activity.UserActivityLogDTO;
 import com.pluralsight.persistence.web.catalog.*;
 import io.quarkiverse.renarde.Controller;
 import io.quarkus.qute.CheckedTemplate;
@@ -28,6 +30,10 @@ public class AdminController extends Controller {
   @Inject
   @RestClient
   CatalogProxy catalogProxy;
+
+  @Inject
+  @RestClient
+  ActivityProxy activityProxy;
 
   // ======================================
   // Admin Index
@@ -705,6 +711,18 @@ public class AdminController extends Controller {
   }
 
   // ======================================
+  // User Activities (Read-only)
+  // ======================================
+
+  @GET
+  @Path("/activities")
+  public TemplateInstance activities() {
+    LOG.info("Entering admin activities()");
+    List<UserActivityLogDTO> activities = activityProxy.getAll();
+    return Templates.activities(activities);
+  }
+
+  // ======================================
   // Templates
   // ======================================
 
@@ -752,5 +770,8 @@ public class AdminController extends Controller {
     public static native TemplateInstance users(List<UserDTO> users);
     public static native TemplateInstance user(UserDTO user);
     public static native TemplateInstance userForm(UserDTO user, UserRole[] roles);
+
+    // Activities
+    public static native TemplateInstance activities(List<UserActivityLogDTO> activities);
   }
 }
