@@ -3,6 +3,7 @@ package com.pluralsight.persistence.web.catalog;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 public class BookDTO {
 
@@ -18,4 +19,5 @@ public class BookDTO {
   public LocalDate publicationDate;
   public Language language;
   public PublisherDTO publisher;
+  public List<AuthorDTO> authors;
 }

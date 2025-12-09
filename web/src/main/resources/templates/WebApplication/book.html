@@ -98,6 +98,37 @@
           </div>
         </div>
 
+        <!-- Authors -->
+        {#if book.authors != null && !book.authors.isEmpty}
+          <div class="card mt-4">
+            <div class="card-header">
+              <h5 class="mb-0"><i class="bi bi-people me-2"></i>Authors</h5>
+            </div>
+            <div class="card-body">
+              <div class="row row-cols-1 row-cols-md-2 g-3">
+                {#for author in book.authors}
+                  <div class="col">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-primary text-white rounded-circle p-2 me-3">
+                        <i class="bi bi-person"></i>
+                      </div>
+                      <div>
+                        <h6 class="mb-1">{author.firstName} {author.lastName}</h6>
+                        {#if author.preferredLanguage}
+                          <small class="text-muted"><i class="bi bi-translate me-1"></i>{author.preferredLanguage}</small>
+                        {/if}
+                        {#if author.bio}
+                          <p class="small text-muted mt-1 mb-0">{#if author.bio.length > 100}{author.bio.substring(0, 100)}...{#else}{author.bio}{/if}</p>
+                        {/if}
+                      </div>
+                    </div>
+                  </div>
+                {/for}
+              </div>
+            </div>
+          </div>
+        {/if}
+
         <!-- Back Button -->
         <div class="mt-4">
           <a href="/books" class="btn btn-outline-secondary">

@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.catalog.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,6 +31,7 @@ public class Track extends PanacheEntity {
   @Column(name = "track_number", nullable = false)
   public Integer trackNumber;
 
+  @JsonIgnore
   @NotNull
   @ManyToOne
   @JoinColumn(name = "cd_fk", nullable = false)

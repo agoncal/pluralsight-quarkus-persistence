@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.LocalDate;
+import java.util.List;
 
 public class CDDTO {
 
@@ -19,4 +20,6 @@ public class CDDTO {
   public MusicGenre genre;
   public Duration totalDuration;
   public LocalDate releaseDate;
+  public List<MusicianDTO> musicians;
+  public List<TrackDTO> tracks;
 }

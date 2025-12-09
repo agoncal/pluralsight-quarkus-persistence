@@ -1,6 +1,10 @@
 # Vintage Store
 
 ```bash
+docker compose -p vintage-store-db -f docker-compose.yml up
+```
+
+```bash
 curl http://localhost:8082/api/activities | jq
 
 curl http://localhost:8083/api/authors | jq
