@@ -1,0 +1,108 @@
+{#include base.html}
+  {#title}{#if user}Edit {user.username}{#else}New User{/if} - Users - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if user}
+            <i class="bi bi-pencil me-2"></i>Edit User
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New User
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-person-circle me-2"></i>User Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.userSave()}
+              {#if user}
+                <input type="hidden" name="id" value="{user.id}">
+              {/if}
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="username" class="form-label">Username <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="username" name="username"
+                         value="{#if user}{user.username}{/if}"
+                         required maxlength="50" placeholder="Enter username">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
+                  <input type="email" class="form-control" id="email" name="email"
+                         value="{#if user}{user.email}{/if}"
+                         required maxlength="100" placeholder="user@example.com">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="role" class="form-label">Role <span class="text-danger">*</span></label>
+                  <select class="form-select" id="role" name="role" required>
+                    <option value="">-- Select Role --</option>
+                    {#for r in roles}
+                      <option value="{r}" {#if user && user.role == r}selected{/if}>{r}</option>
+                    {/for}
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="enabled" class="form-label">Status</label>
+                  <div class="form-check form-switch mt-2">
+                    <input class="form-check-input" type="checkbox" id="enabled" name="enabled" value="true"
+                           {#if user == null || user.enabled}checked{/if}>
+                    <label class="form-check-label" for="enabled">Account Enabled</label>
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/users" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if user}Update User{#else}Create User{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>Username</strong> and <strong>Email</strong> must be unique.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-shield text-danger me-1"></i>
+                <strong>ADMIN</strong> role has full access to all features.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-toggle-on text-primary me-1"></i>
+                <strong>Disabled</strong> users cannot log in.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

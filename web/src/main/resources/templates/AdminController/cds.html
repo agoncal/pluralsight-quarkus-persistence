@@ -1,0 +1,102 @@
+{#include base.html}
+  {#title}CDs - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-disc me-2"></i>CDs</h1>
+          <div>
+            <span class="badge bg-secondary fs-6 me-2">{cds.size} CDs</span>
+            <a href="/admin/cds/new" class="btn btn-success">
+              <i class="bi bi-plus-circle me-1"></i>New CD
+            </a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if cds.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No CDs found. Click "New CD" to create one.
+      </div>
+    {#else}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>EAN</th>
+              <th>Genre</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#for cd in cds}
+              <tr>
+                <td>{cd.id}</td>
+                <td>
+                  <a href="/admin/cds/{cd.id}" class="text-decoration-none fw-bold">
+                    {cd.title}
+                  </a>
+                </td>
+                <td>
+                  {#if cd.ean}
+                    <code>{cd.ean}</code>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if cd.genre}
+                    <span class="badge bg-info">{cd.genre}</span>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if cd.price}
+                    <span class="text-success fw-bold">${cd.price}</span>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if cd.stock}
+                    {#if cd.stock > 10}
+                      <span class="badge bg-success">{cd.stock}</span>
+                    {#else if cd.stock > 0}
+                      <span class="badge bg-warning">{cd.stock}</span>
+                    {#else}
+                      <span class="badge bg-danger">Out of stock</span>
+                    {/if}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td class="text-center">
+                  <div class="btn-group btn-group-sm" role="group">
+                    <a href="/admin/cds/{cd.id}" class="btn btn-outline-primary" title="View">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="/admin/cds/{cd.id}/edit" class="btn btn-outline-warning" title="Edit">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="/admin/cds/{cd.id}/delete" class="btn btn-outline-danger" title="Delete"
+                       onclick="return confirm('Are you sure you want to delete this CD?');">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+  {/insert}
+{/include}

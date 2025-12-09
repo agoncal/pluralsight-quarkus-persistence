@@ -1,0 +1,111 @@
+{#include base.html}
+  {#title}{#if order}Edit Order #{order.id}{#else}New Order{/if} - Orders - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if order}
+            <i class="bi bi-pencil me-2"></i>Edit Order
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New Order
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-cart me-2"></i>Order Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.orderSave()}
+              {#if order}
+                <input type="hidden" name="id" value="{order.id}">
+              {/if}
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="customerId" class="form-label">Customer <span class="text-danger">*</span></label>
+                  <select class="form-select" id="customerId" name="customerId" required>
+                    <option value="">-- Select Customer --</option>
+                    {#for customer in customers}
+                      <option value="{customer.id}" {#if order && order.customer && order.customer.id == customer.id}selected{/if}>{customer.firstName} {customer.lastName}</option>
+                    {/for}
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="status" class="form-label">Status <span class="text-danger">*</span></label>
+                  <select class="form-select" id="status" name="status" required>
+                    <option value="">-- Select Status --</option>
+                    {#for s in statuses}
+                      <option value="{s}" {#if order && order.status == s}selected{/if}>{s}</option>
+                    {/for}
+                  </select>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="orderDate" class="form-label">Order Date</label>
+                  <input type="datetime-local" class="form-control" id="orderDate" name="orderDate"
+                         value="{#if order}{order.orderDate}{/if}">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="totalAmount" class="form-label">Total Amount</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="totalAmount" name="totalAmount"
+                           value="{#if order}{order.totalAmount}{/if}"
+                           min="0" step="0.01" placeholder="0.00">
+                  </div>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/orders" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if order}Update Order{#else}Create Order{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>Customer</strong> and <strong>Status</strong> are required.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-calendar text-primary me-1"></i>
+                <strong>Order Date</strong> defaults to current date/time.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-currency-dollar text-success me-1"></i>
+                <strong>Total Amount</strong> is calculated from order lines.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

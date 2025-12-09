@@ -1,0 +1,96 @@
+{#include base.html}
+  {#title}Users - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-person-circle me-2"></i>Users</h1>
+          <div>
+            <span class="badge bg-secondary fs-6 me-2">{users.size} users</span>
+            <a href="/admin/users/new" class="btn btn-success">
+              <i class="bi bi-plus-circle me-1"></i>New User
+            </a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if users.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No users found. Click "New User" to create one.
+      </div>
+    {#else}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Username</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Status</th>
+              <th>Last Login</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#for user in users}
+              <tr>
+                <td>{user.id}</td>
+                <td>
+                  <a href="/admin/users/{user.id}" class="text-decoration-none fw-bold">
+                    {user.username}
+                  </a>
+                </td>
+                <td>{user.email}</td>
+                <td>
+                  {#if user.role}
+                    {#if user.role.name == 'ADMIN'}
+                      <span class="badge bg-danger">{user.role}</span>
+                    {#else if user.role.name == 'MANAGER'}
+                      <span class="badge bg-warning">{user.role}</span>
+                    {#else}
+                      <span class="badge bg-secondary">{user.role}</span>
+                    {/if}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if user.enabled}
+                    <span class="badge bg-success">Active</span>
+                  {#else}
+                    <span class="badge bg-danger">Disabled</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if user.lastLoginDate}
+                    {user.lastLoginDate}
+                  {#else}
+                    <span class="text-muted">Never</span>
+                  {/if}
+                </td>
+                <td class="text-center">
+                  <div class="btn-group btn-group-sm" role="group">
+                    <a href="/admin/users/{user.id}" class="btn btn-outline-primary" title="View">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="/admin/users/{user.id}/edit" class="btn btn-outline-warning" title="Edit">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="/admin/users/{user.id}/delete" class="btn btn-outline-danger" title="Delete"
+                       onclick="return confirm('Are you sure you want to delete this user?');">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+  {/insert}
+{/include}

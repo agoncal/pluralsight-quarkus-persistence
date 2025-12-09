@@ -1,0 +1,106 @@
+{#include base.html}
+  {#title}{#if customer}Edit {customer.firstName} {customer.lastName}{#else}New Customer{/if} - Customers - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if customer}
+            <i class="bi bi-pencil me-2"></i>Edit Customer
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New Customer
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-person me-2"></i>Customer Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.customerSave()}
+              {#if customer}
+                <input type="hidden" name="id" value="{customer.id}">
+              {/if}
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="firstName" name="firstName"
+                         value="{#if customer}{customer.firstName}{/if}"
+                         required maxlength="50" placeholder="Enter first name">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="lastName" name="lastName"
+                         value="{#if customer}{customer.lastName}{/if}"
+                         required maxlength="50" placeholder="Enter last name">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="phone" class="form-label">Phone</label>
+                  <input type="tel" class="form-control" id="phone" name="phone"
+                         value="{#if customer}{customer.phone}{/if}"
+                         maxlength="20" placeholder="e.g., +1-555-123-4567">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="userId" class="form-label">User Account</label>
+                  <select class="form-select" id="userId" name="userId">
+                    <option value="">-- Select User --</option>
+                    {#for user in users}
+                      <option value="{user.id}" {#if customer && customer.user && customer.user.id == user.id}selected{/if}>{user.username} ({user.email})</option>
+                    {/for}
+                  </select>
+                </div>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/customers" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if customer}Update Customer{#else}Create Customer{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>First Name</strong> and <strong>Last Name</strong> are required.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-telephone text-primary me-1"></i>
+                <strong>Phone</strong> is optional but recommended.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-person-check text-info me-1"></i>
+                <strong>User Account</strong> links this customer to a login account.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

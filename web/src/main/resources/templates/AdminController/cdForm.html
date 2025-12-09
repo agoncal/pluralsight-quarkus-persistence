@@ -1,0 +1,135 @@
+{#include base.html}
+  {#title}{#if cd}Edit {cd.title}{#else}New CD{/if} - CDs - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if cd}
+            <i class="bi bi-pencil me-2"></i>Edit CD
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New CD
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-disc me-2"></i>CD Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.cdSave()}
+              {#if cd}
+                <input type="hidden" name="id" value="{cd.id}">
+              {/if}
+
+              <div class="mb-3">
+                <label for="title" class="form-label">Title <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="title" name="title"
+                       value="{#if cd}{cd.title}{/if}"
+                       required maxlength="200" placeholder="Enter CD title">
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="ean" class="form-label">EAN</label>
+                  <input type="text" class="form-control" id="ean" name="ean"
+                         value="{#if cd}{cd.ean}{/if}"
+                         maxlength="20" placeholder="e.g., 0602537123456">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="musicCompany" class="form-label">Music Company</label>
+                  <input type="text" class="form-control" id="musicCompany" name="musicCompany"
+                         value="{#if cd}{cd.musicCompany}{/if}"
+                         maxlength="100" placeholder="e.g., Universal Music">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label for="genre" class="form-label">Genre</label>
+                  <select class="form-select" id="genre" name="genre">
+                    <option value="">-- Select Genre --</option>
+                    {#for g in genres}
+                      <option value="{g}" {#if cd && cd.genre == g}selected{/if}>{g}</option>
+                    {/for}
+                  </select>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="price" class="form-label">Price</label>
+                  <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input type="number" class="form-control" id="price" name="price"
+                           value="{#if cd}{cd.price}{/if}"
+                           min="0" step="0.01" placeholder="0.00">
+                  </div>
+                </div>
+
+                <div class="col-md-4 mb-3">
+                  <label for="stock" class="form-label">Stock</label>
+                  <input type="number" class="form-control" id="stock" name="stock"
+                         value="{#if cd}{cd.stock}{/if}"
+                         min="0" placeholder="0">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="releaseDate" class="form-label">Release Date</label>
+                <input type="date" class="form-control" id="releaseDate" name="releaseDate"
+                       value="{#if cd}{cd.releaseDate}{/if}">
+              </div>
+
+              <div class="mb-3">
+                <label for="description" class="form-label">Description</label>
+                <textarea class="form-control" id="description" name="description" rows="4"
+                          placeholder="Enter CD description">{#if cd}{cd.description}{/if}</textarea>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/cds" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if cd}Update CD{#else}Create CD{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>Title</strong> is required.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-upc text-primary me-1"></i>
+                <strong>EAN</strong> is a 13-digit barcode number.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-music-note text-info me-1"></i>
+                <strong>Genre</strong> categorizes the music type.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

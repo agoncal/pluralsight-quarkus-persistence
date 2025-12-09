@@ -71,6 +71,7 @@ All API endpoints use `/api/` prefix: `/api/books`, `/api/customers`, `/api/orde
 - Controllers extend `Controller` class
 - Templates in `src/main/resources/templates/ControllerName/methodName.html`
 - Use `@CheckedTemplate` for compile-time template validation
+- Do NOT use breadcrumbs in the UI
 
 ## Configuration
 

@@ -1,0 +1,102 @@
+{#include base.html}
+  {#title}Books - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-book me-2"></i>Books</h1>
+          <div>
+            <span class="badge bg-secondary fs-6 me-2">{books.size} books</span>
+            <a href="/admin/books/new" class="btn btn-success">
+              <i class="bi bi-plus-circle me-1"></i>New Book
+            </a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if books.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No books found. Click "New Book" to create one.
+      </div>
+    {#else}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Title</th>
+              <th>ISBN</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Publisher</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#for book in books}
+              <tr>
+                <td>{book.id}</td>
+                <td>
+                  <a href="/admin/books/{book.id}" class="text-decoration-none fw-bold">
+                    {book.title}
+                  </a>
+                </td>
+                <td>
+                  {#if book.isbn}
+                    <code>{book.isbn}</code>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if book.price}
+                    <span class="text-success fw-bold">${book.price}</span>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if book.stock}
+                    {#if book.stock > 10}
+                      <span class="badge bg-success">{book.stock}</span>
+                    {#else if book.stock > 0}
+                      <span class="badge bg-warning">{book.stock}</span>
+                    {#else}
+                      <span class="badge bg-danger">Out of stock</span>
+                    {/if}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if book.publisher}
+                    {book.publisher.name}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td class="text-center">
+                  <div class="btn-group btn-group-sm" role="group">
+                    <a href="/admin/books/{book.id}" class="btn btn-outline-primary" title="View">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="/admin/books/{book.id}/edit" class="btn btn-outline-warning" title="Edit">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="/admin/books/{book.id}/delete" class="btn btn-outline-danger" title="Delete"
+                       onclick="return confirm('Are you sure you want to delete this book?');">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+  {/insert}
+{/include}

@@ -1,0 +1,103 @@
+{#include base.html}
+  {#title}{#if publisher}Edit {publisher.name}{#else}New Publisher{/if} - Publishers - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if publisher}
+            <i class="bi bi-pencil me-2"></i>Edit Publisher
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New Publisher
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-building me-2"></i>Publisher Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.publisherSave()}
+              {#if publisher}
+                <input type="hidden" name="id" value="{publisher.id}">
+              {/if}
+
+              <div class="mb-3">
+                <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="name" name="name"
+                       value="{#if publisher}{publisher.name}{/if}"
+                       required maxlength="100" placeholder="Enter publisher name">
+                <div class="form-text">Required. Maximum 100 characters.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" class="form-control" id="country" name="country"
+                       value="{#if publisher}{publisher.country}{/if}"
+                       maxlength="50" placeholder="Enter country (e.g., USA, UK, France)">
+                <div class="form-text">Optional. Maximum 50 characters.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="website" class="form-label">Website</label>
+                <input type="url" class="form-control" id="website" name="website"
+                       value="{#if publisher}{publisher.website}{/if}"
+                       maxlength="255" placeholder="https://www.example.com">
+                <div class="form-text">Optional. Must be a valid URL.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="foundedYear" class="form-label">Founded Year</label>
+                <input type="number" class="form-control" id="foundedYear" name="foundedYear"
+                       value="{#if publisher}{publisher.foundedYear}{/if}"
+                       min="1400" max="2100" placeholder="Enter year (e.g., 1985)">
+                <div class="form-text">Optional. The year the publisher was founded.</div>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/publishers" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if publisher}Update Publisher{#else}Create Publisher{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>Name</strong> is required and must be unique.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-globe text-primary me-1"></i>
+                <strong>Website</strong> should start with http:// or https://
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-calendar text-warning me-1"></i>
+                <strong>Founded Year</strong> should be between 1400 and 2100.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

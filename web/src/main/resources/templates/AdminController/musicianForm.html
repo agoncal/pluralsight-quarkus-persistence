@@ -1,0 +1,115 @@
+{#include base.html}
+  {#title}{#if musician}Edit {musician.firstName} {musician.lastName}{#else}New Musician{/if} - Musicians - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if musician}
+            <i class="bi bi-pencil me-2"></i>Edit Musician
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New Musician
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-music-note-beamed me-2"></i>Musician Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.musicianSave()}
+              {#if musician}
+                <input type="hidden" name="id" value="{musician.id}">
+              {/if}
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="firstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="firstName" name="firstName"
+                         value="{#if musician}{musician.firstName}{/if}"
+                         required maxlength="50" placeholder="Enter first name">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="lastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                  <input type="text" class="form-control" id="lastName" name="lastName"
+                         value="{#if musician}{musician.lastName}{/if}"
+                         required maxlength="50" placeholder="Enter last name">
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label for="stageName" class="form-label">Stage Name</label>
+                  <input type="text" class="form-control" id="stageName" name="stageName"
+                         value="{#if musician}{musician.stageName}{/if}"
+                         maxlength="100" placeholder="Enter stage name">
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label for="instrument" class="form-label">Instrument</label>
+                  <input type="text" class="form-control" id="instrument" name="instrument"
+                         value="{#if musician}{musician.instrument}{/if}"
+                         maxlength="100" placeholder="e.g., Guitar, Piano, Vocals">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label for="dateOfBirth" class="form-label">Date of Birth</label>
+                <input type="date" class="form-control" id="dateOfBirth" name="dateOfBirth"
+                       value="{#if musician}{musician.dateOfBirth}{/if}">
+              </div>
+
+              <div class="mb-3">
+                <label for="bio" class="form-label">Biography</label>
+                <textarea class="form-control" id="bio" name="bio" rows="4"
+                          placeholder="Enter musician biography">{#if musician}{musician.bio}{/if}</textarea>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/musicians" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if musician}Update Musician{#else}Create Musician{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>First Name</strong> and <strong>Last Name</strong> are required.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-star text-warning me-1"></i>
+                <strong>Stage Name</strong> is the artist's performing name.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-music-note text-info me-1"></i>
+                <strong>Instrument</strong> can be Guitar, Bass, Drums, Vocals, etc.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

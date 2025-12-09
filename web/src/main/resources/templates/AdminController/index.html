@@ -1,0 +1,74 @@
+{#include base.html}
+  {#title}Admin Dashboard - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1><i class="bi bi-speedometer2 me-2"></i>Admin Dashboard</h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-book me-2"></i>Catalog
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a href="/admin/books" class="btn btn-outline-primary">
+                <i class="bi bi-book me-2"></i>Books
+              </a>
+              <a href="/admin/cds" class="btn btn-outline-primary">
+                <i class="bi bi-disc me-2"></i>CDs
+              </a>
+              <a href="/admin/authors" class="btn btn-outline-primary">
+                <i class="bi bi-person-badge me-2"></i>Authors
+              </a>
+              <a href="/admin/musicians" class="btn btn-outline-primary">
+                <i class="bi bi-music-note-beamed me-2"></i>Musicians
+              </a>
+              <a href="/admin/publishers" class="btn btn-outline-primary">
+                <i class="bi bi-building me-2"></i>Publishers
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header bg-success text-white">
+            <i class="bi bi-cart me-2"></i>Sales
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a href="/admin/orders" class="btn btn-outline-success">
+                <i class="bi bi-cart me-2"></i>Orders
+              </a>
+              <a href="/admin/customers" class="btn btn-outline-success">
+                <i class="bi bi-people me-2"></i>Customers
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4 mb-4">
+        <div class="card h-100">
+          <div class="card-header bg-danger text-white">
+            <i class="bi bi-shield-lock me-2"></i>Security
+          </div>
+          <div class="card-body">
+            <div class="d-grid gap-2">
+              <a href="/admin/users" class="btn btn-outline-danger">
+                <i class="bi bi-person-circle me-2"></i>Users
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

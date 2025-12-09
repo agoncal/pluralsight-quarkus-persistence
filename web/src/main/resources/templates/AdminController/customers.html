@@ -1,0 +1,88 @@
+{#include base.html}
+  {#title}Customers - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-people me-2"></i>Customers</h1>
+          <div>
+            <span class="badge bg-secondary fs-6 me-2">{customers.size} customers</span>
+            <a href="/admin/customers/new" class="btn btn-success">
+              <i class="bi bi-plus-circle me-1"></i>New Customer
+            </a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if customers.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No customers found. Click "New Customer" to create one.
+      </div>
+    {#else}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>User Account</th>
+              <th>Created</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#for customer in customers}
+              <tr>
+                <td>{customer.id}</td>
+                <td>
+                  <a href="/admin/customers/{customer.id}" class="text-decoration-none fw-bold">
+                    {customer.firstName} {customer.lastName}
+                  </a>
+                </td>
+                <td>
+                  {#if customer.phone}
+                    {customer.phone}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if customer.user}
+                    <a href="/admin/users/{customer.user.id}">{customer.user.username}</a>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if customer.createdDate}
+                    {customer.createdDate}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td class="text-center">
+                  <div class="btn-group btn-group-sm" role="group">
+                    <a href="/admin/customers/{customer.id}" class="btn btn-outline-primary" title="View">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="/admin/customers/{customer.id}/edit" class="btn btn-outline-warning" title="Edit">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="/admin/customers/{customer.id}/delete" class="btn btn-outline-danger" title="Delete"
+                       onclick="return confirm('Are you sure you want to delete this customer?');">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+  {/insert}
+{/include}
