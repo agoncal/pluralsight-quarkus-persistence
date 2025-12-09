@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.hibernate.Hibernate;
 
 import java.net.URI;
 import java.util.List;
@@ -29,11 +30,14 @@ public class CDResource {
 
   @GET
   @Path("/{id}")
+  @Transactional
   public Response getCD(@PathParam("id") Long id) {
     CD cd = CD.findById(id);
     if (cd == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
+    Hibernate.initialize(cd.musicians);
+    Hibernate.initialize(cd.tracks);
     return Response.ok(cd).build();
   }
 
@@ -61,6 +65,8 @@ public class CDResource {
     existingCD.genre = cd.genre;
     existingCD.totalDuration = cd.totalDuration;
     existingCD.releaseDate = cd.releaseDate;
+    Hibernate.initialize(existingCD.musicians);
+    Hibernate.initialize(existingCD.tracks);
     return Response.ok(existingCD).build();
   }
 

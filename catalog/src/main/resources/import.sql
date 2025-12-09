@@ -66,6 +66,49 @@ VALUES (9, 'PORTUGUESE', 'https://paulocoelhoblog.com');
 INSERT INTO t_authors (id, preferred_language, website)
 VALUES (10, 'ITALIAN', NULL);
 
+-- Additional Authors for multi-author books
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (33, 'Terry', 'Pratchett', 'English author known for his Discworld fantasy series.', '1948-04-28', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (34, 'Neil', 'Gaiman', 'English author of novels, comics, and films including Sandman and American Gods.', '1960-11-10', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (35, 'Douglas', 'Adams', 'English author and humorist, creator of The Hitchhiker''s Guide to the Galaxy.', '1952-03-11', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (36, 'Isaac', 'Asimov', 'American writer and professor, prolific author of science fiction.', '1920-01-02', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (37, 'Agatha', 'Christie', 'English writer known as the Queen of Crime for her detective novels.', '1890-09-15', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (38, 'Ernest', 'Hemingway', 'American novelist and journalist, Nobel Prize winner in Literature.', '1899-07-21', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (39, 'Larry', 'Niven', 'American science fiction author known for Ringworld.', '1938-04-30', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (40, 'Jerry', 'Pournelle', 'American science fiction writer and journalist.', '1933-08-07', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (41, 'William', 'Gibson', 'American-Canadian author, pioneer of the cyberpunk genre.', '1948-03-17', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (42, 'Bruce', 'Sterling', 'American science fiction author and futurist.', '1954-04-14', CURRENT_TIMESTAMP);
+
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (33, 'ENGLISH', 'https://www.terrypratchettbooks.com');
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (34, 'ENGLISH', 'https://www.neilgaiman.com');
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (35, 'ENGLISH', NULL);
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (36, 'ENGLISH', NULL);
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (37, 'ENGLISH', NULL);
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (38, 'ENGLISH', NULL);
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (39, 'ENGLISH', NULL);
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (40, 'ENGLISH', NULL);
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (41, 'ENGLISH', 'https://www.williamgibsonbooks.com');
+INSERT INTO t_authors (id, preferred_language, website)
+VALUES (42, 'ENGLISH', NULL);
+
 -- Musicians (Persons + Musicians due to JOINED inheritance)
 INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
 VALUES (11, 'John', 'Lennon', 'English singer, songwriter, and peace activist who co-founded the Beatles.', '1940-10-09', CURRENT_TIMESTAMP);
@@ -109,8 +152,135 @@ VALUES (19, 'High Priestess of Soul', 'Piano');
 INSERT INTO t_musicians (id, stage_name, instrument)
 VALUES (20, NULL, 'Piano');
 
+-- Additional Musicians for bands
+-- Beatles (for Abbey Road)
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (21, 'Paul', 'McCartney', 'English singer, songwriter, and bassist for the Beatles.', '1942-06-18', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (22, 'George', 'Harrison', 'English musician and lead guitarist of the Beatles.', '1943-02-25', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (23, 'Ringo', 'Starr', 'English musician and drummer for the Beatles.', '1940-07-07', CURRENT_TIMESTAMP);
+
+-- Queen (for A Night at the Opera)
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (24, 'Brian', 'May', 'English musician and lead guitarist of Queen.', '1947-07-19', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (25, 'Roger', 'Taylor', 'English musician and drummer for Queen.', '1949-07-26', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (26, 'John', 'Deacon', 'English musician and bassist for Queen.', '1951-08-19', CURRENT_TIMESTAMP);
+
+-- Kind of Blue session musicians
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (27, 'John', 'Coltrane', 'American jazz saxophonist and composer.', '1926-09-23', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (28, 'Bill', 'Evans', 'American jazz pianist and composer.', '1929-08-16', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (29, 'Cannonball', 'Adderley', 'American jazz alto saxophonist.', '1928-09-15', CURRENT_TIMESTAMP);
+
+-- Louis Armstrong (for Ella and Louis)
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (30, 'Louis', 'Armstrong', 'American trumpeter and vocalist, one of the most influential figures in jazz.', '1901-08-04', CURRENT_TIMESTAMP);
+
+-- Jimi Hendrix Experience
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (31, 'Noel', 'Redding', 'English musician, bassist for the Jimi Hendrix Experience.', '1945-12-25', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (32, 'Mitch', 'Mitchell', 'English drummer for the Jimi Hendrix Experience.', '1946-07-09', CURRENT_TIMESTAMP);
+
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (21, NULL, 'Bass');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (22, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (23, NULL, 'Drums');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (24, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (25, NULL, 'Drums');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (26, NULL, 'Bass');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (27, 'Trane', 'Saxophone');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (28, NULL, 'Piano');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (29, NULL, 'Saxophone');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (30, 'Satchmo', 'Trumpet');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (31, NULL, 'Bass');
+INSERT INTO t_musicians (id, stage_name, instrument)
+VALUES (32, NULL, 'Drums');
+
+-- Additional Musicians for new CDs
+-- Michael Jackson
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (43, 'Michael', 'Jackson', 'American singer and dancer known as the King of Pop.', '1958-08-29', CURRENT_TIMESTAMP);
+-- Pink Floyd
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (44, 'Roger', 'Waters', 'English musician, co-founder and bassist of Pink Floyd.', '1943-09-06', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (45, 'David', 'Gilmour', 'English guitarist and vocalist of Pink Floyd.', '1946-03-06', CURRENT_TIMESTAMP);
+-- Fleetwood Mac
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (46, 'Stevie', 'Nicks', 'American singer-songwriter, vocalist of Fleetwood Mac.', '1948-05-26', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (47, 'Lindsey', 'Buckingham', 'American guitarist and vocalist of Fleetwood Mac.', '1949-10-03', CURRENT_TIMESTAMP);
+-- AC/DC
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (48, 'Angus', 'Young', 'Australian guitarist and co-founder of AC/DC.', '1955-03-31', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (49, 'Brian', 'Johnson', 'English singer, lead vocalist of AC/DC since 1980.', '1947-10-05', CURRENT_TIMESTAMP);
+-- Bob Marley
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (50, 'Bob', 'Marley', 'Jamaican singer-songwriter, pioneer of reggae music.', '1945-02-06', CURRENT_TIMESTAMP);
+-- Marvin Gaye
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (51, 'Marvin', 'Gaye', 'American singer-songwriter known as the Prince of Soul.', '1939-04-02', CURRENT_TIMESTAMP);
+-- Lou Reed (Velvet Underground)
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (52, 'Lou', 'Reed', 'American musician, guitarist and vocalist of The Velvet Underground.', '1942-03-02', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (53, 'Christa', 'Päffgen', 'German singer, songwriter, and model known as Nico, collaborated with Velvet Underground.', '1938-10-16', CURRENT_TIMESTAMP);
+-- Joni Mitchell
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (54, 'Joni', 'Mitchell', 'Canadian singer-songwriter known for confessional lyrics.', '1943-11-07', CURRENT_TIMESTAMP);
+-- Brian Wilson (Beach Boys)
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (55, 'Brian', 'Wilson', 'American musician, co-founder and leader of The Beach Boys.', '1942-06-20', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (56, 'Mike', 'Love', 'American singer, co-founder and vocalist of The Beach Boys.', '1941-03-15', CURRENT_TIMESTAMP);
+-- Led Zeppelin
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (57, 'Robert', 'Plant', 'English singer, lead vocalist of Led Zeppelin.', '1948-08-20', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (58, 'Jimmy', 'Page', 'English guitarist, founder of Led Zeppelin.', '1944-01-09', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (59, 'John Paul', 'Jones', 'English musician, bassist and keyboardist of Led Zeppelin.', '1946-01-03', CURRENT_TIMESTAMP);
+INSERT INTO t_persons (id, first_name, last_name, bio, date_of_birth, created_date)
+VALUES (60, 'John', 'Bonham', 'English drummer for Led Zeppelin, considered one of the greatest rock drummers.', '1948-05-31', CURRENT_TIMESTAMP);
+
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (43, 'King of Pop', 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (44, NULL, 'Bass');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (45, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (46, NULL, 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (47, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (48, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (49, NULL, 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (50, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (51, 'Prince of Soul', 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (52, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (53, 'Nico', 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (54, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (55, NULL, 'Piano');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (56, NULL, 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (57, NULL, 'Vocals');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (58, NULL, 'Guitar');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (59, NULL, 'Bass');
+INSERT INTO t_musicians (id, stage_name, instrument) VALUES (60, 'Bonzo', 'Drums');
+
 -- Reset sequence for PostgreSQL
-ALTER SEQUENCE t_persons_seq RESTART WITH 21;
+ALTER SEQUENCE t_persons_seq RESTART WITH 61;
 
 -- Books (Items with dtype='BOOK')
 INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
@@ -145,6 +315,57 @@ INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, 
 VALUES (10, 'BOOK', 'The Name of the Rose', 'A medieval murder mystery set in an Italian monastery.', 16.99, 35, CURRENT_TIMESTAMP, '9780151446476', 536,
         '1980-01-01', 'ITALIAN', 4);
 
+-- Additional Books (including multi-author books)
+-- Good Omens by Terry Pratchett AND Neil Gaiman
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (21, 'BOOK', 'Good Omens', 'The Nice and Accurate Prophecies of Agnes Nutter, Witch. A comedic novel about the apocalypse.', 14.99, 65,
+        CURRENT_TIMESTAMP, '9780060853983', 400, '1990-05-01', 'ENGLISH', 2);
+
+-- The Hitchhiker''s Guide to the Galaxy by Douglas Adams
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (22, 'BOOK', 'The Hitchhiker''s Guide to the Galaxy', 'A comedic science fiction series following the misadventures of Arthur Dent.', 12.99, 90,
+        CURRENT_TIMESTAMP, '9780345391803', 224, '1979-10-12', 'ENGLISH', 1);
+
+-- Foundation by Isaac Asimov
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (23, 'BOOK', 'Foundation', 'The first novel in the Foundation series, about the fall and rise of galactic civilization.', 15.99, 55,
+        CURRENT_TIMESTAMP, '9780553293357', 244, '1951-06-01', 'ENGLISH', 1);
+
+-- Murder on the Orient Express by Agatha Christie
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (24, 'BOOK', 'Murder on the Orient Express', 'Hercule Poirot investigates a murder aboard the famous train.', 11.99, 70,
+        CURRENT_TIMESTAMP, '9780062693662', 256, '1934-01-01', 'ENGLISH', 2);
+
+-- The Old Man and the Sea by Ernest Hemingway
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (25, 'BOOK', 'The Old Man and the Sea', 'The story of an aging Cuban fisherman and his epic battle with a giant marlin.', 10.99, 85,
+        CURRENT_TIMESTAMP, '9780684801223', 128, '1952-09-01', 'ENGLISH', 3);
+
+-- The Mote in God''s Eye by Larry Niven AND Jerry Pournelle
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (26, 'BOOK', 'The Mote in God''s Eye', 'First contact with an alien species leads to complex political and military dilemmas.', 16.99, 40,
+        CURRENT_TIMESTAMP, '9780671741921', 537, '1974-01-01', 'ENGLISH', 3);
+
+-- Neuromancer by William Gibson
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (27, 'BOOK', 'Neuromancer', 'A washed-up computer hacker is hired for one last job in this cyberpunk classic.', 13.99, 60,
+        CURRENT_TIMESTAMP, '9780441569595', 271, '1984-07-01', 'ENGLISH', 1);
+
+-- The Difference Engine by William Gibson AND Bruce Sterling
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (28, 'BOOK', 'The Difference Engine', 'An alternate history where Charles Babbage''s mechanical computer was built in Victorian England.', 14.99, 45,
+        CURRENT_TIMESTAMP, '9780440423621', 429, '1990-02-01', 'ENGLISH', 1);
+
+-- American Gods by Neil Gaiman
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (29, 'BOOK', 'American Gods', 'A modern fantasy about old gods struggling to survive in contemporary America.', 15.99, 75,
+        CURRENT_TIMESTAMP, '9780063081918', 541, '2001-06-19', 'ENGLISH', 2);
+
+-- Small Gods by Terry Pratchett
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, isbn, nb_of_pages, publication_date, language, publisher_fk)
+VALUES (30, 'BOOK', 'Small Gods', 'A Discworld novel satirizing religion and belief.', 12.99, 50,
+        CURRENT_TIMESTAMP, '9780062237378', 389, '1992-01-01', 'ENGLISH', 2);
+
 -- Book-Author relationships
 INSERT INTO t_book_authors (book_id, author_id)
 VALUES (1, 1);
@@ -166,6 +387,40 @@ INSERT INTO t_book_authors (book_id, author_id)
 VALUES (9, 9);
 INSERT INTO t_book_authors (book_id, author_id)
 VALUES (10, 10);
+
+-- Book-Author relationships for additional books (including multi-author)
+-- Good Omens (21) by Terry Pratchett AND Neil Gaiman
+INSERT INTO t_book_authors (book_id, author_id) VALUES (21, 33);  -- Terry Pratchett
+INSERT INTO t_book_authors (book_id, author_id) VALUES (21, 34);  -- Neil Gaiman
+
+-- Hitchhiker's Guide (22) by Douglas Adams
+INSERT INTO t_book_authors (book_id, author_id) VALUES (22, 35);  -- Douglas Adams
+
+-- Foundation (23) by Isaac Asimov
+INSERT INTO t_book_authors (book_id, author_id) VALUES (23, 36);  -- Isaac Asimov
+
+-- Murder on the Orient Express (24) by Agatha Christie
+INSERT INTO t_book_authors (book_id, author_id) VALUES (24, 37);  -- Agatha Christie
+
+-- The Old Man and the Sea (25) by Ernest Hemingway
+INSERT INTO t_book_authors (book_id, author_id) VALUES (25, 38);  -- Ernest Hemingway
+
+-- The Mote in God's Eye (26) by Larry Niven AND Jerry Pournelle
+INSERT INTO t_book_authors (book_id, author_id) VALUES (26, 39);  -- Larry Niven
+INSERT INTO t_book_authors (book_id, author_id) VALUES (26, 40);  -- Jerry Pournelle
+
+-- Neuromancer (27) by William Gibson
+INSERT INTO t_book_authors (book_id, author_id) VALUES (27, 41);  -- William Gibson
+
+-- The Difference Engine (28) by William Gibson AND Bruce Sterling
+INSERT INTO t_book_authors (book_id, author_id) VALUES (28, 41);  -- William Gibson
+INSERT INTO t_book_authors (book_id, author_id) VALUES (28, 42);  -- Bruce Sterling
+
+-- American Gods (29) by Neil Gaiman
+INSERT INTO t_book_authors (book_id, author_id) VALUES (29, 34);  -- Neil Gaiman
+
+-- Small Gods (30) by Terry Pratchett
+INSERT INTO t_book_authors (book_id, author_id) VALUES (30, 33);  -- Terry Pratchett
 
 -- CDs (Items with dtype='CD')
 INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
@@ -199,30 +454,289 @@ INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, 
 VALUES (20, 'CD', 'Symphony No. 9', 'Beethoven''s final complete symphony, featuring the famous Ode to Joy.', 15.99, 25, CURRENT_TIMESTAMP, '0028947753223',
         'Deutsche Grammophon', 'CLASSICAL', 4200000000000, '1824-05-07');
 
+-- Additional CDs
+-- Thriller by Michael Jackson
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (31, 'CD', 'Thriller', 'The best-selling album of all time, featuring iconic hits like Billie Jean and Beat It.', 14.99, 80,
+        CURRENT_TIMESTAMP, '5099749534728', 'Epic Records', 'POP', 2524000000000, '1982-11-30');
+
+-- The Dark Side of the Moon by Pink Floyd
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (32, 'CD', 'The Dark Side of the Moon', 'A progressive rock concept album exploring themes of conflict, greed, and mental illness.', 15.99, 55,
+        CURRENT_TIMESTAMP, '5099902894522', 'Harvest', 'ROCK', 2580000000000, '1973-03-01');
+
+-- Rumours by Fleetwood Mac
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (33, 'CD', 'Rumours', 'One of the best-selling albums ever, recorded during band turmoil and relationship breakups.', 13.99, 65,
+        CURRENT_TIMESTAMP, '0081227959357', 'Warner Bros', 'ROCK', 2394000000000, '1977-02-04');
+
+-- Back in Black by AC/DC
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (34, 'CD', 'Back in Black', 'A hard rock classic and tribute to late vocalist Bon Scott.', 12.99, 70,
+        CURRENT_TIMESTAMP, '5099751283621', 'Atlantic', 'ROCK', 2532000000000, '1980-07-25');
+
+-- Legend by Bob Marley
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (35, 'CD', 'Legend', 'The best-selling reggae album of all time, a greatest hits compilation.', 11.99, 60,
+        CURRENT_TIMESTAMP, '0042284620321', 'Island Records', 'OTHER', 3360000000000, '1984-05-08');
+
+-- What''s Going On by Marvin Gaye
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (36, 'CD', 'What''s Going On', 'A soul concept album addressing themes of poverty, war, and environmentalism.', 12.99, 45,
+        CURRENT_TIMESTAMP, '0602498840252', 'Tamla', 'BLUES', 2130000000000, '1971-05-21');
+
+-- The Velvet Underground & Nico
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (37, 'CD', 'The Velvet Underground & Nico', 'An influential debut album produced by Andy Warhol.', 13.99, 35,
+        CURRENT_TIMESTAMP, '0602498505427', 'Verve', 'ROCK', 2946000000000, '1967-03-12');
+
+-- Blue by Joni Mitchell
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (38, 'CD', 'Blue', 'A confessional singer-songwriter masterpiece about love and loss.', 11.99, 40,
+        CURRENT_TIMESTAMP, '0075596059329', 'Reprise', 'COUNTRY', 2160000000000, '1971-06-22');
+
+-- Pet Sounds by The Beach Boys
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (39, 'CD', 'Pet Sounds', 'An innovative album that influenced countless artists including The Beatles.', 12.99, 50,
+        CURRENT_TIMESTAMP, '0602547091314', 'Capitol', 'POP', 2178000000000, '1966-05-16');
+
+-- Led Zeppelin IV
+INSERT INTO t_items (id, dtype, title, description, price, stock, created_date, ean, music_company, genre, total_duration, release_date)
+VALUES (40, 'CD', 'Led Zeppelin IV', 'Features the iconic Stairway to Heaven and other hard rock classics.', 13.99, 60,
+        CURRENT_TIMESTAMP, '0075678268526', 'Atlantic', 'ROCK', 2556000000000, '1971-11-08');
+
 -- CD-Musician relationships
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (11, 11);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (12, 12);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (13, 13);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (14, 14);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (15, 15);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (16, 16);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (17, 17);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (18, 18);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (19, 19);
-INSERT INTO t_cd_musicians (cd_id, musician_id)
-VALUES (20, 20);
+-- Abbey Road (CD 11) - The Beatles
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (11, 11);  -- John Lennon
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (11, 21);  -- Paul McCartney
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (11, 22);  -- George Harrison
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (11, 23);  -- Ringo Starr
+
+-- A Night at the Opera (CD 12) - Queen
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (12, 12);  -- Freddie Mercury
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (12, 24);  -- Brian May
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (12, 25);  -- Roger Taylor
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (12, 26);  -- John Deacon
+
+-- Ziggy Stardust (CD 13) - David Bowie
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (13, 13);  -- David Bowie
+
+-- Kind of Blue (CD 14) - Miles Davis Sextet
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (14, 14);  -- Miles Davis
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (14, 27);  -- John Coltrane
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (14, 28);  -- Bill Evans
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (14, 29);  -- Cannonball Adderley
+
+-- Ella and Louis (CD 15)
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (15, 15);  -- Ella Fitzgerald
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (15, 30);  -- Louis Armstrong
+
+-- Blood on the Tracks (CD 16) - Bob Dylan
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (16, 16);  -- Bob Dylan
+
+-- I Never Loved a Man (CD 17) - Aretha Franklin
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (17, 17);  -- Aretha Franklin
+
+-- Are You Experienced (CD 18) - Jimi Hendrix Experience
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (18, 18);  -- Jimi Hendrix
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (18, 31);  -- Noel Redding
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (18, 32);  -- Mitch Mitchell
+
+-- I Put a Spell on You (CD 19) - Nina Simone
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (19, 19);  -- Nina Simone
+
+-- Symphony No. 9 (CD 20) - Beethoven
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (20, 20);  -- Ludwig van Beethoven
+
+-- CD-Musician relationships for additional CDs
+-- Thriller (CD 31) - Michael Jackson
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (31, 43);  -- Michael Jackson
+
+-- The Dark Side of the Moon (CD 32) - Pink Floyd
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (32, 44);  -- Roger Waters
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (32, 45);  -- David Gilmour
+
+-- Rumours (CD 33) - Fleetwood Mac
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (33, 46);  -- Stevie Nicks
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (33, 47);  -- Lindsey Buckingham
+
+-- Back in Black (CD 34) - AC/DC
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (34, 48);  -- Angus Young
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (34, 49);  -- Brian Johnson
+
+-- Legend (CD 35) - Bob Marley
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (35, 50);  -- Bob Marley
+
+-- What's Going On (CD 36) - Marvin Gaye
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (36, 51);  -- Marvin Gaye
+
+-- The Velvet Underground & Nico (CD 37)
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (37, 52);  -- Lou Reed
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (37, 53);  -- Nico
+
+-- Blue (CD 38) - Joni Mitchell
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (38, 54);  -- Joni Mitchell
+
+-- Pet Sounds (CD 39) - The Beach Boys
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (39, 55);  -- Brian Wilson
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (39, 56);  -- Mike Love
+
+-- Led Zeppelin IV (CD 40)
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (40, 57);  -- Robert Plant
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (40, 58);  -- Jimmy Page
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (40, 59);  -- John Paul Jones
+INSERT INTO t_cd_musicians (cd_id, musician_id) VALUES (40, 60);  -- John Bonham
+
+-- Tracks for CDs
+-- Abbey Road (CD ID 11)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (1, 'Come Together', 259000000000, 1, 11);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (2, 'Something', 182000000000, 2, 11);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (3, 'Maxwell''s Silver Hammer', 207000000000, 3, 11);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (4, 'Oh! Darling', 206000000000, 4, 11);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (5, 'Octopus''s Garden', 170000000000, 5, 11);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (6, 'Here Comes the Sun', 185000000000, 6, 11);
+
+-- A Night at the Opera (CD ID 12)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (7, 'Death on Two Legs', 223000000000, 1, 12);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (8, 'Lazing on a Sunday Afternoon', 67000000000, 2, 12);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (9, 'You''re My Best Friend', 170000000000, 3, 12);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (10, 'Bohemian Rhapsody', 354000000000, 4, 12);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (11, 'God Save the Queen', 75000000000, 5, 12);
+
+-- The Rise and Fall of Ziggy Stardust (CD ID 13)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (12, 'Five Years', 275000000000, 1, 13);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (13, 'Soul Love', 213000000000, 2, 13);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (14, 'Starman', 255000000000, 3, 13);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (15, 'Ziggy Stardust', 194000000000, 4, 13);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (16, 'Suffragette City', 206000000000, 5, 13);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (17, 'Rock ''n'' Roll Suicide', 180000000000, 6, 13);
+
+-- Kind of Blue (CD ID 14)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (18, 'So What', 562000000000, 1, 14);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (19, 'Freddie Freeloader', 588000000000, 2, 14);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (20, 'Blue in Green', 327000000000, 3, 14);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (21, 'All Blues', 690000000000, 4, 14);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (22, 'Flamenco Sketches', 567000000000, 5, 14);
+
+-- Ella and Louis (CD ID 15)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (23, 'Can''t We Be Friends?', 206000000000, 1, 15);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (24, 'Isn''t This a Lovely Day?', 296000000000, 2, 15);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (25, 'Moonlight in Vermont', 201000000000, 3, 15);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (26, 'They Can''t Take That Away from Me', 221000000000, 4, 15);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (27, 'Cheek to Cheek', 357000000000, 5, 15);
+
+-- Blood on the Tracks (CD ID 16)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (28, 'Tangled Up in Blue', 352000000000, 1, 16);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (29, 'Simple Twist of Fate', 256000000000, 2, 16);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (30, 'You''re a Big Girl Now', 294000000000, 3, 16);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (31, 'Idiot Wind', 467000000000, 4, 16);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (32, 'Shelter from the Storm', 300000000000, 5, 16);
+
+-- I Never Loved a Man the Way I Love You (CD ID 17)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (33, 'Respect', 148000000000, 1, 17);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (34, 'Drown in My Own Tears', 193000000000, 2, 17);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (35, 'I Never Loved a Man', 172000000000, 3, 17);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (36, 'Dr. Feelgood', 211000000000, 4, 17);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (37, 'A Change Is Gonna Come', 257000000000, 5, 17);
+
+-- Are You Experienced (CD ID 18)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (38, 'Purple Haze', 170000000000, 1, 18);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (39, 'Manic Depression', 210000000000, 2, 18);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (40, 'Hey Joe', 202000000000, 3, 18);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (41, 'The Wind Cries Mary', 200000000000, 4, 18);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (42, 'Fire', 165000000000, 5, 18);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (43, 'Are You Experienced?', 254000000000, 6, 18);
+
+-- I Put a Spell on You (CD ID 19)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (44, 'I Put a Spell on You', 156000000000, 1, 19);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (45, 'Feeling Good', 177000000000, 2, 19);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (46, 'Ne Me Quitte Pas', 218000000000, 3, 19);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (47, 'Marriage Is for Old Folks', 134000000000, 4, 19);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (48, 'Tomorrow Is My Turn', 185000000000, 5, 19);
+
+-- Symphony No. 9 (CD ID 20)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (49, 'I. Allegro ma non troppo', 960000000000, 1, 20);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (50, 'II. Molto vivace', 720000000000, 2, 20);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (51, 'III. Adagio molto e cantabile', 900000000000, 3, 20);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (52, 'IV. Presto - Ode to Joy', 1440000000000, 4, 20);
+
+-- Tracks for additional CDs
+-- Thriller (CD ID 31)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (53, 'Wanna Be Startin'' Somethin''', 363000000000, 1, 31);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (54, 'Baby Be Mine', 260000000000, 2, 31);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (55, 'The Girl Is Mine', 222000000000, 3, 31);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (56, 'Thriller', 358000000000, 4, 31);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (57, 'Beat It', 258000000000, 5, 31);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (58, 'Billie Jean', 294000000000, 6, 31);
+
+-- The Dark Side of the Moon (CD ID 32)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (59, 'Speak to Me', 68000000000, 1, 32);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (60, 'Breathe', 169000000000, 2, 32);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (61, 'Time', 413000000000, 3, 32);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (62, 'Money', 382000000000, 4, 32);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (63, 'Brain Damage', 226000000000, 5, 32);
+
+-- Rumours (CD ID 33)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (64, 'Second Hand News', 163000000000, 1, 33);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (65, 'Dreams', 257000000000, 2, 33);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (66, 'Go Your Own Way', 217000000000, 3, 33);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (67, 'The Chain', 270000000000, 4, 33);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (68, 'Don''t Stop', 193000000000, 5, 33);
+
+-- Back in Black (CD ID 34)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (69, 'Hells Bells', 312000000000, 1, 34);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (70, 'Shoot to Thrill', 317000000000, 2, 34);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (71, 'Back in Black', 255000000000, 3, 34);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (72, 'You Shook Me All Night Long', 210000000000, 4, 34);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (73, 'Rock and Roll Ain''t Noise Pollution', 255000000000, 5, 34);
+
+-- Legend (CD ID 35)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (74, 'Is This Love', 231000000000, 1, 35);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (75, 'No Woman, No Cry', 285000000000, 2, 35);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (76, 'Jamming', 211000000000, 3, 35);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (77, 'Redemption Song', 228000000000, 4, 35);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (78, 'One Love', 172000000000, 5, 35);
+
+-- What's Going On (CD ID 36)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (79, 'What''s Going On', 233000000000, 1, 36);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (80, 'What''s Happening Brother', 164000000000, 2, 36);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (81, 'Mercy Mercy Me', 201000000000, 3, 36);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (82, 'Inner City Blues', 338000000000, 4, 36);
+
+-- The Velvet Underground & Nico (CD ID 37)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (83, 'Sunday Morning', 175000000000, 1, 37);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (84, 'I''m Waiting for the Man', 267000000000, 2, 37);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (85, 'Femme Fatale', 157000000000, 3, 37);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (86, 'Venus in Furs', 309000000000, 4, 37);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (87, 'All Tomorrow''s Parties', 359000000000, 5, 37);
+
+-- Blue (CD ID 38)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (88, 'All I Want', 215000000000, 1, 38);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (89, 'My Old Man', 213000000000, 2, 38);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (90, 'Little Green', 201000000000, 3, 38);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (91, 'A Case of You', 262000000000, 4, 38);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (92, 'River', 245000000000, 5, 38);
+
+-- Pet Sounds (CD ID 39)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (93, 'Wouldn''t It Be Nice', 153000000000, 1, 39);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (94, 'Sloop John B', 183000000000, 2, 39);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (95, 'God Only Knows', 172000000000, 3, 39);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (96, 'I Know There''s an Answer', 195000000000, 4, 39);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (97, 'Caroline, No', 174000000000, 5, 39);
+
+-- Led Zeppelin IV (CD ID 40)
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (98, 'Black Dog', 295000000000, 1, 40);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (99, 'Rock and Roll', 220000000000, 2, 40);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (100, 'The Battle of Evermore', 352000000000, 3, 40);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (101, 'Stairway to Heaven', 482000000000, 4, 40);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (102, 'Misty Mountain Hop', 278000000000, 5, 40);
+INSERT INTO t_tracks (id, title, duration, track_number, cd_fk) VALUES (103, 'When the Levee Breaks', 427000000000, 6, 40);
 
 -- Reset sequence for PostgreSQL
-ALTER SEQUENCE t_items_seq RESTART WITH 21;
+ALTER SEQUENCE t_tracks_seq RESTART WITH 104;
+
+-- Reset sequence for PostgreSQL
+ALTER SEQUENCE t_items_seq RESTART WITH 41;
 
 -- Users (using IDENTITY strategy, so we let the database auto-generate IDs)
 INSERT INTO t_users (username, password, email, role, enabled, created_date)

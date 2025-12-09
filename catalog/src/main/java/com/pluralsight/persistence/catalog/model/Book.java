@@ -1,6 +1,5 @@
 package com.pluralsight.persistence.catalog.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
@@ -37,12 +36,10 @@ public class Book extends Item {
   @Enumerated(EnumType.STRING)
   public Language language;
 
-  @JsonIgnore
   @ManyToOne
   @JoinColumn(name = "publisher_fk")
   public Publisher publisher;
 
-  @JsonIgnore
   @ManyToMany
   @JoinTable(
     name = "t_book_authors",

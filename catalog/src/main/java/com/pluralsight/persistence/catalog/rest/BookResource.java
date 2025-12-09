@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.hibernate.Hibernate;
 
 import java.net.URI;
 import java.util.List;
@@ -29,11 +30,14 @@ public class BookResource {
 
   @GET
   @Path("/{id}")
+  @Transactional
   public Response getBook(@PathParam("id") Long id) {
     Book book = Book.findById(id);
     if (book == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
     }
+    Hibernate.initialize(book.publisher);
+    Hibernate.initialize(book.authors);
     return Response.ok(book).build();
   }
 
@@ -61,6 +65,8 @@ public class BookResource {
     existingBook.publicationDate = book.publicationDate;
     existingBook.language = book.language;
     existingBook.publisher = book.publisher;
+    Hibernate.initialize(existingBook.publisher);
+    Hibernate.initialize(existingBook.authors);
     return Response.ok(existingBook).build();
   }
 

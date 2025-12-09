@@ -1,6 +1,5 @@
 package com.pluralsight.persistence.catalog.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorValue;
@@ -40,7 +39,6 @@ public class CD extends Item {
   @Column(name = "release_date")
   public LocalDate releaseDate;
 
-  @JsonIgnore
   @ManyToMany
   @JoinTable(
     name = "t_cd_musicians",
@@ -49,7 +47,6 @@ public class CD extends Item {
   )
   public List<Musician> musicians = new ArrayList<>();
 
-  @JsonIgnore
   @OneToMany(mappedBy = "cd", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("trackNumber")
   public List<Track> tracks = new ArrayList<>();
