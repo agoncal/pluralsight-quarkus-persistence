@@ -3,7 +3,10 @@ package com.pluralsight.persistence.web;
 import com.pluralsight.persistence.web.catalog.BookDTO;
 import com.pluralsight.persistence.web.catalog.CDDTO;
 import com.pluralsight.persistence.web.catalog.CatalogProxy;
+import com.pluralsight.persistence.web.catalog.PurchaseOrderDTO;
 import com.pluralsight.persistence.web.catalog.UserDTO;
+
+import java.math.BigDecimal;
 import io.quarkiverse.renarde.Controller;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
@@ -128,6 +131,78 @@ public class WebApplication extends Controller {
     return null; // Never reached, redirect throws exception
   }
 
+  @Path("/orders")
+  public TemplateInstance orders() {
+    LOG.info("Entering orders()");
+    if (!userSession.isLoggedIn()) {
+      redirect(WebApplication.class).signinPage();
+      return null;
+    }
+    String username = userSession.getUsername();
+    List<PurchaseOrderDTO> orders = catalogProxy.getPurchaseOrdersByUsername(username);
+    return Templates.orders(orders);
+  }
+
+  // Cart endpoints
+
+  @Path("/cart")
+  public TemplateInstance cart() {
+    LOG.info("Entering cart()");
+    return Templates.cart(userSession.getCart(), userSession.getCartTotal());
+  }
+
+  @POST
+  @Path("/cart/add/book/{id}")
+  public void addBookToCart(@PathParam("id") Long id) {
+    LOG.info("Entering addBookToCart() with id: " + id);
+    Response response = catalogProxy.getBook(id);
+    if (response.getStatus() == 404) {
+      notFound();
+    }
+    BookDTO book = response.readEntity(BookDTO.class);
+    userSession.addToCart(book.id, book.title, book.price, CartItem.ItemType.BOOK);
+    LOG.info("Added book to cart: " + book.title);
+    redirect(WebApplication.class).cart();
+  }
+
+  @POST
+  @Path("/cart/add/cd/{id}")
+  public void addCDToCart(@PathParam("id") Long id) {
+    LOG.info("Entering addCDToCart() with id: " + id);
+    Response response = catalogProxy.getCD(id);
+    if (response.getStatus() == 404) {
+      notFound();
+    }
+    CDDTO cd = response.readEntity(CDDTO.class);
+    userSession.addToCart(cd.id, cd.title, cd.price, CartItem.ItemType.CD);
+    LOG.info("Added CD to cart: " + cd.title);
+    redirect(WebApplication.class).cart();
+  }
+
+  @POST
+  @Path("/cart/remove/book/{id}")
+  public void removeBookFromCart(@PathParam("id") Long id) {
+    LOG.info("Entering removeBookFromCart() with id: " + id);
+    userSession.removeFromCart(id, CartItem.ItemType.BOOK);
+    redirect(WebApplication.class).cart();
+  }
+
+  @POST
+  @Path("/cart/remove/cd/{id}")
+  public void removeCDFromCart(@PathParam("id") Long id) {
+    LOG.info("Entering removeCDFromCart() with id: " + id);
+    userSession.removeFromCart(id, CartItem.ItemType.CD);
+    redirect(WebApplication.class).cart();
+  }
+
+  @POST
+  @Path("/cart/clear")
+  public void clearCart() {
+    LOG.info("Entering clearCart()");
+    userSession.clearCart();
+    redirect(WebApplication.class).cart();
+  }
+
   @Path("/logout")
   public void logout() {
     LOG.info("Entering logout()");
@@ -152,5 +227,9 @@ public class WebApplication extends Controller {
     public static native TemplateInstance cd(CDDTO cd);
 
     public static native TemplateInstance signin(String loginError, String passwordError, String login);
+
+    public static native TemplateInstance orders(List<PurchaseOrderDTO> orders);
+
+    public static native TemplateInstance cart(List<CartItem> items, BigDecimal total);
   }
 }

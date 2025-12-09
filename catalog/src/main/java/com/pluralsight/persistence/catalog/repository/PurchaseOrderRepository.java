@@ -17,4 +17,8 @@ public class PurchaseOrderRepository implements PanacheRepository<PurchaseOrder>
   public List<PurchaseOrder> findByStatus(OrderStatus status) {
     return find("status", status).list();
   }
+
+  public List<PurchaseOrder> findByUsername(String username) {
+    return find("customer.user.username", username).list();
+  }
 }

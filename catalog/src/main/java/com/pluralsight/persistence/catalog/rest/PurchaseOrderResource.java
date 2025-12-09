@@ -42,6 +42,12 @@ public class PurchaseOrderResource {
     return Response.ok(purchaseOrder).build();
   }
 
+  @GET
+  @Path("/username/{username}")
+  public List<PurchaseOrder> getPurchaseOrdersByUsername(@PathParam("username") String username) {
+    return purchaseOrderRepository.findByUsername(username);
+  }
+
   @POST
   @Transactional
   public Response createPurchaseOrder(@Valid PurchaseOrder purchaseOrder) {

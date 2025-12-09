@@ -176,6 +176,10 @@ public interface CatalogProxy {
   @Path("/api/pos/{id}")
   Response getPurchaseOrder(@PathParam("id") Long id);
 
+  @GET
+  @Path("/api/pos/username/{username}")
+  List<PurchaseOrderDTO> getPurchaseOrdersByUsername(@PathParam("username") String username);
+
   @POST
   @Path("/api/pos")
   Response createPurchaseOrder(@Valid PurchaseOrderDTO purchaseOrder);

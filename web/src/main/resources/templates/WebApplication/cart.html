@@ -1,0 +1,141 @@
+{#include base.html}
+  {#title}Shopping Cart - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-cart me-2"></i>Shopping Cart</h1>
+          {#if !items.isEmpty}
+            <span class="badge bg-secondary fs-6">{items.size} item(s)</span>
+          {/if}
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if items.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>Your shopping cart is empty.
+      </div>
+      <div class="text-center mt-4">
+        <a href="/books" class="btn btn-primary me-2">
+          <i class="bi bi-book me-1"></i>Browse Books
+        </a>
+        <a href="/cds" class="btn btn-primary">
+          <i class="bi bi-disc me-1"></i>Browse CDs
+        </a>
+      </div>
+    {#else}
+      <div class="row">
+        <div class="col-lg-8">
+          <div class="card">
+            <div class="card-header bg-dark text-white">
+              <i class="bi bi-list me-1"></i>Cart Items
+            </div>
+            <ul class="list-group list-group-flush">
+              {#for item in items}
+                <li class="list-group-item">
+                  <div class="row align-items-center">
+                    <div class="col-md-6">
+                      <div class="d-flex align-items-center">
+                        {#if item.itemType.name == 'BOOK'}
+                          <i class="bi bi-book fs-3 text-primary me-3"></i>
+                          <div>
+                            <a href="/books/{item.itemId}" class="text-decoration-none">
+                              <strong>{item.title}</strong>
+                            </a>
+                            <br><small class="text-muted">Book</small>
+                          </div>
+                        {#else}
+                          <i class="bi bi-disc fs-3 text-success me-3"></i>
+                          <div>
+                            <a href="/cds/{item.itemId}" class="text-decoration-none">
+                              <strong>{item.title}</strong>
+                            </a>
+                            <br><small class="text-muted">CD</small>
+                          </div>
+                        {/if}
+                      </div>
+                    </div>
+                    <div class="col-md-2 text-center">
+                      <span class="badge bg-secondary">{item.quantity}x</span>
+                    </div>
+                    <div class="col-md-2 text-end">
+                      <span class="price-tag">${item.subtotal}</span>
+                      <br><small class="text-muted">${item.price} each</small>
+                    </div>
+                    <div class="col-md-2 text-end">
+                      {#if item.itemType.name == 'BOOK'}
+                        {#form uri:WebApplication.removeBookFromCart(item.itemId)}
+                          <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        {/form}
+                      {#else}
+                        {#form uri:WebApplication.removeCDFromCart(item.itemId)}
+                          <button type="submit" class="btn btn-outline-danger btn-sm">
+                            <i class="bi bi-trash"></i>
+                          </button>
+                        {/form}
+                      {/if}
+                    </div>
+                  </div>
+                </li>
+              {/for}
+            </ul>
+          </div>
+
+          <div class="mt-3">
+            {#form uri:WebApplication.clearCart()}
+              <button type="submit" class="btn btn-outline-danger">
+                <i class="bi bi-trash me-1"></i>Clear Cart
+              </button>
+            {/form}
+          </div>
+        </div>
+
+        <div class="col-lg-4">
+          <div class="card">
+            <div class="card-header bg-success text-white">
+              <i class="bi bi-receipt me-1"></i>Order Summary
+            </div>
+            <div class="card-body">
+              <div class="d-flex justify-content-between mb-2">
+                <span>Subtotal:</span>
+                <span class="price-tag">${total}</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span>Shipping:</span>
+                <span class="text-muted">Free</span>
+              </div>
+              <hr>
+              <div class="d-flex justify-content-between mb-3">
+                <strong>Total:</strong>
+                <strong class="price-tag fs-4">${total}</strong>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-success btn-lg" disabled>
+                  <i class="bi bi-credit-card me-1"></i>Checkout
+                </button>
+                <small class="text-muted text-center mt-2">Checkout coming soon</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="card mt-3">
+            <div class="card-body text-center">
+              <p class="mb-2">Continue shopping?</p>
+              <a href="/books" class="btn btn-outline-primary btn-sm me-1">
+                <i class="bi bi-book me-1"></i>Books
+              </a>
+              <a href="/cds" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-disc me-1"></i>CDs
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {/if}
+  {/insert}
+{/include}

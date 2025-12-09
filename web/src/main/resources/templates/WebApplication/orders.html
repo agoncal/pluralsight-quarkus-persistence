@@ -1,0 +1,78 @@
+{#include base.html}
+  {#title}My Orders - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-cart me-2"></i>My Purchase Orders</h1>
+          <span class="badge bg-secondary fs-6">{orders.size} orders</span>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if orders.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>You have no purchase orders yet.
+      </div>
+    {#else}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>Order #</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Items</th>
+              <th>Total</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#for order in orders}
+              <tr>
+                <td><strong>#{order.id}</strong></td>
+                <td>
+                  {#if order.orderDate}
+                    {order.orderDate.toLocalDate}
+                  {#else}
+                    -
+                  {/if}
+                </td>
+                <td>
+                  {#if order.status.name == 'PENDING'}
+                    <span class="badge bg-warning text-dark"><i class="bi bi-clock me-1"></i>{order.status}</span>
+                  {#else if order.status.name == 'CONFIRMED'}
+                    <span class="badge bg-info"><i class="bi bi-check-circle me-1"></i>{order.status}</span>
+                  {#else if order.status.name == 'SHIPPED'}
+                    <span class="badge bg-primary"><i class="bi bi-truck me-1"></i>{order.status}</span>
+                  {#else if order.status.name == 'DELIVERED'}
+                    <span class="badge bg-success"><i class="bi bi-box-seam me-1"></i>{order.status}</span>
+                  {#else if order.status.name == 'CANCELLED'}
+                    <span class="badge bg-danger"><i class="bi bi-x-circle me-1"></i>{order.status}</span>
+                  {#else}
+                    <span class="badge bg-secondary">{order.status}</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if order.orderLines}
+                    {order.orderLines.size} item(s)
+                  {#else}
+                    0 items
+                  {/if}
+                </td>
+                <td class="price-tag">${order.totalAmount}</td>
+                <td>
+                  <a href="/admin/orders/{order.id}" class="btn btn-sm btn-outline-primary">
+                    <i class="bi bi-eye me-1"></i>View
+                  </a>
+                </td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+  {/insert}
+{/include}
