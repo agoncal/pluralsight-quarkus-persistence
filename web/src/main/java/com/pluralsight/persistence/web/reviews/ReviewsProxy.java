@@ -28,6 +28,10 @@ public interface ReviewsProxy {
   @Path("/{id}")
   Response findById(@PathParam("id") Long id);
 
+  @GET
+  @Path("/item/{itemType}/{itemId}")
+  List<ProductReviewDTO> findByItem(@PathParam("itemType") ItemType itemType, @PathParam("itemId") Long itemId);
+
   @POST
   Response create(@Valid ProductReviewDTO review);
 

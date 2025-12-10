@@ -5,6 +5,9 @@ import com.pluralsight.persistence.web.catalog.CDDTO;
 import com.pluralsight.persistence.web.catalog.CatalogProxy;
 import com.pluralsight.persistence.web.catalog.PurchaseOrderDTO;
 import com.pluralsight.persistence.web.catalog.UserDTO;
+import com.pluralsight.persistence.web.reviews.ItemType;
+import com.pluralsight.persistence.web.reviews.ProductReviewDTO;
+import com.pluralsight.persistence.web.reviews.ReviewsProxy;
 
 import java.math.BigDecimal;
 import io.quarkiverse.renarde.Controller;
@@ -31,6 +34,10 @@ public class WebApplication extends Controller {
   CatalogProxy catalogProxy;
 
   @Inject
+  @RestClient
+  ReviewsProxy reviewsProxy;
+
+  @Inject
   UserSession userSession;
 
   @Path("/")
@@ -54,7 +61,8 @@ public class WebApplication extends Controller {
       notFound();
     }
     BookDTO book = response.readEntity(BookDTO.class);
-    return Templates.book(book);
+    List<ProductReviewDTO> reviews = reviewsProxy.findByItem(ItemType.BOOK, id);
+    return Templates.book(book, reviews);
   }
 
   @Path("/cds")
@@ -72,7 +80,8 @@ public class WebApplication extends Controller {
       notFound();
     }
     CDDTO cd = response.readEntity(CDDTO.class);
-    return Templates.cd(cd);
+    List<ProductReviewDTO> reviews = reviewsProxy.findByItem(ItemType.CD, id);
+    return Templates.cd(cd, reviews);
   }
 
   @GET
@@ -220,11 +229,11 @@ public class WebApplication extends Controller {
 
     public static native TemplateInstance books(List<BookDTO> books);
 
-    public static native TemplateInstance book(BookDTO book);
+    public static native TemplateInstance book(BookDTO book, List<ProductReviewDTO> reviews);
 
     public static native TemplateInstance cds(List<CDDTO> cds);
 
-    public static native TemplateInstance cd(CDDTO cd);
+    public static native TemplateInstance cd(CDDTO cd, List<ProductReviewDTO> reviews);
 
     public static native TemplateInstance signin(String loginError, String passwordError, String login);
 

@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.reviews.repository;
 
+import com.pluralsight.persistence.reviews.model.ItemType;
 import com.pluralsight.persistence.reviews.model.ProductReview;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.persistence.EntityManager;
@@ -15,12 +16,19 @@ public class ProductReviewRepository {
   EntityManager em;
 
   public List<ProductReview> findAll() {
-    return em.createQuery("SELECT r FROM ProductReview r", ProductReview.class)
+    return em.createQuery("SELECT r FROM ProductReview r ORDER BY r.createdDate DESC", ProductReview.class)
       .getResultList();
   }
 
   public Optional<ProductReview> findById(Long id) {
     return Optional.ofNullable(em.find(ProductReview.class, id));
+  }
+
+  public List<ProductReview> findByItem(Long itemId, ItemType itemType) {
+    return em.createQuery("SELECT r FROM ProductReview r WHERE r.itemId = :itemId AND r.itemType = :itemType ORDER BY r.createdDate DESC", ProductReview.class)
+      .setParameter("itemId", itemId)
+      .setParameter("itemType", itemType)
+      .getResultList();
   }
 
   public ProductReview create(ProductReview review) {

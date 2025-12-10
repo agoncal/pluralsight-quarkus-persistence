@@ -5,6 +5,8 @@ import java.time.Instant;
 public class ProductReviewDTO {
 
   public Long id;
+  public Long itemId;
+  public ItemType itemType;
   public String username;
   public Integer rating;
   public String title;

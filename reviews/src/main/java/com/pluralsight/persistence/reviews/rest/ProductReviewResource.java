@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.reviews.rest;
 
+import com.pluralsight.persistence.reviews.model.ItemType;
 import com.pluralsight.persistence.reviews.model.ProductReview;
 import com.pluralsight.persistence.reviews.repository.ProductReviewRepository;
 import jakarta.inject.Inject;
@@ -38,6 +39,12 @@ public class ProductReviewResource {
     return productReviewRepository.findById(id)
       .map(review -> Response.ok(review).build())
       .orElse(Response.status(Response.Status.NOT_FOUND).build());
+  }
+
+  @GET
+  @Path("/item/{itemType}/{itemId}")
+  public List<ProductReview> findByItem(@PathParam("itemType") ItemType itemType, @PathParam("itemId") Long itemId) {
+    return productReviewRepository.findByItem(itemId, itemType);
   }
 
   @POST

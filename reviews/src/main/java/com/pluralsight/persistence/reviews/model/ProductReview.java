@@ -3,6 +3,8 @@ package com.pluralsight.persistence.reviews.model;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -14,6 +16,15 @@ import java.time.Instant;
 @Entity
 @Table(name = "t_reviews")
 public class ProductReview extends PanacheEntity {
+
+  @NotNull
+  @Column(name = "item_id", nullable = false)
+  public Long itemId;
+
+  @NotNull
+  @Enumerated(EnumType.STRING)
+  @Column(name = "item_type", nullable = false)
+  public ItemType itemType;
 
   @NotNull
   @Size(max = 50)

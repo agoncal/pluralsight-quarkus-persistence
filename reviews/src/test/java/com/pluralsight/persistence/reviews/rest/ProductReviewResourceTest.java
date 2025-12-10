@@ -1,5 +1,6 @@
 package com.pluralsight.persistence.reviews.rest;
 
+import com.pluralsight.persistence.reviews.model.ItemType;
 import com.pluralsight.persistence.reviews.model.ProductReview;
 import io.quarkus.test.junit.QuarkusTest;
 import static io.restassured.RestAssured.given;
@@ -33,6 +34,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldCreateReview() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "testuser_" + UUID.randomUUID().toString().substring(0, 8);
     review.rating = 4;
     review.title = "Great product";
@@ -55,6 +58,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldCreateAndGetReview() {
     ProductReview review = new ProductReview();
+    review.itemId = 11L;
+    review.itemType = ItemType.CD;
     review.username = "getuser_" + UUID.randomUUID().toString().substring(0, 8);
     review.rating = 5;
     review.title = "Excellent!";
@@ -82,6 +87,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldUpdateReview() {
     ProductReview review = new ProductReview();
+    review.itemId = 2L;
+    review.itemType = ItemType.BOOK;
     review.username = "updateuser";
     review.rating = 3;
     review.title = "Original title";
@@ -115,6 +122,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldReturnNotFoundWhenUpdatingNonExistentReview() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "nonexistent";
     review.rating = 3;
     review.title = "Test";
@@ -130,6 +139,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldDeleteReview() {
     ProductReview review = new ProductReview();
+    review.itemId = 12L;
+    review.itemType = ItemType.CD;
     review.username = "deleteuser";
     review.rating = 2;
     review.title = "To be deleted";
@@ -164,6 +175,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithoutUsername() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.rating = 4;
     review.title = "Test title";
 
@@ -178,6 +191,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithoutRating() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "testuser";
     review.title = "Test title";
 
@@ -192,6 +207,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithoutTitle() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "testuser";
     review.rating = 4;
 
@@ -206,6 +223,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithRatingTooHigh() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "testuser";
     review.rating = 6;
     review.title = "Test title";
@@ -221,6 +240,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithRatingTooLow() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "testuser";
     review.rating = -1;
     review.title = "Test title";
@@ -236,6 +257,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithUsernameTooLong() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "a".repeat(51);
     review.rating = 4;
     review.title = "Test title";
@@ -251,6 +274,8 @@ class ProductReviewResourceTest {
   @Test
   void shouldFailValidationWithTitleTooLong() {
     ProductReview review = new ProductReview();
+    review.itemId = 1L;
+    review.itemType = ItemType.BOOK;
     review.username = "testuser";
     review.rating = 4;
     review.title = "a".repeat(101);
