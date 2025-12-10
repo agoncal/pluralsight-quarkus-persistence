@@ -3,6 +3,8 @@ package com.pluralsight.persistence.web;
 import com.pluralsight.persistence.web.activity.ActivityProxy;
 import com.pluralsight.persistence.web.activity.UserActivityLogDTO;
 import com.pluralsight.persistence.web.catalog.*;
+import com.pluralsight.persistence.web.reviews.ProductReviewDTO;
+import com.pluralsight.persistence.web.reviews.ReviewsProxy;
 import io.quarkiverse.renarde.Controller;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
@@ -34,6 +36,10 @@ public class AdminController extends Controller {
   @Inject
   @RestClient
   ActivityProxy activityProxy;
+
+  @Inject
+  @RestClient
+  ReviewsProxy reviewsProxy;
 
   // ======================================
   // Admin Index
@@ -723,6 +729,18 @@ public class AdminController extends Controller {
   }
 
   // ======================================
+  // Product Reviews (Read-only)
+  // ======================================
+
+  @GET
+  @Path("/reviews")
+  public TemplateInstance reviews() {
+    LOG.info("Entering admin reviews()");
+    List<ProductReviewDTO> reviews = reviewsProxy.findAll();
+    return Templates.reviews(reviews);
+  }
+
+  // ======================================
   // Templates
   // ======================================
 
@@ -773,5 +791,8 @@ public class AdminController extends Controller {
 
     // Activities
     public static native TemplateInstance activities(List<UserActivityLogDTO> activities);
+
+    // Reviews
+    public static native TemplateInstance reviews(List<ProductReviewDTO> reviews);
   }
 }
