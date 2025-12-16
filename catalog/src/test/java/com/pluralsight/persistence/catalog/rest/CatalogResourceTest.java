@@ -29,7 +29,7 @@ import java.util.UUID;
 
 @QuarkusTest
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-class CatalogTest {
+class CatalogResourceTest {
 
   private static final String UNIQUE_SUFFIX = UUID.randomUUID().toString().substring(0, 8);
 
