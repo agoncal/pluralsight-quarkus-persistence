@@ -19,6 +19,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.hibernate.Hibernate;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 public class CDResource {
 
+  private static final Logger LOG = Logger.getLogger(CDResource.class);
+
   @GET
   public List<CD> getAllCDs(
       @QueryParam("page") @DefaultValue("0") int page,
@@ -40,6 +43,7 @@ public class CDResource {
       @QueryParam("label") String label,
       @QueryParam("sortBy") @DefaultValue("title") String sortBy,
       @QueryParam("sortDir") @DefaultValue("asc") String sortDir) {
+    LOG.info("Entering getAllCDs() with page=" + page + ", size=" + size + ", inStock=" + inStock + ", genre=" + genre + ", label=" + label + ", sortBy=" + sortBy + ", sortDir=" + sortDir);
 
     // Build sort
     Sort sort = Sort.by(sortBy);
@@ -82,6 +86,7 @@ public class CDResource {
   @Path("/{id}")
   @Transactional
   public Response getCD(@PathParam("id") Long id) {
+    LOG.info("Entering getCD() with id: " + id);
     CD cd = CD.findById(id);
     if (cd == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -94,6 +99,7 @@ public class CDResource {
   @POST
   @Transactional
   public Response createCD(@Valid CD cd) {
+    LOG.info("Entering createCD() with title: " + cd.title);
     cd.persist();
     return Response.created(URI.create("/api/cds/" + cd.id)).entity(cd).build();
   }
@@ -102,6 +108,7 @@ public class CDResource {
   @Path("/{id}")
   @Transactional
   public Response updateCD(@PathParam("id") Long id, @Valid CD cd) {
+    LOG.info("Entering updateCD() with id: " + id);
     CD existingCD = CD.findById(id);
     if (existingCD == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -124,6 +131,7 @@ public class CDResource {
   @Path("/{id}")
   @Transactional
   public Response deleteCD(@PathParam("id") Long id) {
+    LOG.info("Entering deleteCD() with id: " + id);
     CD cd = CD.findById(id);
     if (cd == null) {
       return Response.status(Response.Status.NOT_FOUND).build();

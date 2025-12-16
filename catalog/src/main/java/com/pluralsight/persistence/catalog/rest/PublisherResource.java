@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
@@ -22,14 +23,18 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class PublisherResource {
 
+  private static final Logger LOG = Logger.getLogger(PublisherResource.class);
+
   @GET
   public List<Publisher> getAllPublishers() {
+    LOG.info("Entering getAllPublishers()");
     return Publisher.listAll();
   }
 
   @GET
   @Path("/{id}")
   public Response getPublisher(@PathParam("id") Long id) {
+    LOG.info("Entering getPublisher() with id: " + id);
     Publisher publisher = Publisher.findById(id);
     if (publisher == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -40,6 +45,7 @@ public class PublisherResource {
   @POST
   @Transactional
   public Response createPublisher(@Valid Publisher publisher) {
+    LOG.info("Entering createPublisher() with name: " + publisher.name);
     publisher.persist();
     return Response.created(URI.create("/api/publishers/" + publisher.id)).entity(publisher).build();
   }
@@ -48,6 +54,7 @@ public class PublisherResource {
   @Path("/{id}")
   @Transactional
   public Response updatePublisher(@PathParam("id") Long id, @Valid Publisher publisher) {
+    LOG.info("Entering updatePublisher() with id: " + id);
     Publisher existingPublisher = Publisher.findById(id);
     if (existingPublisher == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -63,6 +70,7 @@ public class PublisherResource {
   @Path("/{id}")
   @Transactional
   public Response deletePublisher(@PathParam("id") Long id) {
+    LOG.info("Entering deletePublisher() with id: " + id);
     Publisher publisher = Publisher.findById(id);
     if (publisher == null) {
       return Response.status(Response.Status.NOT_FOUND).build();

@@ -19,6 +19,7 @@ import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.hibernate.Hibernate;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ import java.util.Map;
 @Consumes(MediaType.APPLICATION_JSON)
 public class BookResource {
 
+  private static final Logger LOG = Logger.getLogger(BookResource.class);
+
   @GET
   public List<Book> getAllBooks(
       @QueryParam("page") @DefaultValue("0") int page,
@@ -40,6 +43,7 @@ public class BookResource {
       @QueryParam("publisher") Long publisherId,
       @QueryParam("sortBy") @DefaultValue("title") String sortBy,
       @QueryParam("sortDir") @DefaultValue("asc") String sortDir) {
+    LOG.info("Entering getAllBooks() with page=" + page + ", size=" + size + ", inStock=" + inStock + ", language=" + language + ", publisher=" + publisherId + ", sortBy=" + sortBy + ", sortDir=" + sortDir);
 
     // Build sort
     Sort sort = Sort.by(sortBy);
@@ -82,6 +86,7 @@ public class BookResource {
   @Path("/{id}")
   @Transactional
   public Response getBook(@PathParam("id") Long id) {
+    LOG.info("Entering getBook() with id: " + id);
     Book book = Book.findById(id);
     if (book == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -94,6 +99,7 @@ public class BookResource {
   @POST
   @Transactional
   public Response createBook(@Valid Book book) {
+    LOG.info("Entering createBook() with title: " + book.title);
     book.persist();
     return Response.created(URI.create("/api/books/" + book.id)).entity(book).build();
   }
@@ -102,6 +108,7 @@ public class BookResource {
   @Path("/{id}")
   @Transactional
   public Response updateBook(@PathParam("id") Long id, @Valid Book book) {
+    LOG.info("Entering updateBook() with id: " + id);
     Book existingBook = Book.findById(id);
     if (existingBook == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -124,6 +131,7 @@ public class BookResource {
   @Path("/{id}")
   @Transactional
   public Response deleteBook(@PathParam("id") Long id) {
+    LOG.info("Entering deleteBook() with id: " + id);
     Book book = Book.findById(id);
     if (book == null) {
       return Response.status(Response.Status.NOT_FOUND).build();

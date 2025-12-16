@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
@@ -22,14 +23,18 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class AuthorResource {
 
+  private static final Logger LOG = Logger.getLogger(AuthorResource.class);
+
   @GET
   public List<Author> getAllAuthors() {
+    LOG.info("Entering getAllAuthors()");
     return Author.listAll();
   }
 
   @GET
   @Path("/{id}")
   public Response getAuthor(@PathParam("id") Long id) {
+    LOG.info("Entering getAuthor() with id: " + id);
     Author author = Author.findById(id);
     if (author == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -40,6 +45,7 @@ public class AuthorResource {
   @POST
   @Transactional
   public Response createAuthor(@Valid Author author) {
+    LOG.info("Entering createAuthor() with name: " + author.firstName + " " + author.lastName);
     author.persist();
     return Response.created(URI.create("/api/authors/" + author.id)).entity(author).build();
   }
@@ -48,6 +54,7 @@ public class AuthorResource {
   @Path("/{id}")
   @Transactional
   public Response updateAuthor(@PathParam("id") Long id, @Valid Author author) {
+    LOG.info("Entering updateAuthor() with id: " + id);
     Author existingAuthor = Author.findById(id);
     if (existingAuthor == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -65,6 +72,7 @@ public class AuthorResource {
   @Path("/{id}")
   @Transactional
   public Response deleteAuthor(@PathParam("id") Long id) {
+    LOG.info("Entering deleteAuthor() with id: " + id);
     Author author = Author.findById(id);
     if (author == null) {
       return Response.status(Response.Status.NOT_FOUND).build();

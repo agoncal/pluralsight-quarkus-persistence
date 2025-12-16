@@ -13,6 +13,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
@@ -22,14 +23,18 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class MusicianResource {
 
+  private static final Logger LOG = Logger.getLogger(MusicianResource.class);
+
   @GET
   public List<Musician> getAllMusicians() {
+    LOG.info("Entering getAllMusicians()");
     return Musician.listAll();
   }
 
   @GET
   @Path("/{id}")
   public Response getMusician(@PathParam("id") Long id) {
+    LOG.info("Entering getMusician() with id: " + id);
     Musician musician = Musician.findById(id);
     if (musician == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -40,6 +45,7 @@ public class MusicianResource {
   @POST
   @Transactional
   public Response createMusician(@Valid Musician musician) {
+    LOG.info("Entering createMusician() with name: " + musician.firstName + " " + musician.lastName);
     musician.persist();
     return Response.created(URI.create("/api/musicians/" + musician.id)).entity(musician).build();
   }
@@ -48,6 +54,7 @@ public class MusicianResource {
   @Path("/{id}")
   @Transactional
   public Response updateMusician(@PathParam("id") Long id, @Valid Musician musician) {
+    LOG.info("Entering updateMusician() with id: " + id);
     Musician existingMusician = Musician.findById(id);
     if (existingMusician == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -65,6 +72,7 @@ public class MusicianResource {
   @Path("/{id}")
   @Transactional
   public Response deleteMusician(@PathParam("id") Long id) {
+    LOG.info("Entering deleteMusician() with id: " + id);
     Musician musician = Musician.findById(id);
     if (musician == null) {
       return Response.status(Response.Status.NOT_FOUND).build();

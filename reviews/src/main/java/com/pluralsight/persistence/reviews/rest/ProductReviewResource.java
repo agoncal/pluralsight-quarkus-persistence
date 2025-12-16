@@ -16,6 +16,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
@@ -25,17 +26,21 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductReviewResource {
 
+  private static final Logger LOG = Logger.getLogger(ProductReviewResource.class);
+
   @Inject
   ProductReviewRepository productReviewRepository;
 
   @GET
   public List<ProductReview> findAll() {
+    LOG.info("Entering findAll()");
     return productReviewRepository.findAll();
   }
 
   @GET
   @Path("/{id}")
   public Response findById(@PathParam("id") Long id) {
+    LOG.info("Entering findById() with id: " + id);
     return productReviewRepository.findById(id)
       .map(review -> Response.ok(review).build())
       .orElse(Response.status(Response.Status.NOT_FOUND).build());
@@ -44,12 +49,14 @@ public class ProductReviewResource {
   @GET
   @Path("/item/{itemType}/{itemId}")
   public List<ProductReview> findByItem(@PathParam("itemType") ItemType itemType, @PathParam("itemId") Long itemId) {
+    LOG.info("Entering findByItem() with itemType: " + itemType + ", itemId: " + itemId);
     return productReviewRepository.findByItem(itemId, itemType);
   }
 
   @POST
   @Transactional
   public Response create(@Valid ProductReview review) {
+    LOG.info("Entering create() with title: " + review.title);
     ProductReview created = productReviewRepository.create(review);
     return Response.created(URI.create("/api/reviews/" + created.id)).entity(created).build();
   }
@@ -58,6 +65,7 @@ public class ProductReviewResource {
   @Path("/{id}")
   @Transactional
   public Response update(@PathParam("id") Long id, @Valid ProductReview review) {
+    LOG.info("Entering update() with id: " + id);
     return productReviewRepository.findById(id)
       .map(existing -> {
         existing.username = review.username;
@@ -74,6 +82,7 @@ public class ProductReviewResource {
   @Path("/{id}")
   @Transactional
   public Response delete(@PathParam("id") Long id) {
+    LOG.info("Entering delete() with id: " + id);
     return productReviewRepository.findById(id)
       .map(review -> {
         productReviewRepository.delete(review);

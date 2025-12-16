@@ -15,6 +15,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
@@ -24,14 +25,18 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserActivityResource {
 
+  private static final Logger LOG = Logger.getLogger(UserActivityResource.class);
+
   @GET
   public Uni<List<UserActivityLog>> getAll() {
+    LOG.info("Entering getAll()");
     return UserActivityLog.listAll();
   }
 
   @GET
   @Path("/{id}")
   public Uni<Response> getById(@PathParam("id") Long id) {
+    LOG.info("Entering getById() with id: " + id);
     return UserActivityLog.<UserActivityLog>findById(id)
       .onItem().transform(activity -> {
         if (activity == null) {
@@ -44,6 +49,7 @@ public class UserActivityResource {
   @POST
   @WithTransaction
   public Uni<Response> create(@Valid UserActivityLog activity) {
+    LOG.info("Entering create() with activity for user: " + activity.username);
     return activity.<UserActivityLog>persist()
       .onItem().transform(persisted ->
         Response.created(URI.create("/api/activities/" + persisted.id))
@@ -55,6 +61,7 @@ public class UserActivityResource {
   @Path("/{id}")
   @WithTransaction
   public Uni<Response> update(@PathParam("id") Long id, @Valid UserActivityLog activity) {
+    LOG.info("Entering update() with id: " + id);
     return UserActivityLog.<UserActivityLog>findById(id)
       .onItem().transformToUni(existing -> {
         if (existing == null) {
@@ -76,6 +83,7 @@ public class UserActivityResource {
   @Path("/{id}")
   @WithTransaction
   public Uni<Response> delete(@PathParam("id") Long id) {
+    LOG.info("Entering delete() with id: " + id);
     return UserActivityLog.<UserActivityLog>findById(id)
       .onItem().transformToUni(activity -> {
         if (activity == null) {
@@ -89,12 +97,14 @@ public class UserActivityResource {
   @GET
   @Path("/user/{username}")
   public Uni<List<UserActivityLog>> getByUsername(@PathParam("username") String username) {
+    LOG.info("Entering getByUsername() with username: " + username);
     return UserActivityLog.list("username", username);
   }
 
   @GET
   @Path("/action/{action}")
   public Uni<List<UserActivityLog>> getByAction(@PathParam("action") Action action) {
+    LOG.info("Entering getByAction() with action: " + action);
     return UserActivityLog.list("action", action);
   }
 }

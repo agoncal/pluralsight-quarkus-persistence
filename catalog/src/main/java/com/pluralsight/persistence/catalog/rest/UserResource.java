@@ -15,6 +15,7 @@ import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import org.jboss.logging.Logger;
 
 import java.net.URI;
 import java.util.List;
@@ -24,17 +25,21 @@ import java.util.List;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserResource {
 
+  private static final Logger LOG = Logger.getLogger(UserResource.class);
+
   @Inject
   UserRepository userRepository;
 
   @GET
   public List<User> getAllUsers() {
+    LOG.info("Entering getAllUsers()");
     return userRepository.listAll();
   }
 
   @GET
   @Path("/{id}")
   public Response getUser(@PathParam("id") Long id) {
+    LOG.info("Entering getUser() with id: " + id);
     User user = userRepository.findById(id);
     if (user == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -45,6 +50,7 @@ public class UserResource {
   @GET
   @Path("/username/{username}")
   public Response getUserByUsername(@PathParam("username") String username) {
+    LOG.info("Entering getUserByUsername() with username: " + username);
     User user = userRepository.findByUsername(username);
     if (user == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -55,6 +61,7 @@ public class UserResource {
   @POST
   @Transactional
   public Response createUser(@Valid User user) {
+    LOG.info("Entering createUser() with username: " + user.getUsername());
     userRepository.persist(user);
     return Response.created(URI.create("/api/users/" + user.getId())).entity(user).build();
   }
@@ -63,6 +70,7 @@ public class UserResource {
   @Path("/{id}")
   @Transactional
   public Response updateUser(@PathParam("id") Long id, @Valid User user) {
+    LOG.info("Entering updateUser() with id: " + id);
     User existingUser = userRepository.findById(id);
     if (existingUser == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
@@ -80,6 +88,7 @@ public class UserResource {
   @Path("/{id}")
   @Transactional
   public Response deleteUser(@PathParam("id") Long id) {
+    LOG.info("Entering deleteUser() with id: " + id);
     User user = userRepository.findById(id);
     if (user == null) {
       return Response.status(Response.Status.NOT_FOUND).build();
