@@ -202,6 +202,33 @@ if ("desc".equalsIgnoreCase(sortDir)) {
 Book.find(query, sort, params).page(Page.of(page, size)).list();
 ```
 
+## Caching
+
+The catalog module uses Quarkus Cache (`quarkus-cache`) for optimizing frequently accessed endpoints.
+
+### Cached Endpoints
+
+| Endpoint         | Cache Name   | Cache Key |
+|------------------|--------------|-----------|
+| GET /api/books/{id} | book-cache | id        |
+| GET /api/cds/{id}   | cd-cache   | id        |
+
+### Implementation
+
+```java
+@GET
+@Path("/{id}")
+@CacheResult(cacheName = "book-cache")
+public Response getBook(@CacheKey @PathParam("id") Long id) {
+  // ...
+}
+```
+
+### Cache Annotations
+
+- `@CacheResult(cacheName = "...")` - Caches the method result
+- `@CacheKey` - Marks the parameter used as cache key
+
 ## Important Files
 
 - `specifications.md` - Complete domain and API specifications

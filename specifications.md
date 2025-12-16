@@ -150,6 +150,7 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 | PostgreSQL                 | Relational database          |
 | Bean Validation            | Entity constraint validation |
 | RESTEasy Reactive          | REST API exposure            |
+| Quarkus Cache              | Response caching             |
 
 #### Entities
 
@@ -797,6 +798,23 @@ Example: `GET /api/books?page=0&size=10&inStock=true&language=ENGLISH&sortBy=pri
 | label     | String  | Filter by music company (partial match)        |
 
 Example: `GET /api/cds?page=0&size=10&inStock=true&genre=ROCK&label=Records&sortBy=title&sortDir=asc`
+
+### Caching
+
+The Catalog microservice uses Quarkus Cache (`quarkus-cache`) to optimize frequently accessed single-entity endpoints.
+
+#### Cached Endpoints
+
+| Method | Path             | Cache Name   | Cache Key | Description         |
+|--------|------------------|--------------|-----------|---------------------|
+| GET    | /api/books/{id}  | book-cache   | id        | Get book by ID      |
+| GET    | /api/cds/{id}    | cd-cache     | id        | Get CD by ID        |
+
+#### Cache Behavior
+
+- Responses are cached by entity ID using `@CacheResult`
+- Cache is automatically invalidated when the application restarts
+- Subsequent requests for the same ID return cached responses without database access
 
 ---
 
