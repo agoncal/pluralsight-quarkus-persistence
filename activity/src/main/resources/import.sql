@@ -210,3 +210,6 @@ INSERT INTO t_user_activity_log (id, username, action, item, search_query, ip_ad
 INSERT INTO t_user_activity_log (id, username, action, item, search_query, ip_address, user_agent, timestamp) VALUES (208, 'oscar', 'ADDED_TO_CART', 'Thriller - Michael Jackson', NULL, '172.16.12.55', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/122.0', '2024-01-19 17:12:00');
 INSERT INTO t_user_activity_log (id, username, action, item, search_query, ip_address, user_agent, timestamp) VALUES (209, 'oscar', 'LOGGED_OUT', 'Session', NULL, '172.16.12.55', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) Edge/122.0', '2024-01-19 17:30:00');
 INSERT INTO t_user_activity_log (id, username, action, item, search_query, ip_address, user_agent, timestamp) VALUES (210, 'patricia', 'LOGGED_IN', 'Session', NULL, '192.168.7.35', 'Mozilla/5.0 (Macintosh; Intel Mac OS X 14_2) Safari/17.2', '2024-01-20 08:00:00');
+
+-- Set auto-increment to start after the imported data to avoid ID conflicts during tests
+ALTER TABLE t_user_activity_log AUTO_INCREMENT = 1000;
