@@ -229,6 +229,93 @@ public Response getBook(@CacheKey @PathParam("id") Long id) {
 - `@CacheResult(cacheName = "...")` - Caches the method result
 - `@CacheKey` - Marks the parameter used as cache key
 
+## Performance Optimization
+
+### Hibernate Configuration
+
+```properties
+# Enable statistics in dev mode to monitor N+1 issues
+%dev.quarkus.hibernate-orm.statistics=true
+%dev.quarkus.hibernate-orm.log.queries-slower-than-ms=100
+
+# Batch fetching to reduce N+1 queries
+quarkus.hibernate-orm.fetch.batch-size=16
+quarkus.hibernate-orm.fetch.max-depth=3
+```
+
+### Fetch Joins for N+1 Prevention
+
+Use `@NamedQuery` with `LEFT JOIN FETCH` to eagerly load relationships:
+
+```java
+@Entity
+@NamedQuery(name = "Book.findByIdWithRelations",
+  query = "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.publisher LEFT JOIN FETCH b.authors WHERE b.id = :id")
+public class Book extends Item {
+
+  public static Optional<Book> findByIdWithRelations(Long id) {
+    return find("#Book.findByIdWithRelations", Map.of("id", id)).firstResultOptional();
+  }
+}
+```
+
+### MultipleBagFetchException
+
+When an entity has multiple `List` collections, Hibernate cannot fetch them all in one query. Solutions:
+
+1. **Fetch one collection, batch-load the other:**
+```java
+@NamedQuery(name = "CD.findByIdWithMusicians",
+  query = "SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.musicians WHERE c.id = :id")
+public class CD extends Item {
+  public static Optional<CD> findByIdWithRelations(Long id) {
+    Optional<CD> cd = find("#CD.findByIdWithMusicians", Map.of("id", id)).firstResultOptional();
+    cd.ifPresent(c -> c.tracks.size()); // Initialize via batch fetch
+    return cd;
+  }
+}
+```
+
+2. **Use `Set` instead of `List`** for collections where order doesn't matter
+
+### Hibernate Second-Level Cache
+
+Entities can be cached at the Hibernate level using `@Cacheable`:
+
+```java
+@Entity
+@Cacheable
+public class Publisher extends PanacheEntity { }
+```
+
+For XML-mapped entities (orm.xml):
+```xml
+<entity class="com.pluralsight.persistence.supplier.model.Supplier" cacheable="true">
+```
+
+Configuration in `application.properties`:
+```properties
+quarkus.hibernate-orm.cache."com.pluralsight.persistence.catalog.model.Publisher".expiration.max-idle=1H
+quarkus.hibernate-orm.cache."com.pluralsight.persistence.catalog.model.Publisher".memory.object-count=100
+```
+
+### Cached Entities
+
+| Entity | Cache Duration | Max Objects |
+|--------|----------------|-------------|
+| Publisher | 1 hour | 100 |
+| Supplier | 1 hour | 100 |
+
+### Query Optimization Patterns
+
+| Pattern | Use Case | Example |
+|---------|----------|---------|
+| Fetch Join | Single entity with relationships | `LEFT JOIN FETCH b.publisher` |
+| Batch Fetching | Multiple entities with relationships | `fetch.batch-size=16` |
+| Named Query | Reusable optimized queries | `@NamedQuery` |
+| Entity Cache | Frequently accessed reference data | `@Cacheable` |
+| Statistics | Detecting N+1 issues in dev | `statistics=true` |
+
 ## Important Files
 
 - `specifications.md` - Complete domain and API specifications

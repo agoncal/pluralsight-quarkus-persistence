@@ -9,6 +9,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.NamedQuery;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.PastOrPresent;
 import jakarta.validation.constraints.Size;
@@ -16,10 +17,18 @@ import jakarta.validation.constraints.Size;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Entity
 @DiscriminatorValue("BOOK")
+@NamedQuery(name = "Book.findByIdWithRelations",
+  query = "SELECT DISTINCT b FROM Book b LEFT JOIN FETCH b.publisher LEFT JOIN FETCH b.authors WHERE b.id = :id")
 public class Book extends Item {
+
+  public static Optional<Book> findByIdWithRelations(Long id) {
+    return find("#Book.findByIdWithRelations", Map.of("id", id)).firstResultOptional();
+  }
 
   @Size(min = 13, max = 13)
   @Column(length = 13, unique = true)

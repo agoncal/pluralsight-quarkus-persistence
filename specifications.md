@@ -816,6 +816,43 @@ The Catalog microservice uses Quarkus Cache (`quarkus-cache`) to optimize freque
 - Cache is automatically invalidated when the application restarts
 - Subsequent requests for the same ID return cached responses without database access
 
+### Performance Optimization
+
+#### N+1 Query Prevention
+
+The Catalog module implements several strategies to prevent N+1 query problems:
+
+| Strategy | Configuration/Implementation | Purpose |
+|----------|------------------------------|---------|
+| Fetch Joins | `@NamedQuery` with `LEFT JOIN FETCH` | Eagerly load relationships in single query |
+| Batch Fetching | `quarkus.hibernate-orm.fetch.batch-size=16` | Load collections in batches instead of one-by-one |
+| Hibernate Statistics | `%dev.quarkus.hibernate-orm.statistics=true` | Monitor query counts in dev mode |
+| Slow Query Logging | `%dev.quarkus.hibernate-orm.log.queries-slower-than-ms=100` | Identify slow queries |
+
+#### Optimized Entity Methods
+
+| Entity | Method | Strategy |
+|--------|--------|----------|
+| Book | `findByIdWithRelations(Long id)` | Fetch join for publisher and authors |
+| CD | `findByIdWithRelations(Long id)` | Fetch join for musicians, batch fetch for tracks |
+
+#### MultipleBagFetchException Handling
+
+When entities have multiple `List` collections (e.g., CD with musicians and tracks), Hibernate cannot fetch all in one query. The solution is to fetch one collection via join and let batch fetching handle the other
+
+#### Hibernate Second-Level Cache
+
+Reference data entities are cached at the Hibernate level for improved performance:
+
+| Entity | Annotation/Config | Cache Duration | Max Objects |
+|--------|-------------------|----------------|-------------|
+| Publisher | `@Cacheable` | 1 hour | 100 |
+| Supplier | `cacheable="true"` (orm.xml) | 1 hour | 100 |
+
+Configuration properties:
+- `quarkus.hibernate-orm.cache."entity".expiration.max-idle` - Time before cached entity expires
+- `quarkus.hibernate-orm.cache."entity".memory.object-count` - Maximum cached instances
+
 ---
 
 ## Project Structure

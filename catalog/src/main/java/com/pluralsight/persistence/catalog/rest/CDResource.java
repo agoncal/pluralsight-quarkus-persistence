@@ -20,7 +20,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.hibernate.Hibernate;
 import org.jboss.logging.Logger;
 
 import java.net.URI;
@@ -86,17 +85,12 @@ public class CDResource {
 
   @GET
   @Path("/{id}")
-  @Transactional
   @CacheResult(cacheName = "cd-cache")
   public Response getCD(@CacheKey @PathParam("id") Long id) {
     LOG.info("Entering getCD() with id: " + id);
-    CD cd = CD.findById(id);
-    if (cd == null) {
-      return Response.status(Response.Status.NOT_FOUND).build();
-    }
-    Hibernate.initialize(cd.musicians);
-    Hibernate.initialize(cd.tracks);
-    return Response.ok(cd).build();
+    return CD.findByIdWithRelations(id)
+      .map(cd -> Response.ok(cd).build())
+      .orElse(Response.status(Response.Status.NOT_FOUND).build());
   }
 
   @POST
@@ -112,22 +106,20 @@ public class CDResource {
   @Transactional
   public Response updateCD(@PathParam("id") Long id, @Valid CD cd) {
     LOG.info("Entering updateCD() with id: " + id);
-    CD existingCD = CD.findById(id);
-    if (existingCD == null) {
-      return Response.status(Response.Status.NOT_FOUND).build();
-    }
-    existingCD.title = cd.title;
-    existingCD.description = cd.description;
-    existingCD.price = cd.price;
-    existingCD.stock = cd.stock;
-    existingCD.ean = cd.ean;
-    existingCD.musicCompany = cd.musicCompany;
-    existingCD.genre = cd.genre;
-    existingCD.totalDuration = cd.totalDuration;
-    existingCD.releaseDate = cd.releaseDate;
-    Hibernate.initialize(existingCD.musicians);
-    Hibernate.initialize(existingCD.tracks);
-    return Response.ok(existingCD).build();
+    return CD.findByIdWithRelations(id)
+      .map(existingCD -> {
+        existingCD.title = cd.title;
+        existingCD.description = cd.description;
+        existingCD.price = cd.price;
+        existingCD.stock = cd.stock;
+        existingCD.ean = cd.ean;
+        existingCD.musicCompany = cd.musicCompany;
+        existingCD.genre = cd.genre;
+        existingCD.totalDuration = cd.totalDuration;
+        existingCD.releaseDate = cd.releaseDate;
+        return Response.ok(existingCD).build();
+      })
+      .orElse(Response.status(Response.Status.NOT_FOUND).build());
   }
 
   @DELETE

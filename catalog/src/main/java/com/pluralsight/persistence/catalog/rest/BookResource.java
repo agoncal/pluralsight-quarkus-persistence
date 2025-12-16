@@ -20,7 +20,6 @@ import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
-import org.hibernate.Hibernate;
 import org.jboss.logging.Logger;
 
 import java.net.URI;
@@ -86,17 +85,12 @@ public class BookResource {
 
   @GET
   @Path("/{id}")
-  @Transactional
   @CacheResult(cacheName = "book-cache")
   public Response getBook(@CacheKey @PathParam("id") Long id) {
     LOG.info("Entering getBook() with id: " + id);
-    Book book = Book.findById(id);
-    if (book == null) {
-      return Response.status(Response.Status.NOT_FOUND).build();
-    }
-    Hibernate.initialize(book.publisher);
-    Hibernate.initialize(book.authors);
-    return Response.ok(book).build();
+    return Book.findByIdWithRelations(id)
+      .map(book -> Response.ok(book).build())
+      .orElse(Response.status(Response.Status.NOT_FOUND).build());
   }
 
   @POST
@@ -112,22 +106,20 @@ public class BookResource {
   @Transactional
   public Response updateBook(@PathParam("id") Long id, @Valid Book book) {
     LOG.info("Entering updateBook() with id: " + id);
-    Book existingBook = Book.findById(id);
-    if (existingBook == null) {
-      return Response.status(Response.Status.NOT_FOUND).build();
-    }
-    existingBook.title = book.title;
-    existingBook.description = book.description;
-    existingBook.price = book.price;
-    existingBook.stock = book.stock;
-    existingBook.isbn = book.isbn;
-    existingBook.nbOfPages = book.nbOfPages;
-    existingBook.publicationDate = book.publicationDate;
-    existingBook.language = book.language;
-    existingBook.publisher = book.publisher;
-    Hibernate.initialize(existingBook.publisher);
-    Hibernate.initialize(existingBook.authors);
-    return Response.ok(existingBook).build();
+    return Book.findByIdWithRelations(id)
+      .map(existingBook -> {
+        existingBook.title = book.title;
+        existingBook.description = book.description;
+        existingBook.price = book.price;
+        existingBook.stock = book.stock;
+        existingBook.isbn = book.isbn;
+        existingBook.nbOfPages = book.nbOfPages;
+        existingBook.publicationDate = book.publicationDate;
+        existingBook.language = book.language;
+        existingBook.publisher = book.publisher;
+        return Response.ok(existingBook).build();
+      })
+      .orElse(Response.status(Response.Status.NOT_FOUND).build());
   }
 
   @DELETE

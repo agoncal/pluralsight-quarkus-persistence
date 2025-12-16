@@ -7,7 +7,7 @@
   <entity class="com.pluralsight.persistence.customer.model.OrderLine"/>
   <entity class="com.pluralsight.persistence.customer.model.PurchaseOrder"/>
   <entity class="com.pluralsight.persistence.customer.model.User"/>
-  <entity class="com.pluralsight.persistence.supplier.model.Supplier">
+  <entity class="com.pluralsight.persistence.supplier.model.Supplier" cacheable="true">
     <table name="t_suppliers"/>
     <attributes>
       <id name="id">

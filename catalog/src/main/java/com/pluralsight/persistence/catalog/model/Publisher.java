@@ -2,6 +2,7 @@ package com.pluralsight.persistence.catalog.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.quarkus.hibernate.orm.panache.PanacheEntity;
+import jakarta.persistence.Cacheable;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -17,6 +18,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "t_publishers")
+@Cacheable
 public class Publisher extends PanacheEntity {
 
   @NotNull

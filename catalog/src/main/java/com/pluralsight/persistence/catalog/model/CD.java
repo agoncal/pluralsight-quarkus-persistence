@@ -9,6 +9,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.NamedQuery;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OrderBy;
 import jakarta.validation.constraints.Size;
@@ -17,10 +18,21 @@ import java.time.Duration;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Entity
 @DiscriminatorValue("CD")
+@NamedQuery(name = "CD.findByIdWithMusicians",
+  query = "SELECT DISTINCT c FROM CD c LEFT JOIN FETCH c.musicians WHERE c.id = :id")
 public class CD extends Item {
+
+  public static Optional<CD> findByIdWithRelations(Long id) {
+    // Fetch musicians via join, tracks via batch fetching (configured in application.properties)
+    Optional<CD> cd = find("#CD.findByIdWithMusicians", Map.of("id", id)).firstResultOptional();
+    cd.ifPresent(c -> c.tracks.size()); // Initialize tracks collection via batch fetch
+    return cd;
+  }
 
   @Size(min = 13, max = 13)
   @Column(length = 13, unique = true)
