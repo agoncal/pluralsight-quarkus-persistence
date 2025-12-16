@@ -27,6 +27,9 @@ mvn clean verify
 
 # Development mode with live reload (from module directory)
 cd catalog && mvn quarkus:dev
+
+# Start databases with Docker Compose
+docker compose -p vintage-store-db -f docker-compose.yml up
 ```
 
 ## Project Structure
@@ -43,7 +46,7 @@ cd catalog && mvn quarkus:dev
 
 ## Architecture
 
-- **Java 21**, **Quarkus 3.30.2**, **Maven multi-module**
+- **Java 21**, **Quarkus 3.30.3**, **Maven multi-module**
 - **Web** (port 8080): Main web interface with Qute/Renarde, uses MicroProfile REST Client to communicate with microservices
 - **Activity** (port 8082): Reactive persistence with Hibernate Reactive + MySQL
 - **Catalog** (port 8083): Catalog microservice with REST API (Books, CDs, Authors, Musicians, Publishers)

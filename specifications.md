@@ -124,15 +124,16 @@ Renarde.
 | Page              | Path              | Description              |
 |-------------------|-------------------|--------------------------|
 | Dashboard         | /admin            | Admin dashboard          |
+| Manage Authors    | /admin/authors    | CRUD for authors         |
 | Manage Books      | /admin/books      | CRUD for books           |
 | Manage CDs        | /admin/cds        | CRUD for CDs             |
-| Manage Authors    | /admin/authors    | CRUD for authors         |
+| Manage Customers  | /admin/customers  | Customer management      |
 | Manage Musicians  | /admin/musicians  | CRUD for musicians       |
 | Manage Publishers | /admin/publishers | CRUD for publishers      |
-| Manage Customers  | /admin/customers  | Customer management      |
 | Manage Orders     | /admin/orders     | Order management         |
-| View Reviews      | /admin/reviews    | Review moderation        |
-| View Activity     | /admin/activities | User activity monitoring |
+| Manage Users      | /admin/users      | User management          |
+| View Activities   | /admin/activities | User activity monitoring |
+| View Reviews      | /admin/reviews    | Review display           |
 
 ---
 
@@ -240,10 +241,12 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 
 ##### Enumerations
 
-| Enum       | Values                                                                        |
-|------------|-------------------------------------------------------------------------------|
-| Language   | ENGLISH, FRENCH, SPANISH, GERMAN, PORTUGUESE, ITALIAN, JAPANESE, CHINESE      |
-| MusicGenre | ROCK, POP, JAZZ, CLASSICAL, ELECTRONIC, HIP_HOP, COUNTRY, BLUES, METAL, OTHER |
+| Enum        | Values                                                                        |
+|-------------|-------------------------------------------------------------------------------|
+| Language    | ENGLISH, FRENCH, SPANISH, GERMAN, PORTUGUESE, ITALIAN, JAPANESE, CHINESE      |
+| MusicGenre  | ROCK, POP, JAZZ, CLASSICAL, ELECTRONIC, HIP_HOP, COUNTRY, BLUES, METAL, OTHER |
+| UserRole    | CUSTOMER, ADMIN, MANAGER                                                      |
+| OrderStatus | PENDING, CONFIRMED, SHIPPED, DELIVERED, CANCELLED                             |
 
 #### REST Endpoints
 
@@ -275,22 +278,30 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 | PUT    | /api/publishers/{id} | Update a publisher             |
 | DELETE | /api/publishers/{id} | Delete a publisher             |
 
-REST endpoints managing customers and orders are handled via the Customer Module:
+REST endpoints managing customers, orders, and suppliers are handled via the Customer and Supplier modules:
 
-| Method | Path                | Description                 |
-|--------|---------------------|-----------------------------|
-| GET    | /api/users          | List all users              |
-| GET    | /api/users/{id}     | Get user details            |
-| POST   | /api/users          | Create a new user           |
-| PUT    | /api/users/{id}     | Update a user               |
-| GET    | /api/customers      | List all customers          |
-| GET    | /api/customers/{id} | Get customer details        |
-| POST   | /api/customers      | Create a new customer       |
-| PUT    | /api/customers/{id} | Update a customer           |
-| GET    | /api/pos            | List all purchase orders    |
-| GET    | /api/pos/{id}       | Get purchase order details  |
-| POST   | /api/pos            | Create a new purchase order |
-| PUT    | /api/pos/{id}       | Update a purchase order     |
+| Method | Path                 | Description                 |
+|--------|----------------------|-----------------------------|
+| GET    | /api/users           | List all users              |
+| GET    | /api/users/{id}      | Get user details            |
+| POST   | /api/users           | Create a new user           |
+| PUT    | /api/users/{id}      | Update a user               |
+| DELETE | /api/users/{id}      | Delete a user               |
+| GET    | /api/customers       | List all customers          |
+| GET    | /api/customers/{id}  | Get customer details        |
+| POST   | /api/customers       | Create a new customer       |
+| PUT    | /api/customers/{id}  | Update a customer           |
+| DELETE | /api/customers/{id}  | Delete a customer           |
+| GET    | /api/pos             | List all purchase orders    |
+| GET    | /api/pos/{id}        | Get purchase order details  |
+| POST   | /api/pos             | Create a new purchase order |
+| PUT    | /api/pos/{id}        | Update a purchase order     |
+| DELETE | /api/pos/{id}        | Delete a purchase order     |
+| GET    | /api/suppliers       | List all suppliers          |
+| GET    | /api/suppliers/{id}  | Get supplier details        |
+| POST   | /api/suppliers       | Create a new supplier       |
+| PUT    | /api/suppliers/{id}  | Update a supplier           |
+| DELETE | /api/suppliers/{id}  | Delete a supplier           |
 
 ---
 
@@ -319,77 +330,118 @@ The VintageStore application includes this JAR as a dependency and uses:
 
 ---
 
-### 4. Product Reviews Microservice (Port 8084)
+### 4. Supplier Module (JAR Library)
 
-A dedicated microservice for managing product reviews using MariaDB for flexible schema and high read throughput.
+A standalone JAR file containing legacy POJO entities without JPA annotations, similar to the Customer module. This module demonstrates integration with external legacy code using orm.xml mapping.
 
 #### Technical Stack
 
-| Technology        | Purpose               |
-|-------------------|-----------------------|
-| Quarkus           | Application framework |
-| Panache MariaDB   | Data persistence      |
-| MariaDB           | NoSQL database        |
-| RESTEasy Reactive | REST API exposure     |
-| JSON-B            | JSON serialization    |
+| Technology         | Purpose              |
+|--------------------|----------------------|
+| Plain Java         | POJO definitions     |
+| No JPA annotations | Legacy compatibility |
+
+#### Entities
+
+**Supplier** (JPA Entity - mapped via orm.xml in Catalog)
+
+| Attribute    | Type    | Constraints    |
+|--------------|---------|----------------|
+| id           | Long    | Auto-generated |
+| companyName  | String  |                |
+| contactName  | String  |                |
+| contactEmail | String  |                |
+| country      | String  |                |
+| createdDate  | Instant | Auto-set       |
+
+#### Integration with Catalog Microservice
+
+The Catalog microservice includes this JAR as a dependency and uses:
+
+- **orm.xml** to map the Supplier as a JPA entity
+- **PanacheRepository** to provide data access methods
+
+#### REST Endpoints (exposed via Catalog Microservice)
+
+| Method | Path                 | Description            |
+|--------|----------------------|------------------------|
+| GET    | /api/suppliers       | List all suppliers     |
+| GET    | /api/suppliers/{id}  | Get supplier details   |
+| POST   | /api/suppliers       | Create a new supplier  |
+| PUT    | /api/suppliers/{id}  | Update a supplier      |
+| DELETE | /api/suppliers/{id}  | Delete a supplier      |
+
+---
+
+### 5. Product Reviews Microservice (Port 8084)
+
+A dedicated microservice for managing product reviews using MariaDB with legacy JPA persistence.
+
+#### Technical Stack
+
+| Technology            | Purpose               |
+|-----------------------|-----------------------|
+| Quarkus               | Application framework |
+| Hibernate ORM Panache | Data persistence      |
+| MariaDB               | Relational database   |
+| RESTEasy Reactive     | REST API exposure     |
+| Jackson               | JSON serialization    |
 
 #### Features
 
 - Create, read, update, delete product reviews
-- Aggregate reviews by product
-- Calculate average ratings
-- Mark reviews as helpful
-- Filter verified purchases
+- Query reviews by item type and item ID
 
 #### Entities
 
-**ProductReview** (Panache MraiaDB Entity)
+**ProductReview** (Panache MariaDB Entity)
 
-| Attribute        | Type     | Constraints                     |
-|------------------|----------|---------------------------------|
-| id               | ObjectId | Auto-generated                  |
-| itemId           | Long     | Reference to Item, not null     |
-| customerId       | Long     | Reference to Customer, not null |
-| rating           | Integer  | 1-5, not null                   |
-| title            | String   | Max 100                         |
-| comment          | String   | Max 2000                        |
-| helpfulCount     | Integer  | Default 0                       |
-| verifiedPurchase | Boolean  | Default false                   |
-| createdDate      | Instant  | Auto-set                        |
+| Attribute   | Type     | Constraints                 |
+|-------------|----------|-----------------------------|
+| id          | Long     | Auto-generated              |
+| itemId      | Long     | Reference to Item, not null |
+| itemType    | ItemType | Enum, not null              |
+| username    | String   | Max 50, not null            |
+| rating      | Integer  | 0-5, not null               |
+| title       | String   | Max 100, not null           |
+| comment     | String   | Max 1024                    |
+| createdDate | Instant  | Auto-set                    |
+
+#### Enumerations
+
+| Enum     | Values   |
+|----------|----------|
+| ItemType | BOOK, CD |
 
 #### REST Endpoints
 
-| Method | Path                               | Description                      |
-|--------|------------------------------------|----------------------------------|
-| GET    | /api/reviews                       | List all reviews with pagination |
-| GET    | /api/reviews/{id}                  | Get review by ID                 |
-| GET    | /api/reviews/item/{itemId}         | Get reviews for an item          |
-| GET    | /api/reviews/item/{itemId}/average | Get average rating for an item   |
-| GET    | /api/reviews/customer/{customerId} | Get reviews by a customer        |
-| POST   | /api/reviews                       | Create a new review              |
-| PUT    | /api/reviews/{id}                  | Update a review                  |
-| DELETE | /api/reviews/{id}                  | Delete a review                  |
-| POST   | /api/reviews/{id}/helpful          | Increment helpful count          |
+| Method | Path                               | Description        |
+|--------|------------------------------------|--------------------|
+| GET    | /api/reviews                       | List all reviews   |
+| GET    | /api/reviews/{id}                  | Get review by ID   |
+| GET    | /api/reviews/item/{itemType}/{itemId} | Get reviews for an item |
+| POST   | /api/reviews                       | Create a new review |
+| PUT    | /api/reviews/{id}                  | Update a review    |
+| DELETE | /api/reviews/{id}                  | Delete a review    |
 
 #### Sample JSON Response
 
 ```json
 {
-  "id": "507f1f77bcf86cd799439011",
+  "id": 1,
   "itemId": 42,
-  "customerId": 15,
+  "itemType": "BOOK",
+  "username": "johndoe",
   "rating": 5,
   "title": "Excellent book!",
   "comment": "This is one of the best books I've ever read on the subject.",
-  "helpfulCount": 23,
-  "verifiedPurchase": true,
   "createdDate": "2024-01-15T10:30:00Z"
 }
 ```
 
 ---
 
-### 5. User Activity Microservice (Port 8082)
+### 6. User Activity Microservice (Port 8082)
 
 A high-throughput microservice for tracking user activity using Hibernate Reactive for non-blocking database operations.
 
@@ -415,45 +467,45 @@ A high-throughput microservice for tracking user activity using Hibernate Reacti
 
 **UserActivityLog** (Panache Reactive Entity)
 
-| Attribute   | Type           | Constraints                        |
-|-------------|----------------|------------------------------------|
-| id          | Long           | Auto-generated                     |
-| userId      | Long           | Reference to User, not null        |
-| action      | ActivityAction | Enum, not null                     |
-| itemId      | Long           | Optional, for item-related actions |
-| searchQuery | String         | Optional, for search actions       |
-| ipAddress   | String         | Max 45 (IPv6 support)              |
-| userAgent   | String         | Max 500                            |
-| timestamp   | Instant        | Not null                           |
+| Attribute   | Type    | Constraints                        |
+|-------------|---------|------------------------------------|
+| id          | Long    | Auto-generated                     |
+| username    | String  | Max 50, not null                   |
+| action      | Action  | Enum, not null                     |
+| item        | String  | Not null, item identifier          |
+| searchQuery | String  | Max 500, optional                  |
+| ipAddress   | String  | Max 45 (IPv6 support), not null    |
+| userAgent   | String  | Max 500, not null                  |
+| timestamp   | Instant | Not null, auto-set                 |
 
 #### Enumeration
 
-| Enum           | Values                                                                                                     |
-|----------------|------------------------------------------------------------------------------------------------------------|
-| ActivityAction | VIEWED_ITEM, ADDED_TO_CART, REMOVED_FROM_CART, SEARCHED, LOGGED_IN, LOGGED_OUT, PLACED_ORDER, WROTE_REVIEW |
+| Enum   | Values                                                                                                     |
+|--------|------------------------------------------------------------------------------------------------------------|
+| Action | VIEWED_ITEM, ADDED_TO_CART, REMOVED_FROM_CART, SEARCHED, LOGGED_IN, LOGGED_OUT, PLACED_ORDER, WROTE_REVIEW |
 
 #### REST Endpoints
 
-All endpoints return reactive types (Uni or Multi).
+All endpoints return reactive types (Uni).
 
-| Method | Path                            | Description                         | Return Type              |
-|--------|---------------------------------|-------------------------------------|--------------------------|
-| GET    | /api/activities                 | List all activities with pagination | Multi\<UserActivityLog\> |
-| GET    | /api/activities/{id}            | Get activity by ID                  | Uni\<UserActivityLog\>   |
-| GET    | /api/activities/user/{userId}   | Get activities for a user           | Multi\<UserActivityLog\> |
-| GET    | /api/activities/action/{action} | Get activities by action type       | Multi\<UserActivityLog\> |
-| GET    | /api/activities/item/{itemId}   | Get activities for an item          | Multi\<UserActivityLog\> |
-| POST   | /api/activities                 | Record a new activity               | Uni\<UserActivityLog\>   |
-| DELETE | /api/activities/{id}            | Delete an activity                  | Uni\<Boolean\>           |
+| Method | Path                              | Description                   | Return Type                   |
+|--------|-----------------------------------|-------------------------------|-------------------------------|
+| GET    | /api/activities                   | List all activities           | Uni\<List\<UserActivityLog\>\> |
+| GET    | /api/activities/{id}              | Get activity by ID            | Uni\<Response\>               |
+| GET    | /api/activities/user/{username}   | Get activities for a user     | Uni\<List\<UserActivityLog\>\> |
+| GET    | /api/activities/action/{action}   | Get activities by action type | Uni\<List\<UserActivityLog\>\> |
+| POST   | /api/activities                   | Record a new activity         | Uni\<Response\>               |
+| PUT    | /api/activities/{id}              | Update an activity            | Uni\<Response\>               |
+| DELETE | /api/activities/{id}              | Delete an activity            | Uni\<Response\>               |
 
 #### Sample JSON Response
 
 ```json
 {
   "id": 12345,
-  "userId": 42,
+  "username": "johndoe",
   "action": "VIEWED_ITEM",
-  "itemId": 101,
+  "item": "BOOK-101",
   "searchQuery": null,
   "ipAddress": "192.168.1.100",
   "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
@@ -535,10 +587,10 @@ All endpoints return reactive types (Uni or Multi).
                         └─────────────────┘     ┌─────────────────┐
                                                 │ t_order_lines   │
 ┌─────────────────┐                             ├─────────────────┤
-│   t_customers   │                             │ id (PK)         │
+│   t_suppliers   │                             │ id (PK)         │
 ├─────────────────┤                             │ quantity        │
 │ id (PK)         │                             │ unit_price      │
-│ company_name    │                             │ item_fk (FK)    │
+│ company_name    │                             │ item            │
 │ contact_name    │                             │ order_fk (FK)   │
 │ contact_email   │                             └─────────────────┘
 │ country         │
@@ -549,24 +601,23 @@ All endpoints return reactive types (Uni or Multi).
 ### MariaDB (Product Reviews)
 
 ```
-Collection: product_reviews
-{
-  "_id": ObjectId,
-  "itemId": Long,
-  "customerId": Long,
-  "rating": Integer,
-  "title": String,
-  "comment": String,
-  "helpfulCount": Integer,
-  "verifiedPurchase": Boolean,
-  "createdDate": ISODate
-}
+┌─────────────────────┐
+│     t_reviews       │
+├─────────────────────┤
+│ id (PK)             │
+│ item_id             │
+│ item_type           │
+│ username            │
+│ rating              │
+│ title               │
+│ comment             │
+│ created_date        │
+└─────────────────────┘
 
 Indexes:
-- itemId (for product lookup)
-- customerId (for customer reviews)
-- rating (for filtering)
-- createdDate (for sorting)
+- item_id, item_type (for product lookup)
+- username (for user reviews)
+- created_date (for sorting)
 ```
 
 ### MySQL (User Activity)
@@ -576,9 +627,9 @@ Indexes:
 │ t_user_activity_log │
 ├─────────────────────┤
 │ id (PK)             │
-│ user_id             │
+│ username            │
 │ action              │
-│ item_id             │
+│ item                │
 │ search_query        │
 │ ip_address          │
 │ user_agent          │
@@ -586,9 +637,8 @@ Indexes:
 └─────────────────────┘
 
 Indexes:
-- user_id (for user activity lookup)
+- username (for user activity lookup)
 - action (for action type filtering)
-- item_id (for item activity)
 - timestamp (for time-based queries)
 ```
 
