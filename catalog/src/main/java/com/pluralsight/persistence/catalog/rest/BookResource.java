@@ -1,16 +1,19 @@
 package com.pluralsight.persistence.catalog.rest;
 
 import com.pluralsight.persistence.catalog.model.Book;
+import io.quarkus.panache.common.Page;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.hibernate.Hibernate;
@@ -24,8 +27,10 @@ import java.util.List;
 public class BookResource {
 
   @GET
-  public List<Book> getAllBooks() {
-    return Book.listAll();
+  public List<Book> getAllBooks(
+      @QueryParam("page") @DefaultValue("0") int page,
+      @QueryParam("size") @DefaultValue("10") int size) {
+    return Book.findAll().page(Page.of(page, size)).list();
   }
 
   @GET

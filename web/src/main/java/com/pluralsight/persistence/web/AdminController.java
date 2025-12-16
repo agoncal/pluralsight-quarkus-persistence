@@ -141,7 +141,7 @@ public class AdminController extends Controller {
   @Path("/books")
   public TemplateInstance books() {
     LOG.info("Entering admin books()");
-    List<BookDTO> books = catalogProxy.getAllBooks();
+    List<BookDTO> books = catalogProxy.getAllBooks(0, 1000);
     return Templates.books(books);
   }
 
@@ -236,7 +236,7 @@ public class AdminController extends Controller {
   @Path("/cds")
   public TemplateInstance cds() {
     LOG.info("Entering admin cds()");
-    List<CDDTO> cds = catalogProxy.getAllCDs();
+    List<CDDTO> cds = catalogProxy.getAllCDs(0, 1000);
     return Templates.cds(cds);
   }
 

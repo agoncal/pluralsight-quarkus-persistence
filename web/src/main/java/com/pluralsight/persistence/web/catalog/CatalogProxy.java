@@ -3,12 +3,14 @@ package com.pluralsight.persistence.web.catalog;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RegisterRestClient;
@@ -26,7 +28,9 @@ public interface CatalogProxy {
 
   @GET
   @Path("/api/books")
-  List<BookDTO> getAllBooks();
+  List<BookDTO> getAllBooks(
+      @QueryParam("page") @DefaultValue("0") int page,
+      @QueryParam("size") @DefaultValue("10") int size);
 
   @GET
   @Path("/api/books/{id}")
@@ -50,7 +54,9 @@ public interface CatalogProxy {
 
   @GET
   @Path("/api/cds")
-  List<CDDTO> getAllCDs();
+  List<CDDTO> getAllCDs(
+      @QueryParam("page") @DefaultValue("0") int page,
+      @QueryParam("size") @DefaultValue("10") int size);
 
   @GET
   @Path("/api/cds/{id}")

@@ -14,10 +14,12 @@ import io.quarkiverse.renarde.Controller;
 import io.quarkus.qute.CheckedTemplate;
 import io.quarkus.qute.TemplateInstance;
 import jakarta.inject.Inject;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.Response;
 import org.eclipse.microprofile.rest.client.inject.RestClient;
 import org.jboss.logging.Logger;
@@ -47,10 +49,12 @@ public class WebApplication extends Controller {
   }
 
   @Path("/books")
-  public TemplateInstance books() {
-    LOG.info("Entering books()");
-    List<BookDTO> books = catalogProxy.getAllBooks();
-    return Templates.books(books);
+  public TemplateInstance books(
+      @QueryParam("page") @DefaultValue("0") int page,
+      @QueryParam("size") @DefaultValue("10") int size) {
+    LOG.info("Entering books() with page=" + page + ", size=" + size);
+    List<BookDTO> books = catalogProxy.getAllBooks(page, size);
+    return Templates.books(books, page, size);
   }
 
   @Path("/books/{id}")
@@ -66,10 +70,12 @@ public class WebApplication extends Controller {
   }
 
   @Path("/cds")
-  public TemplateInstance cds() {
-    LOG.info("Entering cds()");
-    List<CDDTO> cds = catalogProxy.getAllCDs();
-    return Templates.cds(cds);
+  public TemplateInstance cds(
+      @QueryParam("page") @DefaultValue("0") int page,
+      @QueryParam("size") @DefaultValue("10") int size) {
+    LOG.info("Entering cds() with page=" + page + ", size=" + size);
+    List<CDDTO> cds = catalogProxy.getAllCDs(page, size);
+    return Templates.cds(cds, page, size);
   }
 
   @Path("/cds/{id}")
@@ -227,11 +233,11 @@ public class WebApplication extends Controller {
   static class Templates {
     public static native TemplateInstance index();
 
-    public static native TemplateInstance books(List<BookDTO> books);
+    public static native TemplateInstance books(List<BookDTO> books, int page, int size);
 
     public static native TemplateInstance book(BookDTO book, List<ProductReviewDTO> reviews);
 
-    public static native TemplateInstance cds(List<CDDTO> cds);
+    public static native TemplateInstance cds(List<CDDTO> cds, int page, int size);
 
     public static native TemplateInstance cd(CDDTO cd, List<ProductReviewDTO> reviews);
 

@@ -1,16 +1,19 @@
 package com.pluralsight.persistence.catalog.rest;
 
 import com.pluralsight.persistence.catalog.model.CD;
+import io.quarkus.panache.common.Page;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
+import jakarta.ws.rs.DefaultValue;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
+import jakarta.ws.rs.QueryParam;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import org.hibernate.Hibernate;
@@ -24,8 +27,10 @@ import java.util.List;
 public class CDResource {
 
   @GET
-  public List<CD> getAllCDs() {
-    return CD.listAll();
+  public List<CD> getAllCDs(
+      @QueryParam("page") @DefaultValue("0") int page,
+      @QueryParam("size") @DefaultValue("10") int size) {
+    return CD.findAll().page(Page.of(page, size)).list();
   }
 
   @GET
