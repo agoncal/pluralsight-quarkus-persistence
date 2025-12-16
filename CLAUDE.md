@@ -88,6 +88,90 @@ All API endpoints use `/api/` prefix: `/api/books`, `/api/customers`, `/api/orde
 - Integration tests: `*IT.java`
 - Frameworks: JUnit 5, REST Assured, Mockito
 
+### Test Patterns
+
+**Entity Tests with @TestTransaction**
+```java
+@QuarkusTest
+class CatalogTest {
+  @Test
+  @TestTransaction  // Auto-rollback after test
+  void shouldCreateAndFindBook() {
+    Book book = new Book();
+    book.title = "Test Book";
+    book.persist();
+    assertNotNull(book.id);
+  }
+}
+```
+
+**Mocking Active Record Pattern (PanacheMock)**
+```java
+@QuarkusTest
+class CatalogRepositoryTest {
+  @Test
+  void shouldMockBookCount() {
+    PanacheMock.mock(Book.class);
+    Mockito.when(Book.count()).thenReturn(42L);
+    assertEquals(42L, Book.count());
+    PanacheMock.verify(Book.class, Mockito.times(1)).count();
+  }
+}
+```
+
+**Mocking Repository Pattern (@InjectMock)**
+```java
+@QuarkusTest
+class CatalogRepositoryTest {
+  @InjectMock
+  UserRepository userRepository;
+
+  @Test
+  void shouldMockUserRepositoryFindById() {
+    User mockUser = new User();
+    mockUser.setId(1L);
+    Mockito.when(userRepository.findById(1L)).thenReturn(mockUser);
+    assertNotNull(userRepository.findById(1L));
+  }
+}
+```
+
+### Test Configuration
+
+To avoid conflicts between test data and `import.sql`, create `src/test/resources/application.properties`:
+```properties
+quarkus.hibernate-orm.sql-load-script=no-file
+```
+
+### Test Dependencies
+
+```xml
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-junit5-mockito</artifactId>
+  <scope>test</scope>
+</dependency>
+<dependency>
+  <groupId>io.quarkus</groupId>
+  <artifactId>quarkus-panache-mock</artifactId>
+  <scope>test</scope>
+</dependency>
+```
+
+## Pagination
+
+REST endpoints for books and CDs support pagination:
+
+```
+GET /api/books?page=0&size=10
+GET /api/cds?page=0&size=10
+```
+
+Implementation uses Panache pagination:
+```java
+Book.findAll().page(Page.of(page, size)).list()
+```
+
 ## Important Files
 
 - `specifications.md` - Complete domain and API specifications

@@ -257,12 +257,12 @@ A dedicated microservice for managing the product catalog including books, CDs, 
 | POST   | /api/authors         | Create a new author            |
 | PUT    | /api/authors/{id}    | Update an author               |
 | DELETE | /api/authors/{id}    | Delete an author               |
-| GET    | /api/books           | List all books with pagination |
+| GET    | /api/books           | List books (page, size params) |
 | GET    | /api/books/{id}      | Get book details               |
 | POST   | /api/books           | Create a new book              |
 | PUT    | /api/books/{id}      | Update a book                  |
 | DELETE | /api/books/{id}      | Delete a book                  |
-| GET    | /api/cds             | List all CDs with pagination   |
+| GET    | /api/cds             | List CDs (page, size params)   |
 | GET    | /api/cds/{id}        | Get CD details                 |
 | POST   | /api/cds             | Create a new CD                |
 | PUT    | /api/cds/{id}        | Update a CD                    |
@@ -748,6 +748,34 @@ mvn quarkus:dev
 | User Activity   | Integration | @QuarkusTest, Dev Services (MySQL)      |
 | All             | REST API    | RestAssured                             |
 | All             | End-to-End  | Playwright / Selenium                   |
+
+### Catalog Module Test Classes
+
+| Test Class              | Purpose                                           |
+|-------------------------|---------------------------------------------------|
+| CatalogTest             | Entity tests with @TestTransaction (auto-rollback)|
+| CatalogRepositoryTest   | Mocking tests (PanacheMock + @InjectMock)         |
+| CatalogResourceTest     | REST API integration tests (RestAssured)          |
+| BookResourceTest        | Book REST endpoint tests                          |
+| CDResourceTest          | CD REST endpoint tests                            |
+| AuthorResourceTest      | Author REST endpoint tests                        |
+| MusicianResourceTest    | Musician REST endpoint tests                      |
+| PublisherResourceTest   | Publisher REST endpoint tests                     |
+| UserResourceTest        | User REST endpoint tests                          |
+| CustomerResourceTest    | Customer REST endpoint tests                      |
+| PurchaseOrderResourceTest | Purchase order REST endpoint tests              |
+| SupplierResourceTest    | Supplier REST endpoint tests                      |
+
+### Pagination Parameters
+
+Books and CDs endpoints support pagination via query parameters:
+
+| Parameter | Type    | Default | Description               |
+|-----------|---------|---------|---------------------------|
+| page      | Integer | 0       | Page number (0-indexed)   |
+| size      | Integer | 10      | Number of items per page  |
+
+Example: `GET /api/books?page=0&size=10`
 
 ---
 
