@@ -2,6 +2,8 @@ package com.pluralsight.persistence.catalog.rest;
 
 import com.pluralsight.persistence.catalog.model.CD;
 import com.pluralsight.persistence.catalog.model.MusicGenre;
+import io.quarkus.cache.CacheKey;
+import io.quarkus.cache.CacheResult;
 import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
 import jakarta.transaction.Transactional;
@@ -85,7 +87,8 @@ public class CDResource {
   @GET
   @Path("/{id}")
   @Transactional
-  public Response getCD(@PathParam("id") Long id) {
+  @CacheResult(cacheName = "cd-cache")
+  public Response getCD(@CacheKey @PathParam("id") Long id) {
     LOG.info("Entering getCD() with id: " + id);
     CD cd = CD.findById(id);
     if (cd == null) {

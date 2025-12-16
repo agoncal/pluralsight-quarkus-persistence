@@ -2,6 +2,8 @@ package com.pluralsight.persistence.catalog.rest;
 
 import com.pluralsight.persistence.catalog.model.Book;
 import com.pluralsight.persistence.catalog.model.Language;
+import io.quarkus.cache.CacheKey;
+import io.quarkus.cache.CacheResult;
 import io.quarkus.panache.common.Page;
 import io.quarkus.panache.common.Sort;
 import jakarta.transaction.Transactional;
@@ -85,7 +87,8 @@ public class BookResource {
   @GET
   @Path("/{id}")
   @Transactional
-  public Response getBook(@PathParam("id") Long id) {
+  @CacheResult(cacheName = "book-cache")
+  public Response getBook(@CacheKey @PathParam("id") Long id) {
     LOG.info("Entering getBook() with id: " + id);
     Book book = Book.findById(id);
     if (book == null) {
