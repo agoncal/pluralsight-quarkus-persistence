@@ -51,10 +51,15 @@ public class WebApplication extends Controller {
   @Path("/books")
   public TemplateInstance books(
       @QueryParam("page") @DefaultValue("0") int page,
-      @QueryParam("size") @DefaultValue("10") int size) {
-    LOG.info("Entering books() with page=" + page + ", size=" + size);
-    List<BookDTO> books = catalogProxy.getAllBooks(page, size);
-    return Templates.books(books, page, size);
+      @QueryParam("size") @DefaultValue("10") int size,
+      @QueryParam("inStock") Boolean inStock,
+      @QueryParam("language") String language,
+      @QueryParam("publisher") Long publisherId,
+      @QueryParam("sortBy") @DefaultValue("title") String sortBy,
+      @QueryParam("sortDir") @DefaultValue("asc") String sortDir) {
+    LOG.info("Entering books() with page=" + page + ", size=" + size + ", inStock=" + inStock + ", language=" + language + ", publisher=" + publisherId + ", sortBy=" + sortBy + ", sortDir=" + sortDir);
+    List<BookDTO> books = catalogProxy.getAllBooks(page, size, inStock, language, publisherId, sortBy, sortDir);
+    return Templates.books(books, page, size, inStock, language, publisherId, sortBy, sortDir);
   }
 
   @Path("/books/{id}")
@@ -72,10 +77,15 @@ public class WebApplication extends Controller {
   @Path("/cds")
   public TemplateInstance cds(
       @QueryParam("page") @DefaultValue("0") int page,
-      @QueryParam("size") @DefaultValue("10") int size) {
-    LOG.info("Entering cds() with page=" + page + ", size=" + size);
-    List<CDDTO> cds = catalogProxy.getAllCDs(page, size);
-    return Templates.cds(cds, page, size);
+      @QueryParam("size") @DefaultValue("10") int size,
+      @QueryParam("inStock") Boolean inStock,
+      @QueryParam("genre") String genre,
+      @QueryParam("label") String label,
+      @QueryParam("sortBy") @DefaultValue("title") String sortBy,
+      @QueryParam("sortDir") @DefaultValue("asc") String sortDir) {
+    LOG.info("Entering cds() with page=" + page + ", size=" + size + ", inStock=" + inStock + ", genre=" + genre + ", label=" + label + ", sortBy=" + sortBy + ", sortDir=" + sortDir);
+    List<CDDTO> cds = catalogProxy.getAllCDs(page, size, inStock, genre, label, sortBy, sortDir);
+    return Templates.cds(cds, page, size, inStock, genre, label, sortBy, sortDir);
   }
 
   @Path("/cds/{id}")
@@ -233,11 +243,11 @@ public class WebApplication extends Controller {
   static class Templates {
     public static native TemplateInstance index();
 
-    public static native TemplateInstance books(List<BookDTO> books, int page, int size);
+    public static native TemplateInstance books(List<BookDTO> books, int page, int size, Boolean inStock, String language, Long publisherId, String sortBy, String sortDir);
 
     public static native TemplateInstance book(BookDTO book, List<ProductReviewDTO> reviews);
 
-    public static native TemplateInstance cds(List<CDDTO> cds, int page, int size);
+    public static native TemplateInstance cds(List<CDDTO> cds, int page, int size, Boolean inStock, String genre, String label, String sortBy, String sortDir);
 
     public static native TemplateInstance cd(CDDTO cd, List<ProductReviewDTO> reviews);
 

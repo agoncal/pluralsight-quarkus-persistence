@@ -158,18 +158,48 @@ quarkus.hibernate-orm.sql-load-script=no-file
 </dependency>
 ```
 
-## Pagination
+## Pagination, Filtering, and Sorting
 
-REST endpoints for books and CDs support pagination:
+REST endpoints for books and CDs support pagination, filtering, and sorting:
 
+### Books
 ```
-GET /api/books?page=0&size=10
-GET /api/cds?page=0&size=10
+GET /api/books?page=0&size=10&inStock=true&language=ENGLISH&publisher=1&sortBy=title&sortDir=asc
 ```
 
-Implementation uses Panache pagination:
+| Parameter | Type    | Description                                      |
+|-----------|---------|--------------------------------------------------|
+| page      | int     | Page number (0-indexed, default: 0)              |
+| size      | int     | Items per page (default: 10)                     |
+| inStock   | Boolean | Filter by availability (true/false/null for all) |
+| language  | String  | Filter by language enum (ENGLISH, FRENCH, etc.)  |
+| publisher | Long    | Filter by publisher ID                           |
+| sortBy    | String  | Sort field (title, price; default: title)        |
+| sortDir   | String  | Sort direction (asc, desc; default: asc)         |
+
+### CDs
+```
+GET /api/cds?page=0&size=10&inStock=true&genre=ROCK&label=Records&sortBy=price&sortDir=desc
+```
+
+| Parameter | Type    | Description                                      |
+|-----------|---------|--------------------------------------------------|
+| page      | int     | Page number (0-indexed, default: 0)              |
+| size      | int     | Items per page (default: 10)                     |
+| inStock   | Boolean | Filter by availability (true/false/null for all) |
+| genre     | String  | Filter by genre enum (ROCK, POP, JAZZ, etc.)     |
+| label     | String  | Filter by music company (partial match)          |
+| sortBy    | String  | Sort field (title, price; default: title)        |
+| sortDir   | String  | Sort direction (asc, desc; default: asc)         |
+
+### Implementation
+Uses Panache dynamic queries with sorting:
 ```java
-Book.findAll().page(Page.of(page, size)).list()
+Sort sort = Sort.by(sortBy);
+if ("desc".equalsIgnoreCase(sortDir)) {
+  sort = sort.descending();
+}
+Book.find(query, sort, params).page(Page.of(page, size)).list();
 ```
 
 ## Important Files

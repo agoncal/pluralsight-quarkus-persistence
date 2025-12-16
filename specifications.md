@@ -766,16 +766,37 @@ mvn quarkus:dev
 | PurchaseOrderResourceTest | Purchase order REST endpoint tests              |
 | SupplierResourceTest    | Supplier REST endpoint tests                      |
 
-### Pagination Parameters
+### Pagination, Filtering, and Sorting
 
-Books and CDs endpoints support pagination via query parameters:
+Books and CDs endpoints support pagination, filtering, and sorting via query parameters.
+
+#### Common Parameters
 
 | Parameter | Type    | Default | Description               |
 |-----------|---------|---------|---------------------------|
 | page      | Integer | 0       | Page number (0-indexed)   |
 | size      | Integer | 10      | Number of items per page  |
+| inStock   | Boolean | null    | Filter: true=in stock, false=out of stock, null=all |
+| sortBy    | String  | title   | Sort field: title, price  |
+| sortDir   | String  | asc     | Sort direction: asc, desc |
 
-Example: `GET /api/books?page=0&size=10`
+#### Book-Specific Filters
+
+| Parameter | Type    | Description                                    |
+|-----------|---------|------------------------------------------------|
+| language  | String  | Filter by Language enum (ENGLISH, FRENCH, etc.)|
+| publisher | Long    | Filter by publisher ID                         |
+
+Example: `GET /api/books?page=0&size=10&inStock=true&language=ENGLISH&sortBy=price&sortDir=desc`
+
+#### CD-Specific Filters
+
+| Parameter | Type    | Description                                    |
+|-----------|---------|------------------------------------------------|
+| genre     | String  | Filter by MusicGenre enum (ROCK, POP, JAZZ, etc.)|
+| label     | String  | Filter by music company (partial match)        |
+
+Example: `GET /api/cds?page=0&size=10&inStock=true&genre=ROCK&label=Records&sortBy=title&sortDir=asc`
 
 ---
 

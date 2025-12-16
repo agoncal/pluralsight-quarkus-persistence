@@ -30,7 +30,12 @@ public interface CatalogProxy {
   @Path("/api/books")
   List<BookDTO> getAllBooks(
       @QueryParam("page") @DefaultValue("0") int page,
-      @QueryParam("size") @DefaultValue("10") int size);
+      @QueryParam("size") @DefaultValue("10") int size,
+      @QueryParam("inStock") Boolean inStock,
+      @QueryParam("language") String language,
+      @QueryParam("publisher") Long publisherId,
+      @QueryParam("sortBy") @DefaultValue("title") String sortBy,
+      @QueryParam("sortDir") @DefaultValue("asc") String sortDir);
 
   @GET
   @Path("/api/books/{id}")
@@ -56,7 +61,12 @@ public interface CatalogProxy {
   @Path("/api/cds")
   List<CDDTO> getAllCDs(
       @QueryParam("page") @DefaultValue("0") int page,
-      @QueryParam("size") @DefaultValue("10") int size);
+      @QueryParam("size") @DefaultValue("10") int size,
+      @QueryParam("inStock") Boolean inStock,
+      @QueryParam("genre") String genre,
+      @QueryParam("label") String label,
+      @QueryParam("sortBy") @DefaultValue("title") String sortBy,
+      @QueryParam("sortDir") @DefaultValue("asc") String sortDir);
 
   @GET
   @Path("/api/cds/{id}")
