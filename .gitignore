@@ -46,3 +46,4 @@ nb-configuration.xml
 create_db*.sql
 drop_db*.sql
 dummy/
+*dummy*

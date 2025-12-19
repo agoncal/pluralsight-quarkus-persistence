@@ -1,27 +1,27 @@
 services:
   postgres:
     image: postgres:17
-    container_name: postgres-db
+    container_name: catalog-db
     ports:
       - "5432:5432"
     environment:
-      - POSTGRES_HOST_AUTH_METHOD=trust
+      - POSTGRES_PASSWORD=password
     networks:
       - vintage-store-network
 
-  mysql:
-    image: mysql:8.4
-    container_name: mysql-db
-    ports:
-      - "3306:3306"
-    environment:
-      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-    networks:
-      - vintage-store-network
+#  mysql:
+#    image: mysql:8.4
+#    container_name: activity-db
+#    ports:
+#      - "3306:3306"
+#    environment:
+#      - MYSQL_ALLOW_EMPTY_PASSWORD=true
+#    networks:
+#      - vintage-store-network
 
   mariadb:
     image: mariadb:10.11
-    container_name: mariadb-db
+    container_name: reviews-db
     ports:
       - "3307:3306"
     environment:
