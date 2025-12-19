@@ -9,15 +9,16 @@ services:
     networks:
       - vintage-store-network
 
-#  mysql:
-#    image: mysql:8.4
-#    container_name: activity-db
-#    ports:
-#      - "3306:3306"
-#    environment:
-#      - MYSQL_ALLOW_EMPTY_PASSWORD=true
-#    networks:
-#      - vintage-store-network
+  mysql:
+    image: mysql:8.4
+    container_name: activity-db
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=activitypwd
+      - MYSQL_DATABASE=activitydb
+    networks:
+      - vintage-store-network
 
   mariadb:
     image: mariadb:10.11
@@ -25,7 +26,11 @@ services:
     ports:
       - "3307:3306"
     environment:
-      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+#      - MARIADB_ALLOW_EMPTY_ROOT_PASSWORD=true
+#      - MARIADB_USER=reviews
+#      - MARIADB_PASSWORD=reviewspwd
+#      - MARIADB_DATABASE=reviewsdb
+      - MARIADB_ROOT_PASSWORD=reviewspwd
     networks:
       - vintage-store-network
 
