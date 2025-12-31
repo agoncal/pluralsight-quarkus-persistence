@@ -16,4 +16,12 @@ public class CustomerRepository implements PanacheRepository<Customer> {
   public Customer findByUserId(Long userId) {
     return find("user.id", userId).firstResult();
   }
+
+  public List<Customer> findByCountry(String country) {
+    return list("billingAddress.country", country);
+  }
+
+  public long countByCountry(String country) {
+    return count("billingAddress.country", country);
+  }
 }

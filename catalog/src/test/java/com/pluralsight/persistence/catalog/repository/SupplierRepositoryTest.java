@@ -184,6 +184,111 @@ class SupplierRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldFindSupplierByCompanyNameContaining() {
+    supplierRepository.deleteAll();
+
+    Supplier supplier1 = createSupplier("Acme Corporation", "USA");
+    supplierRepository.persist(supplier1);
+
+    Supplier supplier2 = createSupplier("Acme Industries", "Canada");
+    supplierRepository.persist(supplier2);
+
+    Supplier supplier3 = createSupplier("Global Tech", "UK");
+    supplierRepository.persist(supplier3);
+
+    List<Supplier> acmeSuppliers = supplierRepository.findByCompanyNameContaining("acme");
+    List<Supplier> techSuppliers = supplierRepository.findByCompanyNameContaining("tech");
+
+    assertEquals(2, acmeSuppliers.size());
+    assertEquals(1, techSuppliers.size());
+    assertTrue(acmeSuppliers.stream().allMatch(s -> s.getCompanyName().toLowerCase().contains("acme")));
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindSupplierByCompanyNameContaining() {
+    supplierRepository.deleteAll();
+
+    Supplier supplier = createSupplier("Test Company", "USA");
+    supplierRepository.persist(supplier);
+
+    List<Supplier> suppliers = supplierRepository.findByCompanyNameContaining("nonexistent");
+
+    assertTrue(suppliers.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldFindSupplierByContactNameContaining() {
+    supplierRepository.deleteAll();
+
+    Supplier supplier1 = new Supplier();
+    supplier1.setCompanyName("Company1" + UUID.randomUUID().toString().substring(0, 4));
+    supplier1.setContactName("John Smith");
+    supplier1.setContactEmail("john@company1.com");
+    supplier1.setCountry("USA");
+    supplierRepository.persist(supplier1);
+
+    Supplier supplier2 = new Supplier();
+    supplier2.setCompanyName("Company2" + UUID.randomUUID().toString().substring(0, 4));
+    supplier2.setContactName("Jane Smith");
+    supplier2.setContactEmail("jane@company2.com");
+    supplier2.setCountry("UK");
+    supplierRepository.persist(supplier2);
+
+    Supplier supplier3 = new Supplier();
+    supplier3.setCompanyName("Company3" + UUID.randomUUID().toString().substring(0, 4));
+    supplier3.setContactName("Bob Johnson");
+    supplier3.setContactEmail("bob@company3.com");
+    supplier3.setCountry("Canada");
+    supplierRepository.persist(supplier3);
+
+    List<Supplier> smithSuppliers = supplierRepository.findByContactNameContaining("smith");
+    List<Supplier> johnsonSuppliers = supplierRepository.findByContactNameContaining("johnson");
+
+    assertEquals(2, smithSuppliers.size());
+    assertEquals(1, johnsonSuppliers.size());
+    assertTrue(smithSuppliers.stream().allMatch(s -> s.getContactName().toLowerCase().contains("smith")));
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindSupplierByContactNameContaining() {
+    supplierRepository.deleteAll();
+
+    Supplier supplier = createSupplier("Test Company", "USA");
+    supplierRepository.persist(supplier);
+
+    List<Supplier> suppliers = supplierRepository.findByContactNameContaining("nonexistent");
+
+    assertTrue(suppliers.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldCountSuppliersByCountry() {
+    supplierRepository.deleteAll();
+
+    Supplier usSupplier1 = createSupplier("US Company 1", "USA");
+    supplierRepository.persist(usSupplier1);
+
+    Supplier usSupplier2 = createSupplier("US Company 2", "USA");
+    supplierRepository.persist(usSupplier2);
+
+    Supplier ukSupplier = createSupplier("UK Company", "UK");
+    supplierRepository.persist(ukSupplier);
+
+    long usCount = supplierRepository.countByCountry("USA");
+    long ukCount = supplierRepository.countByCountry("UK");
+    long jpCount = supplierRepository.countByCountry("Japan");
+
+    assertEquals(2, usCount);
+    assertEquals(1, ukCount);
+    assertEquals(0, jpCount);
+  }
+
+  @Test
+  @TestTransaction
   void shouldPerformFullCRUDOnSupplier() {
     // Clear all suppliers
     supplierRepository.deleteAll();

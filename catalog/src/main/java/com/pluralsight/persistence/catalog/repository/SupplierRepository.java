@@ -16,4 +16,16 @@ public class SupplierRepository implements PanacheRepository<Supplier> {
   public Supplier findByCompanyName(String companyName) {
     return find("companyName", companyName).firstResult();
   }
+
+  public List<Supplier> findByCompanyNameContaining(String keyword) {
+    return list("lower(companyName) like lower(?1)", "%" + keyword + "%");
+  }
+
+  public List<Supplier> findByContactNameContaining(String keyword) {
+    return list("lower(contactName) like lower(?1)", "%" + keyword + "%");
+  }
+
+  public long countByCountry(String country) {
+    return count("country", country);
+  }
 }

@@ -274,6 +274,145 @@ class PurchaseOrderRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldFindPurchaseOrderByOrderDateBetween() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user = createUser();
+    Customer customer = createCustomer(user);
+
+    // Order from last month
+    PurchaseOrder oldOrder = new PurchaseOrder();
+    oldOrder.setOrderDate(LocalDateTime.now().minusDays(45));
+    oldOrder.setStatus(OrderStatus.DELIVERED);
+    oldOrder.setTotalAmount(new BigDecimal("50.00"));
+    oldOrder.setCustomer(customer);
+    oldOrder.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(oldOrder);
+
+    // Order from last week
+    PurchaseOrder recentOrder = new PurchaseOrder();
+    recentOrder.setOrderDate(LocalDateTime.now().minusDays(5));
+    recentOrder.setStatus(OrderStatus.SHIPPED);
+    recentOrder.setTotalAmount(new BigDecimal("75.00"));
+    recentOrder.setCustomer(customer);
+    recentOrder.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(recentOrder);
+
+    // Order from today
+    PurchaseOrder todayOrder = new PurchaseOrder();
+    todayOrder.setOrderDate(LocalDateTime.now());
+    todayOrder.setStatus(OrderStatus.PENDING);
+    todayOrder.setTotalAmount(new BigDecimal("100.00"));
+    todayOrder.setCustomer(customer);
+    todayOrder.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(todayOrder);
+
+    // Search for orders in the last 10 days
+    LocalDateTime start = LocalDateTime.now().minusDays(10);
+    LocalDateTime end = LocalDateTime.now().plusDays(1);
+    List<PurchaseOrder> ordersInRange = purchaseOrderRepository.findByOrderDateBetween(start, end);
+
+    assertEquals(2, ordersInRange.size());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindPurchaseOrderByOrderDateBetween() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user = createUser();
+    Customer customer = createCustomer(user);
+
+    PurchaseOrder order = new PurchaseOrder();
+    order.setOrderDate(LocalDateTime.now().minusDays(30));
+    order.setStatus(OrderStatus.DELIVERED);
+    order.setTotalAmount(new BigDecimal("50.00"));
+    order.setCustomer(customer);
+    order.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(order);
+
+    // Search for orders in the last 10 days
+    LocalDateTime start = LocalDateTime.now().minusDays(10);
+    LocalDateTime end = LocalDateTime.now();
+    List<PurchaseOrder> ordersInRange = purchaseOrderRepository.findByOrderDateBetween(start, end);
+
+    assertTrue(ordersInRange.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldFindRecentOrders() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user = createUser();
+    Customer customer = createCustomer(user);
+
+    // Old order (60 days ago)
+    PurchaseOrder oldOrder = new PurchaseOrder();
+    oldOrder.setOrderDate(LocalDateTime.now().minusDays(60));
+    oldOrder.setStatus(OrderStatus.DELIVERED);
+    oldOrder.setTotalAmount(new BigDecimal("50.00"));
+    oldOrder.setCustomer(customer);
+    oldOrder.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(oldOrder);
+
+    // Recent order (3 days ago)
+    PurchaseOrder recentOrder1 = new PurchaseOrder();
+    recentOrder1.setOrderDate(LocalDateTime.now().minusDays(3));
+    recentOrder1.setStatus(OrderStatus.SHIPPED);
+    recentOrder1.setTotalAmount(new BigDecimal("75.00"));
+    recentOrder1.setCustomer(customer);
+    recentOrder1.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(recentOrder1);
+
+    // Very recent order (1 day ago)
+    PurchaseOrder recentOrder2 = new PurchaseOrder();
+    recentOrder2.setOrderDate(LocalDateTime.now().minusDays(1));
+    recentOrder2.setStatus(OrderStatus.PENDING);
+    recentOrder2.setTotalAmount(new BigDecimal("100.00"));
+    recentOrder2.setCustomer(customer);
+    recentOrder2.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(recentOrder2);
+
+    List<PurchaseOrder> last7Days = purchaseOrderRepository.findRecentOrders(7);
+    List<PurchaseOrder> last30Days = purchaseOrderRepository.findRecentOrders(30);
+
+    assertEquals(2, last7Days.size());
+    assertEquals(2, last30Days.size());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindRecentOrders() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user = createUser();
+    Customer customer = createCustomer(user);
+
+    // Old order (60 days ago)
+    PurchaseOrder oldOrder = new PurchaseOrder();
+    oldOrder.setOrderDate(LocalDateTime.now().minusDays(60));
+    oldOrder.setStatus(OrderStatus.DELIVERED);
+    oldOrder.setTotalAmount(new BigDecimal("50.00"));
+    oldOrder.setCustomer(customer);
+    oldOrder.setShippingAddress(createAddress());
+    purchaseOrderRepository.persist(oldOrder);
+
+    List<PurchaseOrder> recentOrders = purchaseOrderRepository.findRecentOrders(7);
+
+    assertTrue(recentOrders.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
   void shouldPerformFullCRUDOnPurchaseOrder() {
     // Clear all orders, customers, users
     purchaseOrderRepository.deleteAll();

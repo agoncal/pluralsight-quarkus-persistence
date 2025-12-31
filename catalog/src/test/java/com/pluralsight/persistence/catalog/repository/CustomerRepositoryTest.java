@@ -268,6 +268,141 @@ class CustomerRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldFindCustomerByCountry() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user1 = createUser();
+    Address usAddress = new Address();
+    usAddress.setStreet("123 Main St");
+    usAddress.setCity("New York");
+    usAddress.setState("NY");
+    usAddress.setZipCode("10001");
+    usAddress.setCountry("USA");
+
+    Customer usCustomer = new Customer();
+    usCustomer.setFirstName("US");
+    usCustomer.setLastName("Customer");
+    usCustomer.setPhone("555-1111");
+    usCustomer.setBillingAddress(usAddress);
+    usCustomer.setUser(user1);
+    customerRepository.persist(usCustomer);
+
+    User user2 = createUser();
+    Address ukAddress = new Address();
+    ukAddress.setStreet("10 Downing St");
+    ukAddress.setCity("London");
+    ukAddress.setState("England");
+    ukAddress.setZipCode("SW1A 2AA");
+    ukAddress.setCountry("UK");
+
+    Customer ukCustomer = new Customer();
+    ukCustomer.setFirstName("UK");
+    ukCustomer.setLastName("Customer");
+    ukCustomer.setPhone("555-2222");
+    ukCustomer.setBillingAddress(ukAddress);
+    ukCustomer.setUser(user2);
+    customerRepository.persist(ukCustomer);
+
+    List<Customer> usCustomers = customerRepository.findByCountry("USA");
+    List<Customer> ukCustomers = customerRepository.findByCountry("UK");
+
+    assertEquals(1, usCustomers.size());
+    assertEquals(1, ukCustomers.size());
+    assertEquals("US", usCustomers.get(0).getFirstName());
+    assertEquals("UK", ukCustomers.get(0).getFirstName());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindCustomerByCountry() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user = createUser();
+    Customer customer = new Customer();
+    customer.setFirstName("Test");
+    customer.setLastName("Customer");
+    customer.setPhone("555-1111");
+    customer.setBillingAddress(createAddress());
+    customer.setUser(user);
+    customerRepository.persist(customer);
+
+    List<Customer> customers = customerRepository.findByCountry("Japan");
+
+    assertTrue(customers.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldCountByCountry() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    // Create two US customers
+    User user1 = createUser();
+    Address usAddress1 = new Address();
+    usAddress1.setStreet("123 Main St");
+    usAddress1.setCity("New York");
+    usAddress1.setState("NY");
+    usAddress1.setZipCode("10001");
+    usAddress1.setCountry("USA");
+
+    Customer usCustomer1 = new Customer();
+    usCustomer1.setFirstName("US1");
+    usCustomer1.setLastName("Customer");
+    usCustomer1.setPhone("555-1111");
+    usCustomer1.setBillingAddress(usAddress1);
+    usCustomer1.setUser(user1);
+    customerRepository.persist(usCustomer1);
+
+    User user2 = createUser();
+    Address usAddress2 = new Address();
+    usAddress2.setStreet("456 Oak Ave");
+    usAddress2.setCity("Los Angeles");
+    usAddress2.setState("CA");
+    usAddress2.setZipCode("90001");
+    usAddress2.setCountry("USA");
+
+    Customer usCustomer2 = new Customer();
+    usCustomer2.setFirstName("US2");
+    usCustomer2.setLastName("Customer");
+    usCustomer2.setPhone("555-2222");
+    usCustomer2.setBillingAddress(usAddress2);
+    usCustomer2.setUser(user2);
+    customerRepository.persist(usCustomer2);
+
+    // Create one UK customer
+    User user3 = createUser();
+    Address ukAddress = new Address();
+    ukAddress.setStreet("10 Downing St");
+    ukAddress.setCity("London");
+    ukAddress.setState("England");
+    ukAddress.setZipCode("SW1A 2AA");
+    ukAddress.setCountry("UK");
+
+    Customer ukCustomer = new Customer();
+    ukCustomer.setFirstName("UK");
+    ukCustomer.setLastName("Customer");
+    ukCustomer.setPhone("555-3333");
+    ukCustomer.setBillingAddress(ukAddress);
+    ukCustomer.setUser(user3);
+    customerRepository.persist(ukCustomer);
+
+    long usCount = customerRepository.countByCountry("USA");
+    long ukCount = customerRepository.countByCountry("UK");
+    long jpCount = customerRepository.countByCountry("Japan");
+
+    assertEquals(2, usCount);
+    assertEquals(1, ukCount);
+    assertEquals(0, jpCount);
+  }
+
+  @Test
+  @TestTransaction
   void shouldPerformFullCRUDOnCustomer() {
     // Clear all dependent entities first (FK constraints)
     purchaseOrderRepository.deleteAll();
