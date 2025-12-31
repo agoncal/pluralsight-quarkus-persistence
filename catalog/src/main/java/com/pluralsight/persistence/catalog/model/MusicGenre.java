@@ -10,5 +10,6 @@ public enum MusicGenre {
   COUNTRY,
   BLUES,
   METAL,
+  RAP,
   OTHER
 }
