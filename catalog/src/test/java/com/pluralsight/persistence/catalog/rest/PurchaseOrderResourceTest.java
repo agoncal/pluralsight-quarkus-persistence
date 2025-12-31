@@ -138,6 +138,78 @@ class PurchaseOrderResourceTest {
   }
 
   @Test
+  void shouldCreateAndFindPurchaseOrder() {
+    // First create a user
+    String uniqueUsername = "find" + UUID.randomUUID().toString().substring(0, 8);
+    User user = new User();
+    user.setUsername(uniqueUsername);
+    user.setPassword("password123");
+    user.setEmail(uniqueUsername + "@example.com");
+    user.setRole(UserRole.CUSTOMER);
+    user.setEnabled(true);
+
+    Integer userId = given()
+      .contentType(ContentType.JSON)
+      .body(user)
+      .when().post("/api/users")
+      .then()
+      .statusCode(201)
+      .extract().path("id");
+
+    // Create customer with specific details (based on CatalogRepositoryTest mock)
+    user.setId(userId.longValue());
+    Customer customer = createCustomer("John", "Doe", user);
+
+    Integer customerId = given()
+      .contentType(ContentType.JSON)
+      .body(customer)
+      .when().post("/api/customers")
+      .then()
+      .statusCode(201)
+      .extract().path("id");
+
+    // Create purchase order with specific details
+    customer.setId(customerId.longValue());
+    PurchaseOrder purchaseOrder = new PurchaseOrder();
+    purchaseOrder.setOrderDate(LocalDateTime.of(2024, 1, 15, 10, 30));
+    purchaseOrder.setStatus(OrderStatus.PENDING);
+    purchaseOrder.setTotalAmount(new BigDecimal("99.99"));
+    purchaseOrder.setCustomer(customer);
+
+    Address shippingAddress = new Address();
+    shippingAddress.setStreet("456 Oak Ave");
+    shippingAddress.setCity("Los Angeles");
+    shippingAddress.setState("CA");
+    shippingAddress.setZipCode("90001");
+    shippingAddress.setCountry("USA");
+    purchaseOrder.setShippingAddress(shippingAddress);
+
+    Integer orderId = given()
+      .contentType(ContentType.JSON)
+      .body(purchaseOrder)
+      .when().post("/api/pos")
+      .then()
+      .statusCode(201)
+      .extract().path("id");
+
+    // Find the created purchase order and verify all details
+    given()
+      .when().get("/api/pos/" + orderId)
+      .then()
+      .statusCode(200)
+      .contentType(ContentType.JSON)
+      .body("id", is(orderId))
+      .body("status", is("PENDING"))
+      .body("totalAmount", is(99.99F))
+      .body("customer.id", is(customerId))
+      .body("customer.firstName", is("John"))
+      .body("customer.lastName", is("Doe"))
+      .body("shippingAddress.city", is("Los Angeles"))
+      .body("shippingAddress.state", is("CA"))
+      .body("shippingAddress.zipCode", is("90001"));
+  }
+
+  @Test
   void shouldUpdatePurchaseOrder() {
     // First create a user
     String uniqueUsername = "upd" + UUID.randomUUID().toString().substring(0, 8);
