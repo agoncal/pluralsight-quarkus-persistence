@@ -10,6 +10,7 @@ import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 import org.hibernate.validator.constraints.URL;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,4 +29,18 @@ public class Author extends Person {
   @JsonIgnore
   @ManyToMany(mappedBy = "authors")
   public List<Book> books = new ArrayList<>();
+
+  // Custom query methods
+
+  public static List<Author> findByPreferredLanguage(Language language) {
+    return list("preferredLanguage", language);
+  }
+
+  public static List<Author> findBornBefore(LocalDate date) {
+    return list("dateOfBirth < ?1", date);
+  }
+
+  public static long countByPreferredLanguage(Language language) {
+    return count("preferredLanguage", language);
+  }
 }

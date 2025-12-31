@@ -20,6 +20,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import io.quarkus.panache.common.Parameters;
+
 @Entity
 @DiscriminatorValue("BOOK")
 @NamedQuery(name = "Book.findByIdWithRelations",
@@ -56,4 +58,34 @@ public class Book extends Item {
     inverseJoinColumns = @JoinColumn(name = "author_id")
   )
   public List<Author> authors = new ArrayList<>();
+
+  // Custom query methods
+
+  public static Book findByIsbn(String isbn) {
+    return find("isbn", isbn).firstResult();
+  }
+
+  public static List<Book> findByLanguage(Language language) {
+    return list("language", language);
+  }
+
+  public static List<Book> findByPublisher(Publisher publisher) {
+    return list("publisher", publisher);
+  }
+
+  public static List<Book> findByAuthor(Author author) {
+    return list("SELECT b FROM Book b JOIN b.authors a WHERE a = ?1", author);
+  }
+
+  public static List<Book> findPublishedBefore(LocalDate date) {
+    return list("publicationDate < ?1", date);
+  }
+
+  public static List<Book> findPublishedAfter(LocalDate date) {
+    return list("publicationDate > ?1", date);
+  }
+
+  public static List<Book> findPublishedBetween(LocalDate start, LocalDate end) {
+    return list("publicationDate >= ?1 and publicationDate <= ?2", start, end);
+  }
 }

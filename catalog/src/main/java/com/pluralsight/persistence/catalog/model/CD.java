@@ -62,4 +62,40 @@ public class CD extends Item {
   @OneToMany(mappedBy = "cd", cascade = CascadeType.ALL, orphanRemoval = true)
   @OrderBy("trackNumber")
   public List<Track> tracks = new ArrayList<>();
+
+  // Custom query methods
+
+  public static CD findByEan(String ean) {
+    return find("ean", ean).firstResult();
+  }
+
+  public static List<CD> findByGenre(MusicGenre genre) {
+    return list("genre", genre);
+  }
+
+  public static List<CD> findByMusicCompany(String company) {
+    return list("musicCompany", company);
+  }
+
+  public static List<CD> findByMusician(Musician musician) {
+    return list("SELECT c FROM CD c JOIN c.musicians m WHERE m = ?1", musician);
+  }
+
+  public static List<CD> findReleasedBefore(LocalDate date) {
+    return list("releaseDate < ?1", date);
+  }
+
+  public static List<CD> findReleasedAfter(LocalDate date) {
+    return list("releaseDate > ?1", date);
+  }
+
+  public static List<CD> findReleasedInYear(int year) {
+    LocalDate startOfYear = LocalDate.of(year, 1, 1);
+    LocalDate endOfYear = LocalDate.of(year, 12, 31);
+    return list("releaseDate >= ?1 and releaseDate <= ?2", startOfYear, endOfYear);
+  }
+
+  public static long countByGenre(MusicGenre genre) {
+    return count("genre", genre);
+  }
 }

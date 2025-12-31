@@ -48,4 +48,14 @@ public class Publisher extends PanacheEntity {
   void prePersist() {
     createdDate = Instant.now();
   }
+
+  // Custom query methods
+
+  public static List<Publisher> findByNameContaining(String keyword) {
+    return list("lower(name) like lower(?1)", "%" + keyword + "%");
+  }
+
+  public static List<Publisher> findByCountry(String country) {
+    return list("country", country);
+  }
 }

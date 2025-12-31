@@ -17,6 +17,7 @@ import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.List;
 
 @Entity
 @Table(name = "t_items")
@@ -57,5 +58,31 @@ public abstract class Item extends PanacheEntity {
   @PreUpdate
   void preUpdate() {
     updatedDate = Instant.now();
+  }
+
+  // Custom query methods
+
+  public static List<Item> findByTitleContaining(String keyword) {
+    return list("lower(title) like lower(?1)", "%" + keyword + "%");
+  }
+
+  public static List<Item> findByPriceRange(BigDecimal min, BigDecimal max) {
+    return list("price >= ?1 and price <= ?2", min, max);
+  }
+
+  public static List<Item> findOutOfStock() {
+    return list("stock = 0");
+  }
+
+  public static List<Item> findByPriceLessThan(BigDecimal price) {
+    return list("price < ?1", price);
+  }
+
+  public static List<Item> findCreatedAfter(Instant date) {
+    return list("createdDate > ?1", date);
+  }
+
+  public static long countInStock() {
+    return count("stock > 0");
   }
 }

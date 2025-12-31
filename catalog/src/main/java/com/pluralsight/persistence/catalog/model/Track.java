@@ -12,6 +12,8 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 import java.time.Duration;
+import java.util.List;
+import java.util.Optional;
 
 @Entity
 @Table(name = "t_tracks")
@@ -36,4 +38,37 @@ public class Track extends PanacheEntity {
   @ManyToOne
   @JoinColumn(name = "cd_fk", nullable = false)
   public CD cd;
+
+  // Custom query methods
+
+  public static List<Track> findByCd(CD cd) {
+    return list("cd", cd);
+  }
+
+  public static List<Track> findByCdId(Long cdId) {
+    return list("cd.id", cdId);
+  }
+
+  public static List<Track> findByTitleContaining(String keyword) {
+    return list("lower(title) like lower(?1)", "%" + keyword + "%");
+  }
+
+  public static Optional<Track> findLongestTrack() {
+    return find("ORDER BY duration DESC").firstResultOptional();
+  }
+
+  public static Optional<Track> findShortestTrack() {
+    return find("ORDER BY duration ASC").firstResultOptional();
+  }
+
+  public static long countByCd(CD cd) {
+    return count("cd", cd);
+  }
+
+  public static Duration sumDurationByCd(CD cd) {
+    List<Track> tracks = findByCd(cd);
+    return tracks.stream()
+      .map(t -> t.duration)
+      .reduce(Duration.ZERO, Duration::plus);
+  }
 }

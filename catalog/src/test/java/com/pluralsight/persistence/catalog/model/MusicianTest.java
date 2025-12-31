@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @QuarkusTest
@@ -154,7 +155,7 @@ class MusicianTest {
     drummer.instrument = "Drums";
     drummer.persist();
 
-    List<Musician> drummers = Musician.list("instrument", "Drums");
+    List<Musician> drummers = Musician.findByInstrument("Drums");
 
     assertTrue(drummers.stream().anyMatch(m -> m.lastName.equals("Starr")));
     assertTrue(drummers.stream().allMatch(m -> m.instrument.equals("Drums")));
@@ -165,7 +166,146 @@ class MusicianTest {
   void shouldNotFindMusicianByInstrument() {
     Musician.deleteAll();
 
-    List<Musician> musicians = Musician.list("instrument", "Theremin");
+    List<Musician> musicians = Musician.findByInstrument("Theremin");
+
+    assertTrue(musicians.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldFindMusicianByStageNameContaining() {
+    Musician.deleteAll();
+
+    Musician musician1 = new Musician();
+    musician1.firstName = "David";
+    musician1.lastName = "Jones";
+    musician1.stageName = "Bowie";
+    musician1.instrument = "Vocals";
+    musician1.persist();
+
+    Musician musician2 = new Musician();
+    musician2.firstName = "Prince";
+    musician2.lastName = "Rogers Nelson";
+    musician2.stageName = "The Artist Formerly Known as Prince";
+    musician2.instrument = "Guitar";
+    musician2.persist();
+
+    Musician musician3 = new Musician();
+    musician3.firstName = "Reginald";
+    musician3.lastName = "Dwight";
+    musician3.stageName = "Elton John";
+    musician3.instrument = "Piano";
+    musician3.persist();
+
+    List<Musician> musicians = Musician.findByStageNameContaining("artist");
+
+    assertEquals(1, musicians.size());
+    assertEquals("Prince", musicians.get(0).firstName);
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindMusicianByStageNameContaining() {
+    Musician.deleteAll();
+
+    Musician musician = new Musician();
+    musician.firstName = "John";
+    musician.lastName = "Lennon";
+    musician.stageName = "Johnny";
+    musician.instrument = "Guitar";
+    musician.persist();
+
+    List<Musician> musicians = Musician.findByStageNameContaining("King");
+
+    assertTrue(musicians.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldFindMusicianBornBefore() {
+    Musician.deleteAll();
+
+    Musician oldMusician = new Musician();
+    oldMusician.firstName = "Old";
+    oldMusician.lastName = "Timer";
+    oldMusician.stageName = "Oldie";
+    oldMusician.instrument = "Violin";
+    oldMusician.dateOfBirth = LocalDate.of(1940, 5, 15);
+    oldMusician.persist();
+
+    Musician youngMusician = new Musician();
+    youngMusician.firstName = "Young";
+    youngMusician.lastName = "Star";
+    youngMusician.stageName = "Rising Star";
+    youngMusician.instrument = "Synthesizer";
+    youngMusician.dateOfBirth = LocalDate.of(2000, 8, 20);
+    youngMusician.persist();
+
+    List<Musician> musicians = Musician.findBornBefore(LocalDate.of(1960, 1, 1));
+
+    assertEquals(1, musicians.size());
+    assertEquals("Old", musicians.get(0).firstName);
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindMusicianBornBefore() {
+    Musician.deleteAll();
+
+    Musician musician = new Musician();
+    musician.firstName = "Modern";
+    musician.lastName = "Artist";
+    musician.stageName = "The Modern One";
+    musician.instrument = "Electronic";
+    musician.dateOfBirth = LocalDate.of(1995, 3, 10);
+    musician.persist();
+
+    List<Musician> musicians = Musician.findBornBefore(LocalDate.of(1990, 1, 1));
+
+    assertTrue(musicians.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldFindMusicianBornAfter() {
+    Musician.deleteAll();
+
+    Musician oldMusician = new Musician();
+    oldMusician.firstName = "Old";
+    oldMusician.lastName = "Legend";
+    oldMusician.stageName = "The Legend";
+    oldMusician.instrument = "Piano";
+    oldMusician.dateOfBirth = LocalDate.of(1950, 2, 10);
+    oldMusician.persist();
+
+    Musician youngMusician = new Musician();
+    youngMusician.firstName = "Young";
+    youngMusician.lastName = "Talent";
+    youngMusician.stageName = "New Talent";
+    youngMusician.instrument = "Guitar";
+    youngMusician.dateOfBirth = LocalDate.of(2005, 11, 25);
+    youngMusician.persist();
+
+    List<Musician> musicians = Musician.findBornAfter(LocalDate.of(2000, 1, 1));
+
+    assertEquals(1, musicians.size());
+    assertEquals("Young", musicians.get(0).firstName);
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindMusicianBornAfter() {
+    Musician.deleteAll();
+
+    Musician musician = new Musician();
+    musician.firstName = "Vintage";
+    musician.lastName = "Artist";
+    musician.stageName = "Vintage Sound";
+    musician.instrument = "Saxophone";
+    musician.dateOfBirth = LocalDate.of(1970, 7, 15);
+    musician.persist();
+
+    List<Musician> musicians = Musician.findBornAfter(LocalDate.of(2000, 1, 1));
 
     assertTrue(musicians.isEmpty());
   }

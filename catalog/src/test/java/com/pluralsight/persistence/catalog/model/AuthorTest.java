@@ -9,6 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @QuarkusTest
@@ -154,7 +155,7 @@ class AuthorTest {
     germanAuthor.preferredLanguage = Language.GERMAN;
     germanAuthor.persist();
 
-    List<Author> germanAuthors = Author.list("preferredLanguage", Language.GERMAN);
+    List<Author> germanAuthors = Author.findByPreferredLanguage(Language.GERMAN);
 
     assertTrue(germanAuthors.stream().anyMatch(a -> a.lastName.equals("Writer")));
     assertTrue(germanAuthors.stream().allMatch(a -> a.preferredLanguage == Language.GERMAN));
@@ -165,9 +166,89 @@ class AuthorTest {
   void shouldNotFindAuthorByPreferredLanguage() {
     Author.deleteAll();
 
-    List<Author> authors = Author.list("preferredLanguage", Language.PORTUGUESE);
+    List<Author> authors = Author.findByPreferredLanguage(Language.PORTUGUESE);
 
     assertTrue(authors.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldFindAuthorBornBefore() {
+    Author.deleteAll();
+
+    Author oldAuthor = new Author();
+    oldAuthor.firstName = "Old";
+    oldAuthor.lastName = "Author";
+    oldAuthor.bio = "Born in the past";
+    oldAuthor.dateOfBirth = LocalDate.of(1950, 5, 15);
+    oldAuthor.preferredLanguage = Language.ENGLISH;
+    oldAuthor.persist();
+
+    Author youngAuthor = new Author();
+    youngAuthor.firstName = "Young";
+    youngAuthor.lastName = "Writer";
+    youngAuthor.bio = "Born more recently";
+    youngAuthor.dateOfBirth = LocalDate.of(1995, 8, 20);
+    youngAuthor.preferredLanguage = Language.FRENCH;
+    youngAuthor.persist();
+
+    List<Author> authors = Author.findBornBefore(LocalDate.of(1970, 1, 1));
+
+    assertEquals(1, authors.size());
+    assertEquals("Old", authors.get(0).firstName);
+  }
+
+  @Test
+  @TestTransaction
+  void shouldNotFindAuthorBornBefore() {
+    Author.deleteAll();
+
+    Author author = new Author();
+    author.firstName = "Modern";
+    author.lastName = "Author";
+    author.bio = "Born recently";
+    author.dateOfBirth = LocalDate.of(2000, 3, 10);
+    author.preferredLanguage = Language.SPANISH;
+    author.persist();
+
+    List<Author> authors = Author.findBornBefore(LocalDate.of(1990, 1, 1));
+
+    assertTrue(authors.isEmpty());
+  }
+
+  @Test
+  @TestTransaction
+  void shouldCountByPreferredLanguage() {
+    Author.deleteAll();
+
+    Author english1 = new Author();
+    english1.firstName = "English";
+    english1.lastName = "Writer One";
+    english1.bio = "Writes in English";
+    english1.preferredLanguage = Language.ENGLISH;
+    english1.persist();
+
+    Author english2 = new Author();
+    english2.firstName = "Another";
+    english2.lastName = "English Writer";
+    english2.bio = "Also writes in English";
+    english2.preferredLanguage = Language.ENGLISH;
+    english2.persist();
+
+    Author french = new Author();
+    french.firstName = "French";
+    french.lastName = "Writer";
+    french.bio = "Writes in French";
+    french.preferredLanguage = Language.FRENCH;
+    french.persist();
+
+    long englishCount = Author.countByPreferredLanguage(Language.ENGLISH);
+    long frenchCount = Author.countByPreferredLanguage(Language.FRENCH);
+    long spanishCount = Author.countByPreferredLanguage(Language.SPANISH);
+
+    assertEquals(2, englishCount);
+    assertEquals(1, frenchCount);
+    assertEquals(0, spanishCount);
   }
 
   @Test
