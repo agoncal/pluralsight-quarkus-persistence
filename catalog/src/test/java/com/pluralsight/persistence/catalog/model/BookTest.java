@@ -126,6 +126,34 @@ class BookTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllBooks() {
+    Book.deleteAll();
+
+    Book book1 = new Book();
+    book1.title = "Book One";
+    book1.price = new BigDecimal("10.00");
+    book1.stock = 10;
+    book1.isbn = "1111111111111";
+    book1.language = Language.ENGLISH;
+    book1.persist();
+
+    Book book2 = new Book();
+    book2.title = "Book Two";
+    book2.price = new BigDecimal("20.00");
+    book2.stock = 20;
+    book2.isbn = "2222222222222";
+    book2.language = Language.SPANISH;
+    book2.persist();
+
+    assertEquals(2, Book.count());
+
+    Book.deleteAll();
+
+    assertEquals(0, Book.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindBookByLanguage() {
     Book germanBook = new Book();
     germanBook.title = "German Novel";

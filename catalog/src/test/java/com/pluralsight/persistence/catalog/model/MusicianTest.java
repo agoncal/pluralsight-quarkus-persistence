@@ -120,6 +120,32 @@ class MusicianTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllMusicians() {
+    Musician.deleteAll();
+
+    Musician musician1 = new Musician();
+    musician1.firstName = "Musician";
+    musician1.lastName = "One";
+    musician1.stageName = "M1";
+    musician1.instrument = "Guitar";
+    musician1.persist();
+
+    Musician musician2 = new Musician();
+    musician2.firstName = "Musician";
+    musician2.lastName = "Two";
+    musician2.stageName = "M2";
+    musician2.instrument = "Bass";
+    musician2.persist();
+
+    assertEquals(2, Musician.count());
+
+    Musician.deleteAll();
+
+    assertEquals(0, Musician.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindMusicianByInstrument() {
     Musician drummer = new Musician();
     drummer.firstName = "Ringo";

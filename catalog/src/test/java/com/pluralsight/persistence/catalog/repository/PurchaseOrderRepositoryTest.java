@@ -169,6 +169,30 @@ class PurchaseOrderRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllPurchaseOrders() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user1 = createUser();
+    Customer customer1 = createCustomer(user1);
+    PurchaseOrder order1 = createPurchaseOrder(customer1, OrderStatus.PENDING, new BigDecimal("50.00"));
+    purchaseOrderRepository.persist(order1);
+
+    User user2 = createUser();
+    Customer customer2 = createCustomer(user2);
+    PurchaseOrder order2 = createPurchaseOrder(customer2, OrderStatus.CONFIRMED, new BigDecimal("75.00"));
+    purchaseOrderRepository.persist(order2);
+
+    assertEquals(2, purchaseOrderRepository.count());
+
+    purchaseOrderRepository.deleteAll();
+
+    assertEquals(0, purchaseOrderRepository.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindPurchaseOrderByCustomerId() {
     User user = createUser();
     Customer customer = createCustomer(user);

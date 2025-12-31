@@ -116,6 +116,26 @@ class SupplierRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllSuppliers() {
+    supplierRepository.deleteAll();
+
+    String name1 = "Del1" + UUID.randomUUID().toString().substring(0, 8);
+    Supplier supplier1 = createSupplier(name1, "USA");
+    supplierRepository.persist(supplier1);
+
+    String name2 = "Del2" + UUID.randomUUID().toString().substring(0, 8);
+    Supplier supplier2 = createSupplier(name2, "Canada");
+    supplierRepository.persist(supplier2);
+
+    assertEquals(2, supplierRepository.count());
+
+    supplierRepository.deleteAll();
+
+    assertEquals(0, supplierRepository.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindSupplierByCountry() {
     String uniqueCountry = "TestCountry" + UUID.randomUUID().toString().substring(0, 4);
 

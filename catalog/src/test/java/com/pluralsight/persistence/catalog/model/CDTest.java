@@ -133,6 +133,37 @@ class CDTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllCDs() {
+    Track.deleteAll();
+    CD.deleteAll();
+
+    CD cd1 = new CD();
+    cd1.title = "Album One";
+    cd1.price = new BigDecimal("10.00");
+    cd1.stock = 10;
+    cd1.ean = "1111111111111";
+    cd1.musicCompany = "Label One";
+    cd1.genre = MusicGenre.ROCK;
+    cd1.persist();
+
+    CD cd2 = new CD();
+    cd2.title = "Album Two";
+    cd2.price = new BigDecimal("20.00");
+    cd2.stock = 20;
+    cd2.ean = "2222222222222";
+    cd2.musicCompany = "Label Two";
+    cd2.genre = MusicGenre.JAZZ;
+    cd2.persist();
+
+    assertEquals(2, CD.count());
+
+    CD.deleteAll();
+
+    assertEquals(0, CD.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindCDByGenre() {
     CD classicalCD = new CD();
     classicalCD.title = "Symphony No. 5";

@@ -171,6 +171,38 @@ class CustomerRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllCustomers() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    User user1 = createUser();
+    Customer customer1 = new Customer();
+    customer1.setFirstName("Customer");
+    customer1.setLastName("One");
+    customer1.setPhone("555-1111");
+    customer1.setBillingAddress(createAddress());
+    customer1.setUser(user1);
+    customerRepository.persist(customer1);
+
+    User user2 = createUser();
+    Customer customer2 = new Customer();
+    customer2.setFirstName("Customer");
+    customer2.setLastName("Two");
+    customer2.setPhone("555-2222");
+    customer2.setBillingAddress(createAddress());
+    customer2.setUser(user2);
+    customerRepository.persist(customer2);
+
+    assertEquals(2, customerRepository.count());
+
+    customerRepository.deleteAll();
+
+    assertEquals(0, customerRepository.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindCustomerByLastName() {
     User user1 = createUser();
     Customer customer1 = new Customer();

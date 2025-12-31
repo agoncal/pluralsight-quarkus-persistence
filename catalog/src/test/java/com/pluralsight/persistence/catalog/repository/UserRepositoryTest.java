@@ -144,6 +144,38 @@ class UserRepositoryTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllUsers() {
+    purchaseOrderRepository.deleteAll();
+    customerRepository.deleteAll();
+    userRepository.deleteAll();
+
+    String uniqueUsername1 = "del1" + UUID.randomUUID().toString().substring(0, 8);
+    User user1 = new User();
+    user1.setUsername(uniqueUsername1);
+    user1.setPassword("password123");
+    user1.setEmail(uniqueUsername1 + "@example.com");
+    user1.setRole(UserRole.CUSTOMER);
+    user1.setEnabled(true);
+    userRepository.persist(user1);
+
+    String uniqueUsername2 = "del2" + UUID.randomUUID().toString().substring(0, 8);
+    User user2 = new User();
+    user2.setUsername(uniqueUsername2);
+    user2.setPassword("password456");
+    user2.setEmail(uniqueUsername2 + "@example.com");
+    user2.setRole(UserRole.ADMIN);
+    user2.setEnabled(true);
+    userRepository.persist(user2);
+
+    assertEquals(2, userRepository.count());
+
+    userRepository.deleteAll();
+
+    assertEquals(0, userRepository.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindUserByUsername() {
     String uniqueUsername = "byname" + UUID.randomUUID().toString().substring(0, 8);
     User user = new User();

@@ -120,6 +120,32 @@ class AuthorTest {
 
   @Test
   @TestTransaction
+  void shouldDeleteAllAuthors() {
+    Author.deleteAll();
+
+    Author author1 = new Author();
+    author1.firstName = "Author";
+    author1.lastName = "One";
+    author1.bio = "First author";
+    author1.preferredLanguage = Language.ENGLISH;
+    author1.persist();
+
+    Author author2 = new Author();
+    author2.firstName = "Author";
+    author2.lastName = "Two";
+    author2.bio = "Second author";
+    author2.preferredLanguage = Language.FRENCH;
+    author2.persist();
+
+    assertEquals(2, Author.count());
+
+    Author.deleteAll();
+
+    assertEquals(0, Author.count());
+  }
+
+  @Test
+  @TestTransaction
   void shouldFindAuthorByPreferredLanguage() {
     Author germanAuthor = new Author();
     germanAuthor.firstName = "German";
