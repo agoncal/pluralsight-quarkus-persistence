@@ -148,7 +148,7 @@ quarkus.hibernate-orm.sql-load-script=no-file
 ```xml
 <dependency>
   <groupId>io.quarkus</groupId>
-  <artifactId>quarkus-junit5-mockito</artifactId>
+  <artifactId>quarkus-junit-mockito</artifactId>
   <scope>test</scope>
 </dependency>
 <dependency>
