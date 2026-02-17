@@ -1,0 +1,90 @@
+{#include base.html}
+  {#title}Suppliers - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h1><i class="bi bi-truck me-2"></i>Suppliers</h1>
+          <div>
+            <span class="badge bg-secondary fs-6 me-2">{suppliers.size} suppliers</span>
+            <a href="/admin/suppliers/new" class="btn btn-success">
+              <i class="bi bi-plus-circle me-1"></i>New Supplier
+            </a>
+          </div>
+        </div>
+        <hr>
+      </div>
+    </div>
+
+    {#if suppliers.isEmpty}
+      <div class="alert alert-info" role="alert">
+        <i class="bi bi-info-circle me-2"></i>No suppliers found. Click "New Supplier" to create one.
+      </div>
+    {#else}
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Company Name</th>
+              <th>Contact Name</th>
+              <th>Contact Email</th>
+              <th>Country</th>
+              <th class="text-center">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {#for supplier in suppliers}
+              <tr>
+                <td>{supplier.id}</td>
+                <td>
+                  <a href="/admin/suppliers/{supplier.id}" class="text-decoration-none fw-bold">
+                    {supplier.companyName}
+                  </a>
+                </td>
+                <td>
+                  {#if supplier.contactName}
+                    {supplier.contactName}
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if supplier.contactEmail}
+                    <a href="mailto:{supplier.contactEmail}" class="text-decoration-none">
+                      <i class="bi bi-envelope me-1"></i>{supplier.contactEmail}
+                    </a>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td>
+                  {#if supplier.country}
+                    <span class="badge bg-light text-dark">{supplier.country}</span>
+                  {#else}
+                    <span class="text-muted">-</span>
+                  {/if}
+                </td>
+                <td class="text-center">
+                  <div class="btn-group btn-group-sm" role="group">
+                    <a href="/admin/suppliers/{supplier.id}" class="btn btn-outline-primary" title="View">
+                      <i class="bi bi-eye"></i>
+                    </a>
+                    <a href="/admin/suppliers/{supplier.id}/edit" class="btn btn-outline-warning" title="Edit">
+                      <i class="bi bi-pencil"></i>
+                    </a>
+                    <a href="/admin/suppliers/{supplier.id}/delete" class="btn btn-outline-danger" title="Delete"
+                       onclick="return confirm('Are you sure you want to delete this supplier?');">
+                      <i class="bi bi-trash"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {/for}
+          </tbody>
+        </table>
+      </div>
+    {/if}
+  {/insert}
+{/include}

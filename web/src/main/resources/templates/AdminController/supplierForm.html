@@ -1,0 +1,103 @@
+{#include base.html}
+  {#title}{#if supplier}Edit {supplier.companyName}{#else}New Supplier{/if} - Suppliers - Admin - Vintage Store{/}
+
+  {#insert}
+    <div class="row mb-4">
+      <div class="col-12">
+        <h1>
+          {#if supplier}
+            <i class="bi bi-pencil me-2"></i>Edit Supplier
+          {#else}
+            <i class="bi bi-plus-circle me-2"></i>New Supplier
+          {/if}
+        </h1>
+        <hr>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="card">
+          <div class="card-header bg-primary text-white">
+            <i class="bi bi-truck me-2"></i>Supplier Information
+          </div>
+          <div class="card-body">
+            {#form uri:AdminController.supplierSave()}
+              {#if supplier}
+                <input type="hidden" name="id" value="{supplier.id}">
+              {/if}
+
+              <div class="mb-3">
+                <label for="companyName" class="form-label">Company Name <span class="text-danger">*</span></label>
+                <input type="text" class="form-control" id="companyName" name="companyName"
+                       value="{#if supplier}{supplier.companyName}{/if}"
+                       required maxlength="100" placeholder="Enter company name">
+                <div class="form-text">Required. Maximum 100 characters.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="contactName" class="form-label">Contact Name</label>
+                <input type="text" class="form-control" id="contactName" name="contactName"
+                       value="{#if supplier}{supplier.contactName}{/if}"
+                       maxlength="100" placeholder="Enter contact person name">
+                <div class="form-text">Optional. Maximum 100 characters.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="contactEmail" class="form-label">Contact Email</label>
+                <input type="email" class="form-control" id="contactEmail" name="contactEmail"
+                       value="{#if supplier}{supplier.contactEmail}{/if}"
+                       maxlength="255" placeholder="contact@example.com">
+                <div class="form-text">Optional. Must be a valid email address.</div>
+              </div>
+
+              <div class="mb-3">
+                <label for="country" class="form-label">Country</label>
+                <input type="text" class="form-control" id="country" name="country"
+                       value="{#if supplier}{supplier.country}{/if}"
+                       maxlength="50" placeholder="Enter country (e.g., USA, UK, France)">
+                <div class="form-text">Optional. Maximum 50 characters.</div>
+              </div>
+
+              <hr>
+
+              <div class="d-flex justify-content-between">
+                <a href="/admin/suppliers" class="btn btn-secondary">
+                  <i class="bi bi-x-circle me-1"></i>Cancel
+                </a>
+                <button type="submit" class="btn btn-primary">
+                  <i class="bi bi-check-circle me-1"></i>
+                  {#if supplier}Update Supplier{#else}Create Supplier{/if}
+                </button>
+              </div>
+            {/form}
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-4">
+        <div class="card">
+          <div class="card-header bg-info text-white">
+            <i class="bi bi-lightbulb me-2"></i>Tips
+          </div>
+          <div class="card-body">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2">
+                <i class="bi bi-check-circle text-success me-1"></i>
+                <strong>Company Name</strong> is required.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-envelope text-primary me-1"></i>
+                <strong>Contact Email</strong> should be a valid email address.
+              </li>
+              <li class="mb-2">
+                <i class="bi bi-globe text-warning me-1"></i>
+                <strong>Country</strong> helps identify supplier location.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  {/insert}
+{/include}

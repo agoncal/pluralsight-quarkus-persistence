@@ -480,6 +480,83 @@ public class AdminController extends Controller {
   }
 
   // ======================================
+  // Suppliers CRUD
+  // ======================================
+
+  @GET
+  @Path("/suppliers")
+  public TemplateInstance suppliers() {
+    LOG.info("Entering admin suppliers()");
+    List<SupplierDTO> suppliers = catalogProxy.getAllSuppliers();
+    return Templates.suppliers(suppliers);
+  }
+
+  @GET
+  @Path("/suppliers/{id:\\d+}")
+  public TemplateInstance supplier(@PathParam("id") Long id) {
+    LOG.info("Entering admin supplier() with id: " + id);
+    Response response = catalogProxy.getSupplier(id);
+    if (response.getStatus() == 404) {
+      notFound();
+    }
+    SupplierDTO supplier = response.readEntity(SupplierDTO.class);
+    return Templates.supplier(supplier);
+  }
+
+  @GET
+  @Path("/suppliers/new")
+  public TemplateInstance supplierNew() {
+    LOG.info("Entering admin supplierNew()");
+    return Templates.supplierForm(null);
+  }
+
+  @GET
+  @Path("/suppliers/{id:\\d+}/edit")
+  public TemplateInstance supplierEdit(@PathParam("id") Long id) {
+    LOG.info("Entering admin supplierEdit() with id: " + id);
+    Response response = catalogProxy.getSupplier(id);
+    if (response.getStatus() == 404) {
+      notFound();
+    }
+    SupplierDTO supplier = response.readEntity(SupplierDTO.class);
+    return Templates.supplierForm(supplier);
+  }
+
+  @POST
+  @Path("/suppliers/save")
+  public Response supplierSave(
+      @RestForm Long id,
+      @RestForm String companyName,
+      @RestForm String contactName,
+      @RestForm String contactEmail,
+      @RestForm String country) {
+    LOG.info("Entering admin supplierSave()");
+
+    SupplierDTO supplier = new SupplierDTO();
+    supplier.companyName = (companyName != null && !companyName.isBlank()) ? companyName : null;
+    supplier.contactName = (contactName != null && !contactName.isBlank()) ? contactName : null;
+    supplier.contactEmail = (contactEmail != null && !contactEmail.isBlank()) ? contactEmail : null;
+    supplier.country = (country != null && !country.isBlank()) ? country : null;
+
+    if (id != null) {
+      supplier.id = id;
+      catalogProxy.updateSupplier(id, supplier);
+    } else {
+      catalogProxy.createSupplier(supplier);
+    }
+
+    return Response.seeOther(URI.create("/admin/suppliers")).build();
+  }
+
+  @GET
+  @Path("/suppliers/{id:\\d+}/delete")
+  public Response supplierDelete(@PathParam("id") Long id) {
+    LOG.info("Entering admin supplierDelete() with id: " + id);
+    catalogProxy.deleteSupplier(id);
+    return Response.seeOther(URI.create("/admin/suppliers")).build();
+  }
+
+  // ======================================
   // Publishers CRUD
   // ======================================
 
@@ -778,6 +855,11 @@ public class AdminController extends Controller {
     public static native TemplateInstance publishers(List<PublisherDTO> publishers);
     public static native TemplateInstance publisher(PublisherDTO publisher);
     public static native TemplateInstance publisherForm(PublisherDTO publisher);
+
+    // Suppliers
+    public static native TemplateInstance suppliers(List<SupplierDTO> suppliers);
+    public static native TemplateInstance supplier(SupplierDTO supplier);
+    public static native TemplateInstance supplierForm(SupplierDTO supplier);
 
     // Orders
     public static native TemplateInstance orders(List<PurchaseOrderDTO> orders);
