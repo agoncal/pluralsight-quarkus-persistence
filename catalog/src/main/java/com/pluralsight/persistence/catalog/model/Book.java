@@ -88,4 +88,16 @@ public class Book extends Item {
   public static List<Book> findPublishedBetween(LocalDate start, LocalDate end) {
     return list("publicationDate >= ?1 and publicationDate <= ?2", start, end);
   }
+
+  @Override
+  public String toString() {
+    return "Book{" +
+      "id=" + id +
+      ", title='" + title + '\'' +
+      ", price=" + price +
+      ", stock=" + stock +
+      ", isbn='" + isbn + '\'' +
+      ", language=" + language +
+      '}';
+  }
 }

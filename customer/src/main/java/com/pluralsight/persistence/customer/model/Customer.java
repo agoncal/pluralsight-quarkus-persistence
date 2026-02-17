@@ -135,4 +135,14 @@ public class Customer {
   public void setCreatedDate(Instant createdDate) {
     this.createdDate = createdDate;
   }
+
+  @Override
+  public String toString() {
+    return "Customer{" +
+      "id=" + id +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", phone='" + phone + '\'' +
+      '}';
+  }
 }

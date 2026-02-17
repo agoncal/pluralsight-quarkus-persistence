@@ -58,4 +58,13 @@ public class Publisher extends PanacheEntity {
   public static List<Publisher> findByCountry(String country) {
     return list("country", country);
   }
+
+  @Override
+  public String toString() {
+    return "Publisher{" +
+      "id=" + id +
+      ", name='" + name + '\'' +
+      ", country='" + country + '\'' +
+      '}';
+  }
 }

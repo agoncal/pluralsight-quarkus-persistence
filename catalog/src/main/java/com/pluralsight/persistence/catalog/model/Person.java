@@ -42,4 +42,13 @@ public abstract class Person extends PanacheEntity {
   void prePersist() {
     createdDate = Instant.now();
   }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{" +
+      "id=" + id +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      '}';
+  }
 }

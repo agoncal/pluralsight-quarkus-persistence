@@ -117,4 +117,14 @@ public class User {
   public void setCreatedDate(Instant createdDate) {
     this.createdDate = createdDate;
   }
+
+  @Override
+  public String toString() {
+    return "User{" +
+      "id=" + id +
+      ", username='" + username + '\'' +
+      ", email='" + email + '\'' +
+      ", role=" + role +
+      '}';
+  }
 }

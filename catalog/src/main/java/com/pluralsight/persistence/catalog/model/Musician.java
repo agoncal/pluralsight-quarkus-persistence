@@ -44,4 +44,15 @@ public class Musician extends Person {
   public static List<Musician> findBornAfter(LocalDate date) {
     return list("dateOfBirth > ?1", date);
   }
+
+  @Override
+  public String toString() {
+    return "Musician{" +
+      "id=" + id +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", stageName='" + stageName + '\'' +
+      ", instrument='" + instrument + '\'' +
+      '}';
+  }
 }

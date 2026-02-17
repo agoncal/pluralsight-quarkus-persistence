@@ -40,4 +40,14 @@ public class UserActivityLog extends PanacheEntity {
   @NotNull
   @Column(nullable = false)
   public Instant timestamp = Instant.now();
+
+  @Override
+  public String toString() {
+    return "UserActivityLog{" +
+      "id=" + id +
+      ", username='" + username + '\'' +
+      ", action=" + action +
+      ", item='" + item + '\'' +
+      '}';
+  }
 }

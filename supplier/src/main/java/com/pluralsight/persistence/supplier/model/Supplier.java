@@ -66,4 +66,14 @@ public class Supplier {
   public void setCreatedDate(Instant createdDate) {
     this.createdDate = createdDate;
   }
+
+  @Override
+  public String toString() {
+    return "Supplier{" +
+      "id=" + id +
+      ", companyName='" + companyName + '\'' +
+      ", contactName='" + contactName + '\'' +
+      ", country='" + country + '\'' +
+      '}';
+  }
 }

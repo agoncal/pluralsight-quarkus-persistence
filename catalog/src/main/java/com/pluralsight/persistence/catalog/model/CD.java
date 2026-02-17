@@ -98,4 +98,16 @@ public class CD extends Item {
   public static long countByGenre(MusicGenre genre) {
     return count("genre", genre);
   }
+
+  @Override
+  public String toString() {
+    return "CD{" +
+      "id=" + id +
+      ", title='" + title + '\'' +
+      ", price=" + price +
+      ", stock=" + stock +
+      ", ean='" + ean + '\'' +
+      ", genre=" + genre +
+      '}';
+  }
 }

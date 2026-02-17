@@ -43,4 +43,14 @@ public class Author extends Person {
   public static long countByPreferredLanguage(Language language) {
     return count("preferredLanguage", language);
   }
+
+  @Override
+  public String toString() {
+    return "Author{" +
+      "id=" + id +
+      ", firstName='" + firstName + '\'' +
+      ", lastName='" + lastName + '\'' +
+      ", preferredLanguage=" + preferredLanguage +
+      '}';
+  }
 }

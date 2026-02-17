@@ -85,4 +85,14 @@ public abstract class Item extends PanacheEntity {
   public static long countInStock() {
     return count("stock > 0");
   }
+
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{" +
+      "id=" + id +
+      ", title='" + title + '\'' +
+      ", price=" + price +
+      ", stock=" + stock +
+      '}';
+  }
 }

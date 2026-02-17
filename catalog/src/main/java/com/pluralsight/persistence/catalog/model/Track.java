@@ -71,4 +71,14 @@ public class Track extends PanacheEntity {
       .map(t -> t.duration)
       .reduce(Duration.ZERO, Duration::plus);
   }
+
+  @Override
+  public String toString() {
+    return "Track{" +
+      "id=" + id +
+      ", title='" + title + '\'' +
+      ", trackNumber=" + trackNumber +
+      ", duration=" + duration +
+      '}';
+  }
 }

@@ -46,4 +46,15 @@ public class ProductReview extends PanacheEntity {
   public String comment;
 
   public Instant createdDate = Instant.now();
+
+  @Override
+  public String toString() {
+    return "ProductReview{" +
+      "id=" + id +
+      ", itemType=" + itemType +
+      ", username='" + username + '\'' +
+      ", rating=" + rating +
+      ", title='" + title + '\'' +
+      '}';
+  }
 }

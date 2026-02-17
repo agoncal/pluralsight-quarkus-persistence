@@ -80,4 +80,14 @@ public class OrderLine {
   public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
     this.purchaseOrder = purchaseOrder;
   }
+
+  @Override
+  public String toString() {
+    return "OrderLine{" +
+      "id=" + id +
+      ", item='" + item + '\'' +
+      ", quantity=" + quantity +
+      ", unitPrice=" + unitPrice +
+      '}';
+  }
 }

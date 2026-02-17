@@ -150,4 +150,14 @@ public class PurchaseOrder {
   public void setUpdatedDate(Instant updatedDate) {
     this.updatedDate = updatedDate;
   }
+
+  @Override
+  public String toString() {
+    return "PurchaseOrder{" +
+      "id=" + id +
+      ", orderDate=" + orderDate +
+      ", status=" + status +
+      ", totalAmount=" + totalAmount +
+      '}';
+  }
 }
