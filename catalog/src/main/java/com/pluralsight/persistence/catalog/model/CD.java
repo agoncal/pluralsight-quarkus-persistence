@@ -29,7 +29,7 @@ public class CD extends Item {
 
   public static Optional<CD> findByIdWithRelations(Long id) {
     // Fetch musicians via join, tracks via batch fetching (configured in application.properties)
-    Optional<CD> cd = find("#CD.findByIdWithMusicians", Map.of("id", id)).firstResultOptional();
+    Optional<CD> cd = find("#CD.findByIdWithMusicians", Map.of("id", id)).singleResultOptional();
     cd.ifPresent(c -> c.tracks.size()); // Initialize tracks collection via batch fetch
     return cd;
   }

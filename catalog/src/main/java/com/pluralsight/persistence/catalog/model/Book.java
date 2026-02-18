@@ -29,7 +29,7 @@ import io.quarkus.panache.common.Parameters;
 public class Book extends Item {
 
   public static Optional<Book> findByIdWithRelations(Long id) {
-    return find("#Book.findByIdWithRelations", Map.of("id", id)).firstResultOptional();
+    return find("#Book.findByIdWithRelations", Map.of("id", id)).singleResultOptional();
   }
 
   @Size(min = 13, max = 13)
