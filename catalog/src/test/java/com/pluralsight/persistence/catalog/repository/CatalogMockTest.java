@@ -28,17 +28,235 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @QuarkusTest
-class CatalogRepositoryTest {
-
-  // Repository mocks using @InjectMock
-  @InjectMock
-  UserRepository userRepository;
+class CatalogMockTest {
 
   @InjectMock
-  CustomerRepository customerRepository;
+  CustomerRepository mockedCustomerRepository;
 
   @InjectMock
-  PurchaseOrderRepository purchaseOrderRepository;
+  PurchaseOrderRepository mockedPurchaseOrderRepository;
+
+  @InjectMock
+  UserRepository mockedUserRepository;
+
+  // ========================================
+  // Repository Pattern Mocking (@InjectMock)
+  // ========================================
+
+  @Test
+  void shouldMockUserRepositoryCount() {
+    Mockito.when(mockedUserRepository.count()).thenReturn(100L);
+
+    assertEquals(100L, mockedUserRepository.count());
+
+    Mockito.verify(mockedUserRepository, Mockito.times(1)).count();
+  }
+
+  @Test
+  void shouldMockUserRepositoryFindById() {
+    User mockUser = new User();
+    mockUser.setId(1L);
+    mockUser.setUsername("testuser");
+    mockUser.setEmail("test@example.com");
+    mockUser.setRole(UserRole.CUSTOMER);
+    mockUser.setEnabled(true);
+
+    Mockito.when(mockedUserRepository.findById(1L)).thenReturn(mockUser);
+
+    User found = mockedUserRepository.findById(1L);
+
+    assertNotNull(found);
+    assertEquals("testuser", found.getUsername());
+    assertEquals("test@example.com", found.getEmail());
+    assertEquals(UserRole.CUSTOMER, found.getRole());
+
+    Mockito.verify(mockedUserRepository, Mockito.times(1)).findById(1L);
+  }
+
+  @Test
+  void shouldMockUserRepositoryFindByUsername() {
+    User mockUser = new User();
+    mockUser.setId(1L);
+    mockUser.setUsername("johndoe");
+    mockUser.setEmail("john@example.com");
+    mockUser.setRole(UserRole.ADMIN);
+
+    Mockito.when(mockedUserRepository.findByUsername("johndoe")).thenReturn(mockUser);
+
+    User found = mockedUserRepository.findByUsername("johndoe");
+
+    assertNotNull(found);
+    assertEquals("johndoe", found.getUsername());
+    assertEquals(UserRole.ADMIN, found.getRole());
+
+    Mockito.verify(mockedUserRepository, Mockito.times(1)).findByUsername("johndoe");
+  }
+
+  @Test
+  void shouldMockUserRepositoryFindByUsernameNotFound() {
+    Mockito.when(mockedUserRepository.findByUsername("nonexistent")).thenReturn(null);
+
+    User found = mockedUserRepository.findByUsername("nonexistent");
+
+    assertNull(found);
+
+    Mockito.verify(mockedUserRepository, Mockito.times(1)).findByUsername("nonexistent");
+  }
+
+  @Test
+  void shouldMockCustomerRepositoryCount() {
+    Mockito.when(mockedCustomerRepository.count()).thenReturn(50L);
+
+    assertEquals(50L, mockedCustomerRepository.count());
+
+    Mockito.verify(mockedCustomerRepository, Mockito.times(1)).count();
+  }
+
+  @Test
+  void shouldMockCustomerRepositoryFindById() {
+    Address billingAddress = new Address();
+    billingAddress.setStreet("123 Main St");
+    billingAddress.setCity("New York");
+    billingAddress.setState("NY");
+    billingAddress.setZipCode("10001");
+    billingAddress.setCountry("USA");
+
+    Customer mockCustomer = new Customer();
+    mockCustomer.setId(1L);
+    mockCustomer.setFirstName("John");
+    mockCustomer.setLastName("Doe");
+    mockCustomer.setPhone("555-1234");
+    mockCustomer.setBillingAddress(billingAddress);
+
+    Mockito.when(mockedCustomerRepository.findById(1L)).thenReturn(mockCustomer);
+
+    Customer found = mockedCustomerRepository.findById(1L);
+
+    assertNotNull(found);
+    assertEquals("John", found.getFirstName());
+    assertEquals("Doe", found.getLastName());
+    assertNotNull(found.getBillingAddress());
+    assertEquals("New York", found.getBillingAddress().getCity());
+
+    Mockito.verify(mockedCustomerRepository, Mockito.times(1)).findById(1L);
+  }
+
+  @Test
+  void shouldMockCustomerRepositoryListAll() {
+    Customer customer1 = new Customer();
+    customer1.setId(1L);
+    customer1.setFirstName("John");
+    customer1.setLastName("Doe");
+
+    Customer customer2 = new Customer();
+    customer2.setId(2L);
+    customer2.setFirstName("Jane");
+    customer2.setLastName("Smith");
+
+    Mockito.when(mockedCustomerRepository.listAll()).thenReturn(List.of(customer1, customer2));
+
+    List<Customer> customers = mockedCustomerRepository.listAll();
+
+    assertEquals(2, customers.size());
+    assertEquals("John", customers.get(0).getFirstName());
+    assertEquals("Jane", customers.get(1).getFirstName());
+
+    Mockito.verify(mockedCustomerRepository, Mockito.times(1)).listAll();
+  }
+
+  @Test
+  void shouldMockPurchaseOrderRepositoryCount() {
+    Mockito.when(mockedPurchaseOrderRepository.count()).thenReturn(200L);
+
+    assertEquals(200L, mockedPurchaseOrderRepository.count());
+
+    Mockito.verify(mockedPurchaseOrderRepository, Mockito.times(1)).count();
+  }
+
+  @Test
+  void shouldMockPurchaseOrderRepositoryFindById() {
+    Customer mockCustomer = new Customer();
+    mockCustomer.setId(1L);
+    mockCustomer.setFirstName("John");
+    mockCustomer.setLastName("Doe");
+
+    Address shippingAddress = new Address();
+    shippingAddress.setStreet("456 Oak Ave");
+    shippingAddress.setCity("Los Angeles");
+    shippingAddress.setState("CA");
+    shippingAddress.setZipCode("90001");
+    shippingAddress.setCountry("USA");
+
+    PurchaseOrder mockOrder = new PurchaseOrder();
+    mockOrder.setId(1L);
+    mockOrder.setOrderDate(LocalDateTime.of(2024, 1, 15, 10, 30));
+    mockOrder.setStatus(OrderStatus.PENDING);
+    mockOrder.setTotalAmount(new BigDecimal("99.99"));
+    mockOrder.setCustomer(mockCustomer);
+    mockOrder.setShippingAddress(shippingAddress);
+
+    Mockito.when(mockedPurchaseOrderRepository.findById(1L)).thenReturn(mockOrder);
+
+    PurchaseOrder found = mockedPurchaseOrderRepository.findById(1L);
+
+    assertNotNull(found);
+    assertEquals(OrderStatus.PENDING, found.getStatus());
+    assertEquals(new BigDecimal("99.99"), found.getTotalAmount());
+    assertNotNull(found.getCustomer());
+    assertEquals("John", found.getCustomer().getFirstName());
+
+    Mockito.verify(mockedPurchaseOrderRepository, Mockito.times(1)).findById(1L);
+  }
+
+  @Test
+  void shouldMockPurchaseOrderRepositoryFindByStatus() {
+    PurchaseOrder order1 = new PurchaseOrder();
+    order1.setId(1L);
+    order1.setStatus(OrderStatus.SHIPPED);
+    order1.setTotalAmount(new BigDecimal("50.00"));
+
+    PurchaseOrder order2 = new PurchaseOrder();
+    order2.setId(2L);
+    order2.setStatus(OrderStatus.SHIPPED);
+    order2.setTotalAmount(new BigDecimal("75.00"));
+
+    Mockito.when(mockedPurchaseOrderRepository.list("status", OrderStatus.SHIPPED))
+      .thenReturn(List.of(order1, order2));
+
+    List<PurchaseOrder> shippedOrders = mockedPurchaseOrderRepository.list("status", OrderStatus.SHIPPED);
+
+    assertEquals(2, shippedOrders.size());
+    assertTrue(shippedOrders.stream().allMatch(o -> o.getStatus() == OrderStatus.SHIPPED));
+
+    Mockito.verify(mockedPurchaseOrderRepository, Mockito.times(1)).list("status", OrderStatus.SHIPPED);
+  }
+
+  @Test
+  void shouldMockPurchaseOrderRepositoryFindByCustomer() {
+    Customer mockCustomer = new Customer();
+    mockCustomer.setId(1L);
+    mockCustomer.setFirstName("John");
+
+    PurchaseOrder order1 = new PurchaseOrder();
+    order1.setId(1L);
+    order1.setStatus(OrderStatus.DELIVERED);
+    order1.setCustomer(mockCustomer);
+
+    PurchaseOrder order2 = new PurchaseOrder();
+    order2.setId(2L);
+    order2.setStatus(OrderStatus.PENDING);
+    order2.setCustomer(mockCustomer);
+
+    Mockito.when(mockedPurchaseOrderRepository.list("customer", mockCustomer))
+      .thenReturn(List.of(order1, order2));
+
+    List<PurchaseOrder> customerOrders = mockedPurchaseOrderRepository.list("customer", mockCustomer);
+
+    assertEquals(2, customerOrders.size());
+    assertTrue(customerOrders.stream().allMatch(o -> o.getCustomer().getId().equals(1L)));
+
+    Mockito.verify(mockedPurchaseOrderRepository, Mockito.times(1)).list("customer", mockCustomer);
+  }
 
   // ======================================
   // Active Record Pattern Mocking (PanacheMock)
@@ -253,225 +471,6 @@ class CatalogRepositoryTest {
   }
 
   // ======================================
-  // Repository Pattern Mocking (@InjectMock)
-  // ======================================
-
-  @Test
-  void shouldMockUserRepositoryCount() {
-    Mockito.when(userRepository.count()).thenReturn(100L);
-
-    assertEquals(100L, userRepository.count());
-
-    Mockito.verify(userRepository, Mockito.times(1)).count();
-  }
-
-  @Test
-  void shouldMockUserRepositoryFindById() {
-    User mockUser = new User();
-    mockUser.setId(1L);
-    mockUser.setUsername("testuser");
-    mockUser.setEmail("test@example.com");
-    mockUser.setRole(UserRole.CUSTOMER);
-    mockUser.setEnabled(true);
-
-    Mockito.when(userRepository.findById(1L)).thenReturn(mockUser);
-
-    User found = userRepository.findById(1L);
-
-    assertNotNull(found);
-    assertEquals("testuser", found.getUsername());
-    assertEquals("test@example.com", found.getEmail());
-    assertEquals(UserRole.CUSTOMER, found.getRole());
-
-    Mockito.verify(userRepository, Mockito.times(1)).findById(1L);
-  }
-
-  @Test
-  void shouldMockUserRepositoryFindByUsername() {
-    User mockUser = new User();
-    mockUser.setId(1L);
-    mockUser.setUsername("johndoe");
-    mockUser.setEmail("john@example.com");
-    mockUser.setRole(UserRole.ADMIN);
-
-    Mockito.when(userRepository.findByUsername("johndoe")).thenReturn(mockUser);
-
-    User found = userRepository.findByUsername("johndoe");
-
-    assertNotNull(found);
-    assertEquals("johndoe", found.getUsername());
-    assertEquals(UserRole.ADMIN, found.getRole());
-
-    Mockito.verify(userRepository, Mockito.times(1)).findByUsername("johndoe");
-  }
-
-  @Test
-  void shouldMockUserRepositoryFindByUsernameNotFound() {
-    Mockito.when(userRepository.findByUsername("nonexistent")).thenReturn(null);
-
-    User found = userRepository.findByUsername("nonexistent");
-
-    assertNull(found);
-
-    Mockito.verify(userRepository, Mockito.times(1)).findByUsername("nonexistent");
-  }
-
-  @Test
-  void shouldMockCustomerRepositoryCount() {
-    Mockito.when(customerRepository.count()).thenReturn(50L);
-
-    assertEquals(50L, customerRepository.count());
-
-    Mockito.verify(customerRepository, Mockito.times(1)).count();
-  }
-
-  @Test
-  void shouldMockCustomerRepositoryFindById() {
-    Address billingAddress = new Address();
-    billingAddress.setStreet("123 Main St");
-    billingAddress.setCity("New York");
-    billingAddress.setState("NY");
-    billingAddress.setZipCode("10001");
-    billingAddress.setCountry("USA");
-
-    Customer mockCustomer = new Customer();
-    mockCustomer.setId(1L);
-    mockCustomer.setFirstName("John");
-    mockCustomer.setLastName("Doe");
-    mockCustomer.setPhone("555-1234");
-    mockCustomer.setBillingAddress(billingAddress);
-
-    Mockito.when(customerRepository.findById(1L)).thenReturn(mockCustomer);
-
-    Customer found = customerRepository.findById(1L);
-
-    assertNotNull(found);
-    assertEquals("John", found.getFirstName());
-    assertEquals("Doe", found.getLastName());
-    assertNotNull(found.getBillingAddress());
-    assertEquals("New York", found.getBillingAddress().getCity());
-
-    Mockito.verify(customerRepository, Mockito.times(1)).findById(1L);
-  }
-
-  @Test
-  void shouldMockCustomerRepositoryListAll() {
-    Customer customer1 = new Customer();
-    customer1.setId(1L);
-    customer1.setFirstName("John");
-    customer1.setLastName("Doe");
-
-    Customer customer2 = new Customer();
-    customer2.setId(2L);
-    customer2.setFirstName("Jane");
-    customer2.setLastName("Smith");
-
-    Mockito.when(customerRepository.listAll()).thenReturn(List.of(customer1, customer2));
-
-    List<Customer> customers = customerRepository.listAll();
-
-    assertEquals(2, customers.size());
-    assertEquals("John", customers.get(0).getFirstName());
-    assertEquals("Jane", customers.get(1).getFirstName());
-
-    Mockito.verify(customerRepository, Mockito.times(1)).listAll();
-  }
-
-  @Test
-  void shouldMockPurchaseOrderRepositoryCount() {
-    Mockito.when(purchaseOrderRepository.count()).thenReturn(200L);
-
-    assertEquals(200L, purchaseOrderRepository.count());
-
-    Mockito.verify(purchaseOrderRepository, Mockito.times(1)).count();
-  }
-
-  @Test
-  void shouldMockPurchaseOrderRepositoryFindById() {
-    Customer mockCustomer = new Customer();
-    mockCustomer.setId(1L);
-    mockCustomer.setFirstName("John");
-    mockCustomer.setLastName("Doe");
-
-    Address shippingAddress = new Address();
-    shippingAddress.setStreet("456 Oak Ave");
-    shippingAddress.setCity("Los Angeles");
-    shippingAddress.setState("CA");
-    shippingAddress.setZipCode("90001");
-    shippingAddress.setCountry("USA");
-
-    PurchaseOrder mockOrder = new PurchaseOrder();
-    mockOrder.setId(1L);
-    mockOrder.setOrderDate(LocalDateTime.of(2024, 1, 15, 10, 30));
-    mockOrder.setStatus(OrderStatus.PENDING);
-    mockOrder.setTotalAmount(new BigDecimal("99.99"));
-    mockOrder.setCustomer(mockCustomer);
-    mockOrder.setShippingAddress(shippingAddress);
-
-    Mockito.when(purchaseOrderRepository.findById(1L)).thenReturn(mockOrder);
-
-    PurchaseOrder found = purchaseOrderRepository.findById(1L);
-
-    assertNotNull(found);
-    assertEquals(OrderStatus.PENDING, found.getStatus());
-    assertEquals(new BigDecimal("99.99"), found.getTotalAmount());
-    assertNotNull(found.getCustomer());
-    assertEquals("John", found.getCustomer().getFirstName());
-
-    Mockito.verify(purchaseOrderRepository, Mockito.times(1)).findById(1L);
-  }
-
-  @Test
-  void shouldMockPurchaseOrderRepositoryFindByStatus() {
-    PurchaseOrder order1 = new PurchaseOrder();
-    order1.setId(1L);
-    order1.setStatus(OrderStatus.SHIPPED);
-    order1.setTotalAmount(new BigDecimal("50.00"));
-
-    PurchaseOrder order2 = new PurchaseOrder();
-    order2.setId(2L);
-    order2.setStatus(OrderStatus.SHIPPED);
-    order2.setTotalAmount(new BigDecimal("75.00"));
-
-    Mockito.when(purchaseOrderRepository.list("status", OrderStatus.SHIPPED))
-        .thenReturn(List.of(order1, order2));
-
-    List<PurchaseOrder> shippedOrders = purchaseOrderRepository.list("status", OrderStatus.SHIPPED);
-
-    assertEquals(2, shippedOrders.size());
-    assertTrue(shippedOrders.stream().allMatch(o -> o.getStatus() == OrderStatus.SHIPPED));
-
-    Mockito.verify(purchaseOrderRepository, Mockito.times(1)).list("status", OrderStatus.SHIPPED);
-  }
-
-  @Test
-  void shouldMockPurchaseOrderRepositoryFindByCustomer() {
-    Customer mockCustomer = new Customer();
-    mockCustomer.setId(1L);
-    mockCustomer.setFirstName("John");
-
-    PurchaseOrder order1 = new PurchaseOrder();
-    order1.setId(1L);
-    order1.setStatus(OrderStatus.DELIVERED);
-    order1.setCustomer(mockCustomer);
-
-    PurchaseOrder order2 = new PurchaseOrder();
-    order2.setId(2L);
-    order2.setStatus(OrderStatus.PENDING);
-    order2.setCustomer(mockCustomer);
-
-    Mockito.when(purchaseOrderRepository.list("customer", mockCustomer))
-        .thenReturn(List.of(order1, order2));
-
-    List<PurchaseOrder> customerOrders = purchaseOrderRepository.list("customer", mockCustomer);
-
-    assertEquals(2, customerOrders.size());
-    assertTrue(customerOrders.stream().allMatch(o -> o.getCustomer().getId().equals(1L)));
-
-    Mockito.verify(purchaseOrderRepository, Mockito.times(1)).list("customer", mockCustomer);
-  }
-
-  // ======================================
   // Combined Mock Tests
   // ======================================
 
@@ -507,11 +506,11 @@ class CatalogRepositoryTest {
 
   @Test
   void shouldVerifyNoMoreInteractions() {
-    Mockito.when(userRepository.count()).thenReturn(10L);
+    Mockito.when(mockedUserRepository.count()).thenReturn(10L);
 
-    userRepository.count();
+    mockedUserRepository.count();
 
-    Mockito.verify(userRepository).count();
-    Mockito.verifyNoMoreInteractions(userRepository);
+    Mockito.verify(mockedUserRepository).count();
+    Mockito.verifyNoMoreInteractions(mockedUserRepository);
   }
 }

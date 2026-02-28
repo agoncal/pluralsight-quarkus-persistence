@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.UUID;
 
 @QuarkusTest
-class CatalogMockedRepositoryTest {
+class CatalogTest {
 
   private static final String UNIQUE_SUFFIX = UUID.randomUUID().toString().substring(0, 8);
 
